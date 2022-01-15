@@ -11,13 +11,11 @@ Divya Bhutani | 9476-4577
 Mandar Palkar | 2140-6740
 Vaishnavi Dongre | 8834-7539  
 
-<br/>
-
 
 ## Technical Stack
 - Frontend - **Angular 12**  
 - Backend - **Golang 1.17**
-<br/>
+
 
 ## What is included in the project -
 
