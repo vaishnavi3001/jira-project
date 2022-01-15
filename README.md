@@ -3,12 +3,10 @@ Software Project Management Tool plays a pivotal role in the lifecycle and succe
   
 
 ## Project Group Members
-Name |
---- |
-Ashish Sanjay Mhaske
-Divya Bhutani
-Mandar Palkar
-Vaishnavi Dongre 
+- Ashish Sanjay Mhaske
+- Divya Bhutani
+- Mandar Palkar
+- Vaishnavi Dongre 
 
 
 ## Technical Stack
