@@ -1,7 +1,6 @@
 # Jira-Clone
 Software Project Management Tool plays a pivotal role in the lifecycle and success of any Software Project. This project by us stirves to address that issue. This project aims to provide a clean UI with minimalistic but most important features of a project management tool.  
   
-<br/>
 
 ## Project Group Members
 Name | UFID 
