@@ -2,7 +2,6 @@
 Software Project Management Tool plays a pivotal role in the lifecycle and success of any Software Project. This project by us stirves to address that issue. This project aims to provide a clean UI with minimalistic but most important features of a project management tool.  
   
 <br/>
-<br/>
 
 ## Project Group Members
 Name | UFID 
@@ -13,14 +12,13 @@ Mandar Palkar | 2140-6740
 Vaishnavi Dongre | 8834-7539  
 
 <br/>
-<br/>
 
-  
+
 ## Technical Stack
 - Frontend - **Angular 12**  
 - Backend - **Golang 1.17**
 <br/>
-<br/>
+
 ## What is included in the project -
 
 - **Sprint Tracking View** -  
