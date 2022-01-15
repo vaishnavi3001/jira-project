@@ -3,12 +3,12 @@ Software Project Management Tool plays a pivotal role in the lifecycle and succe
   
 
 ## Project Group Members
-Name | UFID 
---- | --- |
-Ashish Sanjay Mhaske (PM) | 5795-9035
-Divya Bhutani | 9476-4577
-Mandar Palkar | 2140-6740
-Vaishnavi Dongre | 8834-7539  
+Name |
+--- |
+Ashish Sanjay Mhaske
+Divya Bhutani
+Mandar Palkar
+Vaishnavi Dongre 
 
 
 ## Technical Stack
