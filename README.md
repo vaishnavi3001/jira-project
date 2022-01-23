@@ -34,7 +34,7 @@ User Profile will allow user to set his personal details as well as to view all 
 - **User Invite** -  
 User Invite feature will allow the project owner to invite other users to join the project.
 
-- **Sign up Sign in** -
+- **Sign up / Sign in** -
 This feature will help authenticate the user.
 
 
