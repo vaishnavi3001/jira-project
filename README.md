@@ -38,6 +38,15 @@ User Invite feature will allow the project owner to invite other users to join t
 This feature will help authenticate the user.
 
 
+## To Build and Run Go Package Of Angular Build
+- Navigate to `jira-frontend` directory
+- make sure `outputPath` property in `angular.json` to `build/assets/jira-frontend`
+- navigate to `build` directory
+- run `go build jira-build`
+- run `go run jira-build` or `./jira-build`
+- Server will run on `0.0.0.0:8080`
+
+
 
 
 
