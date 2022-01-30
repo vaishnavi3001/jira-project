@@ -10,7 +10,7 @@ Software Project Management Tool plays a pivotal role in the lifecycle and succe
 
 
 ## Technical Stack
-- Frontend - **Angular 12, Material UI 5**
+- Frontend - **Angular 12, Angular Material **
 - Backend - **Golang 1.17**
 
 
