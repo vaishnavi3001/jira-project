@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //import { NavbarComponent } from './navbar/navbar.component';
 
@@ -32,7 +33,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FlexLayoutModule
     
   ],
   providers: [],
