@@ -10,8 +10,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { MatInputModule } from '@angular/material/input';
+import { ProjectComponent } from './project/project.component';
+import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+import { ProjectListComponent } from './project/project-list/project-list.component';
+import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
+// import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { NavbarComponent } from './navbar/navbar.component';
+
 
 
 
@@ -21,6 +29,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   declarations: [
     AppComponent,
     NavbarComponent,
+    ProjectComponent,
+    ProjectListComponent,
+    ProjectSettingsComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
@@ -32,7 +43,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule
     
   ],
   providers: [],
