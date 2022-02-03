@@ -12,6 +12,9 @@ import { PaginationComponent } from './widgets/pagination/pagination.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ListComponent
   ]
 })
 export class FrameworkModule { }

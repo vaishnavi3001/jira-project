@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ProjectComponent } from './project/project.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { UserComponent } from './user/user.component';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from '../framework/auth/auth.component';
+import { FrameworkModule } from '../framework/framework.module';
+import { ListComponent } from '../framework/widgets/list/list.component';
 
 
 
@@ -12,10 +14,12 @@ import { AuthComponent } from './auth/auth.component';
     ProjectComponent,
     ProjectListComponent,
     UserComponent,
-    AuthComponent
+    AuthComponent,
+    ListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FrameworkModule
   ]
 })
 export class FeatureModule { }

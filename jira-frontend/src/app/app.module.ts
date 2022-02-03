@@ -11,13 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FrameworkModule } from './framework/framework.module';
 
 //import { NavbarComponent } from './navbar/navbar.component';
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +30,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FrameworkModule
     
   ],
   providers: [],
