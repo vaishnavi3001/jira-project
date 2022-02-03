@@ -5,10 +5,22 @@
     <span>Jira Clone</span>
     
     <button mat-button>Your Work</button>
-    <button mat-button>Projects</button>
-    <button mat-button>Filters</button>
-    <button mat-button>Dashboards</button>
     <button mat-button>People</button>
+    <button mat-button>Filters</button>
+    
+      
+    
+    
+    <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+      <button mat-button id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Projects</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownManual">
+        <button ngbDropdownItem>View all projects</button>
+        <button ngbDropdownItem>Create project</button>
+        
+      </div>
+    </div>
+    
+     
     <button mat-button>Apps</button>
     <button mat-raised-button color="primary">Create</button>
     <span class="example-spacer"></span>
@@ -27,7 +39,10 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
         <mat-icon>settings</mat-icon>
     </button>
+
+    
     
 
     
   </mat-toolbar>
+  
