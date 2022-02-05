@@ -1,15 +1,77 @@
-<form [formGroup]="myForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutAlign="center center">
+<!-- CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <div class="form-group">
-        <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="projectName" id="projectName" type="text" class="form-control">
-            <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-                <div *ngIf="f.name.errors?.required">Name is required.</div>
-                <div *ngIf="f.name.errors?.minlength">Name should be 3 character.</div>
-            </div> -->
-        </mat-form-field>
-    </div>
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
-    <button mat-stroked-button color="accent" class="btn-block" class="btn btn-primary" type="submit">Submit</button>
-</form>
+<!-- Font Awesome JS -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+<body>
+  <div class= "wrapper">
+
+    <nav id="sidebar">
+      <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Details</a>
+            </li>
+            <li>
+                <a href="#">Board</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+            </li>
+            <li>
+                <a href="#">Access</a>
+            </li>
+            <li>
+                <a href="#">Issue types</a>
+            </li>
+        </ul>
+    </nav>
+    </nav>
+   
+
+
+
+    
+      <div id="content" class="d-flex">  
+        
+          <form [formGroup]="projectDetailsForm">
+      
+          <div class= "d-flex align-self-center row" id = "form-div">
+            
+            <div class="form-group">
+              <label for="name">Name: </label>
+              <input class="form-control" type="text" id = "name" placeholder="Enter name" formControlName="name">
+            </div>
+
+            <div class="form-group">
+              <label for="key">Key: </label>
+              <input class="form-control" type="text" id="key" placeholder="Enter key" formControlName="key"> 
+            </div>
+
+            <div class="form-group">
+              <label for="project-lead">Project Lead: </label>
+              <input class="form-control" type="text" id="project-lead" placeholder="Project lead name" formControlName="lead">
+              <div>
+                <small class="form-text text-muted">Make sure the lead has access to issues in the projects.</small> 
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit" (click)="onSubmit()">Submit</button>
+          </div>
+        </form>
+        </div>
+      
+    
+  </div>
+</body>
