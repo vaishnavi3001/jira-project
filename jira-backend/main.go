@@ -1,35 +1,60 @@
 package main
 
 import (
+	"fmt"
 	"jira-backend/models"
+	"os"
+	"time"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
+var db *gorm.DB
+var err error
+var config *viper.Viper
+
+func setDbconnInContext(c *gin.Context) {
+	c.Set("db", db)
+	c.Next()
+}
+
+func setConfigInContext(c *gin.Context) {
+	c.Set("config", config)
+	c.Next()
+}
+
 func main() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	//
+	db, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		fmt.Println("Cannot Connect to the Database Exiting", err)
+		os.Exit(1)
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Product{}, &models.Users{})
+	db.AutoMigrate(&models.Project{}, &models.Issue{}, &models.Sprint{}, &models.User{}, &models.UserRole{}, &models.Role{}, &models.Permission{})
 
-	// Create
-	db.Create(&models.Product{Code: "D42", Price: 100})
+	//viper config
+	config, err = utils.ConfigReader()
+	if err != nil {
+		fmt.Println("Cannot Read from the Config", err)
+		os.Exit(1)
+	}
 
-	// Read
-	var product models.Product
-	db.First(&product, 1)                 // find product with integer primary key
-	db.First(&product, "code = ?", "D42") // find product with code D42
+	r := gin.Default()
+	r.Use(setConfigInContext)
+	r.Use(setDbconnInContext)
 
-	// Update - update product's price to 200
-	db.Model(&product).Update("Price", 200)
-	// Update - update multiple fields
-	db.Model(&product).Updates(models.Product{Price: 200, Code: "F42"}) // non-zero fields
-	db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
+	project := r.Group("/project")
+	{
+		project.POST("/create", handlers.CreateProject)
+		project.GET("/list", handlers.ListProjects)
+		project.GET("/info", handlers.GetProjectInfo)
+	}
 
-	// Delete - delete product
-	db.Delete(&product, 1)
+	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
+	r.Run(ip_address)
+	
 }
