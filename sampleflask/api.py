@@ -20,6 +20,12 @@ def updatedetails():
 	if request.data:
 		# request_data = request.get_json()
 		return Response({'status': 'SUCCESS'}, status=200)
+
+@app.route('/create-project', methods=['POST'])
+def createProject():
+	if request.data:
+		# request_data = request.get_json()
+		return Response({'status': 'SUCCESS'}, status=200)
        
 
 

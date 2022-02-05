@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NewprojectComponent } from './project/newproject/newproject.component';
 
 
 
@@ -41,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProjectComponent,
     ProjectListComponent,
     ProjectSettingsComponent,
+    NewprojectComponent,
     //NavbarComponent,
     //NavbarComponent
   ],

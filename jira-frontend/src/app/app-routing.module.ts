@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewprojectComponent } from './project/newproject/newproject.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
 import { ProjectComponent } from './project/project.component';
@@ -10,6 +11,9 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
         path:'list', component: ProjectListComponent
+      },
+      {
+        path: 'newproject', component: NewprojectComponent
       },
       {
        path:'settings/:projectId', component: ProjectSettingsComponent

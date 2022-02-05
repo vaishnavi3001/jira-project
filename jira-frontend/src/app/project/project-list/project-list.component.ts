@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiInterfaceService } from '../../api-interface.service';
 
 export interface ProjectSettings {
@@ -21,7 +22,7 @@ export class ProjectListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'key', 'type', 'lead'];
   dataSource = project_data;
 
-  constructor(private apiService: ApiInterfaceService) { }
+  constructor(private apiService: ApiInterfaceService, private router: Router) { }
 
   ngOnInit(): void {
     this.apiService.getProjectList({'data':'data'})
@@ -30,5 +31,10 @@ export class ProjectListComponent implements OnInit {
       project_data = this.dataSource
     })
 
+  }
+
+  createProject() {
+    this.router.navigateByUrl('/home/newproject');
+    
   }
 }

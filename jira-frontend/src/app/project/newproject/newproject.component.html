@@ -1,0 +1,27 @@
+<div class="example-container">
+    <div class="form-container">
+      <form [formGroup]="newProjectForm" (submit)="submit()">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Project name
+          </mat-label>
+          <input matInput formControlName="projectName" required>
+          <!-- <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+            <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
+            <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label> Project Key
+            </mat-label>
+            <input matInput formControlName="projectKey" required>
+            <!-- <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+              <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
+              <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
+            </mat-error> -->
+          </mat-form-field>
+
+          
+        <button mat-raised-button color="primary" type="submit">Create</button>
+      </form>
+    </div>
+  </div>
