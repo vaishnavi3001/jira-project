@@ -86,15 +86,42 @@ func GetProjectInfo(c *gin.Context) {
 	var result int64
 	var userRole models.UserRole
 	db.Where("user_id=? AND project_id=?", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
-	if result > 0 {
+	if result == 0 {
 		c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "User does not belong to this project", ""))
 	} else {
 		var project models.Project
 		db.Preload("User").Where("project_id", req.ProjectId).Find(&project)
-		resBody := skeletons.ProjectInfoResp{ProjectId: project.ProjectId, OwnerName: project.User.Username, Name: project.Name, CreatedAt: project.CreatedAt}
+		resBody := skeletons.ProjectInfoResp{ProjectId: project.ProjectId, OwnerId: project.OwnerId, Name: project.Name, OwnerName: project.User.Name, OwnerUName: project.User.Username, CreatedAt: project.CreatedAt}
 		c.JSON(http.StatusOK, utils.GetResponse(true, "", resBody))
 	}
 
+}
+
+func DeleteProject(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.ProjectInfoReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	var result int64
+	var userRole models.UserRole
+	db.Where("user_id=? AND project_id=? AND role_id=1", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
+	if result == 0 {
+		c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "You do not belong to this project/ You are not the owner of the project", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	} else {
+		var project models.Project
+		db.Delete(&project, req.ProjectId)
+		c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
+	}
 }
 
 //delete project
