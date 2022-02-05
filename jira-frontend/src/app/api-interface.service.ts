@@ -21,6 +21,14 @@ export class ApiInterfaceService {
     return this.http.post<any>(this.url+'/update-project', data)
   }
 
+  createProject(data:any): Observable<any> {
+    return this.http.post<any>(this.url+'/create-project', data)
+  }
+
+  deleteProject(data:any): Observable<any> {
+    return this.http.post<any>(this.url+'/delete-project', data)
+  }
+
   onChange($event:any){
     let filteredData = _.filter(this.apiResponse,(item) => {
       return item.key.LowerCaser() == $event.value.toLowerCase();
