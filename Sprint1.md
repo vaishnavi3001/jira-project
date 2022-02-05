@@ -48,9 +48,9 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 ``` 
 	POST /project/create
 	{
-		//json body
-		"name" :"Boring Company",
-    	"user_id":2
+	   //json body
+	   "name" :"Boring Company",
+    	   "user_id":2
 	}
 ``` 
 
@@ -58,12 +58,12 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
     
 ``` 
 	{
-		"message": "Project Created Successfully",
-		"resp": {
-			"project_name": "Boring Company",
-			"project_id": 6
-		},
-		"status": true
+	   "message": "Project Created Successfully",
+	    "resp": {
+		"project_name": "Boring Company",
+		"project_id": 6
+	    },
+	    "status": true
 	}
 ```  
 <br/>
@@ -73,17 +73,17 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 ``` 
 	GET /project/list
 	{
-		//json body
-    	"user_id":2
+	  //json body
+    	  "user_id":2
 	}
 ``` 
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
     
 ``` 
-	{
-    "message": "",
-    "resp": {
+     {
+     "message": "",
+     "resp": {
         "projects": [
             {
                 "name": "First Project",
@@ -106,19 +106,19 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
         ]
     },
     "status": true
-}
+   }
 ```  
 
 
 ``` 
-	{
-		"message": "Project Created Successfully",
-		"resp": {
-			"project_name": "Boring Company",
-			"project_id": 6
-		},
-		"status": true
-	}
+    {
+     "message": "Project Created Successfully",
+     "resp": {
+        "project_name": "Boring Company", 
+	"project_id": 6
+      },
+     "status": true
+    }
 ```  
 
 <br/>
@@ -126,8 +126,8 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 -  **To get a project's info**  
 	*Request Format* -
 ``` 
-	GET /project/info
-	{
+    GET /project/info
+    {
      "project_id": 6,
      "user_id":2
     }
@@ -136,7 +136,7 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 
 ```    
-{
+   {
     "message": "",
     "resp": {
         "project_id": 6,
@@ -147,7 +147,7 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
         "created_at": "2022-02-05T13:26:59.794848-05:00"
     },
     "status": true
-}
+   }
 ```  
 
 <br/>
@@ -155,8 +155,8 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 - **Delete a Project**	  
 *Request Format* -
 ``` 
-	POST /project/delete
-	{
+    POST /project/delete
+    {
      "project_id": 6,
      "user_id":2
     }
@@ -165,11 +165,11 @@ https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 
 ```    
-{
+   {
     "message": "Project deleted successfully",
     "resp": "",
     "status": true
-}
+   }
 ```  
 
 
