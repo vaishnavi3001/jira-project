@@ -10,7 +10,11 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
         path:'list', component: ProjectListComponent
+      },
+      {
+       path:'settings/:projectId', component: ProjectSettingsComponent
       }
+      
     ]},
 
   { path: '', pathMatch: 'full', redirectTo: 'home' },
