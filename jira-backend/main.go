@@ -28,8 +28,6 @@ func setConfigInContext(c *gin.Context) {
 }
 
 func main() {
-
-	//
 	db, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		fmt.Println("Cannot Connect to the Database Exiting", err)
@@ -50,14 +48,23 @@ func main() {
 	r.Use(setConfigInContext)
 	r.Use(setDbconnInContext)
 
+	/*user := models.User{Name: "Mandar Palkar", Username: "pypalkar23", EmailId: "mandar.palkar23@gmail.com"}
+	db.Create(&user)
+	user1 := models.User{Name: "Ashish Mhaske", Username: "amhaske32", EmailId: "amhaske32@gmail.com"}
+	db.Create(&user1)*/
+
 	project := r.Group("/project")
 	{
 		project.POST("/create", handlers.CreateProject)
 		project.GET("/list", handlers.ListProjects)
 		project.GET("/info", handlers.GetProjectInfo)
+		project.POST("/delete", handlers.DeleteProject)
 	}
 
 	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
 	r.Run(ip_address)
+
+	/*project1 := models.Project{Name: "Jira-Clone", OwnerId: 1, CreatedAt: time.Now()}
+	db.Create(&project1)*/
 
 }

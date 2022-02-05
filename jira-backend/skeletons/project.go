@@ -39,10 +39,12 @@ type UserEntry struct {
 }
 
 type ProjectInfoResp struct {
-	ProjectId uint      `json:"project_id"`
-	OwnerName string    `json:"owner_id"`
-	Name      string    `json:"project_name"`
-	CreatedAt time.Time `json:"created_at"`
+	ProjectId  uint      `json:"project_id"`
+	OwnerUName string    `json:"owner_uname"`
+	OwnerId    uint      `json:"owner_id"`
+	OwnerName  string    `json:"owner_name"`
+	Name       string    `json:"project_name"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type ProjectUsers struct {
