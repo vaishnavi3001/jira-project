@@ -12,7 +12,7 @@ In Sprint 1 the following user stories were successfully implemented:
 
 ## Video Demo Link
 
-https://drive.google.com/file/d/11BznULqFFZLzS6ZYBZ-0H2jFjGwgj0wA/view?usp=sharing
+https://drive.google.com/drive/folders/1NO4WvOJx3Gk6evxFsizYsg27xtTjT9BG
 
 # Backend Models
 - Projects
