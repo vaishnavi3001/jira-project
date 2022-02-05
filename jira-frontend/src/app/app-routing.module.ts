@@ -10,9 +10,6 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
         path:'list', component: ProjectListComponent
-      },
-      {
-        path:'settings', component: ProjectSettingsComponent
       }
     ]},
 

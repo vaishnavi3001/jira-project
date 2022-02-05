@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap');
+
 .example-spacer {
     flex: 1 1 auto;
   }
+  .mat-toolbar{
+    font-family: Cabin;
+  }
+  .mat-button, .mat-raised-button{
+    font-family: Cabin;
+  }
+  
