@@ -1,0 +1,15 @@
+<form [formGroup]="myForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutAlign="center center">
+
+    <div class="form-group">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="projectName" id="projectName" type="text" class="form-control">
+            <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                <div *ngIf="f.name.errors?.required">Name is required.</div>
+                <div *ngIf="f.name.errors?.minlength">Name should be 3 character.</div>
+            </div> -->
+        </mat-form-field>
+    </div>
+
+    <button mat-stroked-button color="accent" class="btn-block" class="btn btn-primary" type="submit">Submit</button>
+</form>
