@@ -47,6 +47,7 @@ type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint
 	Username  string
+	Name      string
 	IsDeleted sql.NullBool
 	EmailId   string
 	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`

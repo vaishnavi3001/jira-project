@@ -97,15 +97,6 @@ func GetProjectInfo(c *gin.Context) {
 
 }
 
-func DeleteProject(c *gin.Context) {
-	db, exists := c.Keys["db"].(*gorm.DB)
-	if !exists {
-		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-}
-
 //delete project
 //transfer the ownership
 //add member to the project

@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"jira-backend/handlers"
 	"jira-backend/models"
+	"jira-backend/utils"
 	"os"
-	"time"
 
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -56,5 +59,5 @@ func main() {
 
 	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
 	r.Run(ip_address)
-	
+
 }
