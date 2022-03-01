@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProjectSettings, project_data } from '../project-list/project-list.component';
 
 @Component({
-  selector: 'app-project-settings',
+  selector: 'app-project-settings,',
   templateUrl: './project-settings.component.html',
   styleUrls: ['./project-settings.component.scss']
 })
