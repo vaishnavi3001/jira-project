@@ -13,9 +13,6 @@ export class IssueListComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
-    console.log(projectIdFromRoute)
-    //this.project_settings = project_data.find((project:any) => project.id === projectIdFromRoute)
-
   }
 
 }
