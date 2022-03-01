@@ -10,11 +10,7 @@ import { ProjectSettings, project_data } from '../project-list/project-list.comp
   styleUrls: ['./project-settings.component.scss']
 })
 export class ProjectSettingsComponent implements OnInit {
-  // myForm = new FormGroup({
-  //   projectName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-  //   projectDescription: new FormControl('', [Validators.required]),
-  // });
-
+  
   project_settings: ProjectSettings | undefined;
   projectDetailsForm!: FormGroup;
 
@@ -24,15 +20,11 @@ export class ProjectSettingsComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
     this.project_settings = project_data.find((project:any) => project.id === projectIdFromRoute)
-    console.log(this.project_settings)
 
     // set the form values
     this.setFormValues();
   }
 
-  // get f(){
-  //   return this.myForm.controls;
-  // }
   setFormValues(): void{
     this.projectDetailsForm = this.fb.group({
       id:this.project_settings?.id,
@@ -42,18 +34,7 @@ export class ProjectSettingsComponent implements OnInit {
       type:this.project_settings?.type
     });
   }
-  // submit(){
-  //   let body = {
-  //     name:this.myForm.get('projectName')?.value,
-  //     description:this.myForm.get('projectDescription')?.value
-  //   } 
-  //   this.apiService.updateProjectDetails(body)
-  //   .subscribe(res => {
-  //         console.log(res);
-          
-  //   })
-    
-  // }
+
   onSubmit(): void{
     console.log(this.projectDetailsForm);
   }
