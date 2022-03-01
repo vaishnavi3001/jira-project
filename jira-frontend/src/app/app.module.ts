@@ -24,6 +24,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
+import { IssueListComponent } from './issue/issue-list/issue-list.component';
 
 
 
@@ -43,6 +44,7 @@ import { NewprojectComponent } from './project/newproject/newproject.component';
     ProjectListComponent,
     ProjectSettingsComponent,
     NewprojectComponent,
+    IssueListComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
