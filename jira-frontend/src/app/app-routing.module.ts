@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path:'issues/:projectId', component: IssueListComponent
-      }
+      },
       
     ]},
 

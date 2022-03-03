@@ -39,8 +39,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   getIssuesForProject(element:any){
-    let issuesRoute = '/home/issues/:'+element.id
-    console.log(issuesRoute)
+    let issuesRoute = '/home/issues/'+element.id
     this.router.navigateByUrl(issuesRoute)
   }
 }
