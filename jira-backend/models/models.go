@@ -3,6 +3,8 @@ package models
 import (
 	"database/sql"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type User struct {
@@ -13,27 +15,30 @@ type User struct {
 	Lastname  string
 	IsDeleted sql.NullBool `gorm:default:false"`
 	EmailId   string
-	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
+	CreatedAt time.Time `gorm:"autoCreateTime:milli"`
+	DeletedAt gorm.DeletedAt
 }
 type Project struct {
 	ProjectId   uint `gorm:"primaryKey;auto_increment;not_null"`
 	ProjectName string
 	IsDeleted   bool
-	CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt   time.Time
+	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
+	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+	DeletedAt   gorm.DeletedAt
 }
 
 type Sprint struct {
 	SprintId   uint `gorm:"primaryKey;auto_increment;"`
 	SprintName string
 	ProjectRef uint
-	CreatedAt  time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt  time.Time
+	CreatedAt  time.Time `gorm:"autoCreateTime:milli"`
+	UpdatedAt  time.Time `gorm:"autoUpdateTime:milli"`
 	StartDate  time.Time
 	EndDate    time.Time
 	Status     uint         `gorm:"default:1"`
 	Project    Project      `gorm:"foreignKey:ProjectRef"`
 	IsDeleted  sql.NullBool `gorm:default:false"`
+	DeletedAt  gorm.DeletedAt
 }
 type Issue struct {
 	IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
@@ -47,11 +52,12 @@ type Issue struct {
 	IsDeleted   sql.NullBool
 	UpdatedAt   time.Time
 	Description string
-	CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
 	Sprint      Sprint    `gorm:"foreignKey:SprintRef"`
 	AssignedTo  User      `gorm:"foreignKey:AssigneeId"`
 	Creator     User      `gorm:"foreignKey:CreatedBy"`
 	Project     Project   `gorm:"foreignKey:ProjectRef"`
+	DeletedAt   gorm.DeletedAt
 }
 
 type UserRole struct {
