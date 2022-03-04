@@ -58,4 +58,4 @@ def get_issue_for_project():
   return Response(json.dumps({'response':data}), 200)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug = True)
+    app.run(host="0.0.0.0", port=8000, debug = True)
