@@ -28,14 +28,15 @@ func setConfigInContext(c *gin.Context) {
 }
 
 func main() {
-	db, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err = gorm.Open(sqlite.Open("jira.db"), &gorm.Config{})
 	if err != nil {
 		fmt.Println("Cannot Connect to the Database Exiting", err)
 		os.Exit(1)
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Project{}, &models.Issue{}, &models.Sprint{}, &models.User{}, &models.UserRole{}, &models.Role{}, &models.Permission{})
+	db.AutoMigrate(&models.User{}, &models.Project{}, &models.Sprint{}, &models.Issue{}, &models.Permission{}, &models.Issue{}, &models.UserRole{})
+	//,&models.Project{}, &models.Issue{}, &models.Sprint{},  &models.UserRole{}, &models.Role{}, &models.Permission{}
 
 	//viper config
 	config, err = utils.ConfigReader()
@@ -59,6 +60,15 @@ func main() {
 		project.GET("/list", handlers.ListProjects)
 		project.GET("/info", handlers.GetProjectInfo)
 		project.POST("/delete", handlers.DeleteProject)
+	}
+
+	issue := r.Group("/issues")
+	{
+		issue.POST("/create", handlers.CreateIssue)
+		issue.GET("/list", handlers.ListIssue)
+		issue.GET("/info", handlers.GetIssueInfo)
+		issue.POST("/delete", handlers.DeleteIssue)
+		issue.POST("/update", handlers.UpdateIssue)
 	}
 
 	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
