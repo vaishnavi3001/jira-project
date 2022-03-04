@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
   providedIn: 'root'
 })
 export class ApiInterfaceService {
-  url = 'http://10.20.81.3:5000'
+  url = 'http://10.20.81.53:5000'
   apiResponse : any = []
   constructor(private http: HttpClient) { }
   
@@ -35,5 +35,9 @@ export class ApiInterfaceService {
     })
     this.apiResponse = filteredData;
     console.log(this.apiResponse)
+  }
+
+  getIssueList(data:any): Observable<any>{
+    return this.apiResponse = this.http.get<any>(this.url+'/issues/'+data.data)
   }
 }
