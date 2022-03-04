@@ -1,5 +1,7 @@
 package skeletons
 
+import "time"
+
 type IssueBaseReq struct {
 	UserId  uint `json:"user_id"`
 	IssueId uint `json:"issue_id"`
@@ -11,7 +13,9 @@ type AddIssueReq struct {
 	IssueText  string `json:"issue_text"`
 	IssueType  uint   `json:"issue_type"`
 	Creator    uint   `json:"creator"`
-	Assignee   uint   `json:"Assignee"`
+	Assignee   uint   `json:"assignee"`
+	SprintId   uint   `json:"sprint_id"`
+	ProjectId  uint   `json:"project_id"`
 }
 
 type UpdateIssueReq struct {
@@ -23,6 +27,8 @@ type UpdateIssueReq struct {
 	Creator    uint   `json:"creator"`
 	Assignee   uint   `json:"Assignee"`
 	Status     uint   `json:"Status"`
+	SprintId   uint   `json:"sprint_id"`
+	ProjectId  uint   `json:"project_id"`
 }
 
 type BaseIssueResp struct {
@@ -65,12 +71,14 @@ Creator     User      `gorm:"foreignKey:CreatedBy"`
 Project     Project   `gorm:"foreignKey:ProjectRef"`
 DeletedAt   gorm.DeletedAt*/
 type IssueEntryDetailed struct {
-	IssueId     uint   `json:"issue_id"`
-	Name        string `json:"title"`
-	Status      uint   `json:"status"`
-	Description string `json:"description"`
-	AssignedTo  string `json:"assignee"`
-	CreatedBy   string `json:"created_by"`
+	IssueId     uint      `json:"issue_id"`
+	Name        string    `json:"title"`
+	Status      uint      `json:"status"`
+	Description string    `json:"description"`
+	AssignedTo  string    `json:"assignee"`
+	CreatedBy   string    `json:"created_by"`
+	CreatedAt   time.Time `json:"created_at"`
+	ModifiedAt  time.Time `json:"modified_at"`
 }
 
 //sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title

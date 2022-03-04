@@ -25,7 +25,7 @@ func CreateIssue(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
 
-	issue := models.Issue{Title: req.IssueTitle, Description: req.IssueText, Type: req.IssueType, CreatedBy: req.Creator, AssigneeId: req.Assignee}
+	issue := models.Issue{Title: req.IssueTitle, Description: req.IssueText, Type: req.IssueType, CreatedBy: req.Creator, AssigneeId: req.Assignee, SprintRef: req.SprintId, ProjectRef: req.ProjectId}
 	db.Create(&issue)
 
 	//sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title
@@ -47,7 +47,8 @@ func UpdateIssue(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
 
-	db.Model(&models.Issue{}).Where("issue_id = ?", req.IssueId).Updates(models.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status})
+	db.Model(&models.Issue{}).Where("issue_id = ?", req.IssueId).Updates(models.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId, ProjectRef: req.ProjectId})
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue Updated Successfully", ""))
 }
 
 func DeleteIssue(c *gin.Context) {
@@ -110,28 +111,8 @@ func GetIssueInfo(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
 
-	//var project models.Project
-	//db.Preload("User").Where("project_id", req.ProjectId).Find(&project)
-	/*IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
-	Status      uint `gorm:"default:1"`
-	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
-	Title       string
-	CreatedBy   uint //user ref
-	SprintRef   uint
-	AssigneeId  uint //user ref
-	ProjectRef  uint
-	IsDeleted   sql.NullBool
-	UpdatedAt   time.Time
-	Description string
-	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
-	Sprint      Sprint    `gorm:"foreignKey:SprintRef"`
-	AssignedTo  User      `gorm:"foreignKey:AssigneeId"`
-	Creator     User      `gorm:"foreignKey:CreatedBy"`
-	Project     Project   `gorm:"foreignKey:ProjectRef"`
-	DeletedAt   gorm.DeletedAt*/
-
 	var issue models.Issue
 	db.Preload("Creator").Preload("AssignedTo").Where("issue_id", req.IssueId).Find(&issue)
 
-	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue", skeletons.IssueEntryDetailed{IssueId: issue.IssueId, Name: issue.Title, Status: issue.Status, Description: issue.Description, CreatedBy: issue.Creator.Username, AssignedTo: issue.AssignedTo.Username}))
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue", skeletons.IssueEntryDetailed{IssueId: issue.IssueId, Name: issue.Title, Status: issue.Status, Description: issue.Description, CreatedBy: issue.Creator.Username, AssignedTo: issue.AssignedTo.Username, ModifiedAt: issue.UpdatedAt, CreatedAt: issue.CreatedAt}))
 }
