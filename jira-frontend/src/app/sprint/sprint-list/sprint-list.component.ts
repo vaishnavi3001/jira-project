@@ -13,8 +13,8 @@ export class SprintListComponent implements OnInit {
 
   done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   sprintlist = [
-    {'name': 'Sprint1', 'items':['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep']},
-    {'name': 'Sprint2', 'items':['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']}
+    {'name': 'Sprint1', 'items':['Create delete button', 'Create Add button', 'Create Submit button']},
+    {'name': 'Sprint2', 'items':['Create add API', 'Create Delete API', 'Write test cases']}
   ]
   
   constructor(private route: ActivatedRoute,private apiService: ApiInterfaceService) { }
