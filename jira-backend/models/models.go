@@ -1,56 +1,57 @@
 package models
 
 import (
-	"time"
-
 	"database/sql"
+	"time"
 )
-
-type Project struct {
-	ProjectId uint `gorm:"primaryKey;auto_increment"`
-	Name      string
-	IsDeleted bool
-	OwnerId   uint      //UserRoleId
-	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt time.Time
-	User      User `gorm:"foreignKey:OwnerId"`
-}
-
-type Issue struct {
-	IssueId    uint
-	Status     string
-	Type       string //`epic/task/subtask/bug/`
-	Title      string
-	CreatedBy  uint //user ref
-	SprintId   uint
-	AssigneeId uint //user ref
-	IsDeleted  sql.NullBool
-	UpdatedAt  time.Time
-	CreatedAt  time.Time `gorm:"autoUpdateTime:milli"`
-	Sprint     Sprint    `gorm:"foreignKey:SprintId"`
-	Creator    User      `gorm:"foreignKey:CreatedBy"`
-	AssignedTo User      `gorm:"foreignKey:AssigneeId"`
-}
-
-type Sprint struct {
-	ID        uint `gorm:"primaryKey;auto_increment;not_null"`
-	Name      string
-	ProjectId uint
-	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt time.Time
-	StartDate time.Time
-	EndDate   time.Time
-	Project   Project `gorm:"foreignKey:ProjectId"`
-}
 
 type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint
 	Username  string
-	Name      string
-	IsDeleted sql.NullBool
+	Firstname string
+	Lastname  string
+	IsDeleted sql.NullBool `gorm:default:false"`
 	EmailId   string
 	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
+}
+type Project struct {
+	ProjectId   uint `gorm:"primaryKey;auto_increment;not_null"`
+	ProjectName string
+	IsDeleted   bool
+	CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+	UpdatedAt   time.Time
+}
+
+type Sprint struct {
+	SprintId   uint `gorm:"primaryKey;auto_increment;"`
+	SprintName string
+	ProjectRef uint
+	CreatedAt  time.Time `gorm:"autoUpdateTime:milli"`
+	UpdatedAt  time.Time
+	StartDate  time.Time
+	EndDate    time.Time
+	Status     uint         `gorm:"default:1"`
+	Project    Project      `gorm:"foreignKey:ProjectRef"`
+	IsDeleted  sql.NullBool `gorm:default:false"`
+}
+type Issue struct {
+	IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
+	Status      uint `gorm:"default:1"`
+	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
+	Title       string
+	CreatedBy   uint //user ref
+	SprintRef   uint
+	AssigneeId  uint //user ref
+	ProjectRef  uint
+	IsDeleted   sql.NullBool
+	UpdatedAt   time.Time
+	Description string
+	CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+	Sprint      Sprint    `gorm:"foreignKey:SprintRef"`
+	AssignedTo  User      `gorm:"foreignKey:AssigneeId"`
+	Creator     User      `gorm:"foreignKey:CreatedBy"`
+	Project     Project   `gorm:"foreignKey:ProjectRef"`
 }
 
 type UserRole struct {
@@ -64,13 +65,13 @@ type UserRole struct {
 }
 
 type Role struct {
-	RoleId       uint `gorm:"primaryKey"`
-	RoleName     string
-	PermissionId uint
-	Permission   Permission `gorm:"foreignKey:PermissionId"`
+	RoleId        uint `gorm:"primaryKey"`
+	RoleName      string
+	PermissionRef uint
+	Permission    Permission `gorm:"foreignKey:PermissionRef"`
 }
 
 type Permission struct {
 	PermissionId   uint `gorm:"primaryKey"`
-	Permissionname string
+	PermissionName string
 }
