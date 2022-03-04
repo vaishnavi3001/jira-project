@@ -2,7 +2,6 @@ package models
 
 import (
 	"time"
-
 	"database/sql"
 )
 
@@ -33,16 +32,17 @@ type Issue struct {
 }
 
 type Sprint struct {
-	ID        uint `gorm:"primaryKey;auto_increment;not_null"`
-	Name      string
-	ProjectId uint
-	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt time.Time
-	StartDate time.Time
-	EndDate   time.Time
-	Project   Project `gorm:"foreignKey:ProjectId"`
+    SprintId    uint `gorm:"primaryKey;auto_increment;"`
+    SprintName  string
+    ProjectId   uint
+    CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+    UpdatedAt   time.Time
+    StartDate   time.Time
+    EndDate     time.Time
+    Status      uint    `gorm:"default:1"`
+    ProjectPart Project `gorm:"foreignKey:ProjectId;"`
+	IsDeleted	bool
 }
-
 type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint

@@ -1,48 +1,45 @@
 package skeletons
 
-import "time"
+import (
+	"time"
+)
 
 type CreateSprintReq struct {
-	Name   string `json:"name"`
-	UserId uint   `json:"user_id"`
-}
-
-type UserIdReq struct {
-	UserId int `json:"user_id"`
+	Name   string 		`json:"name"`
+	ProjectId uint   	`json:"project_id"`
+	StartDate time.Time `json:"start_date"`
+	EndDate   time.Time `json:"end_date"`
 }
 
 type SprintEntry struct {
 	Name      string    `json:"name"`
 	Id        uint      `json:"id"`
+	StartDate time.Time `json:"start_date"`
+	EndDate   time.Time `json:"end_date"`
 	CreatedAt time.Time `json:"created_at"`
-	UserRole  uint      `json:"user_role"`
+	ProjectId uint 		`json:"project_id"`
+	
 }
-
+type SprintListReq struct {
+	ProjectId uint 		`json:"project_id"`
+	UserId    uint `json:"user_id"`
+}
 type SprintListResp struct {
-	Projects []SprintEntry `json:"sprints"`
+	Sprints []SprintEntry `json:"sprints"`
 }
 
 type CreateSprintResp struct {
-	ProjectName string `json:"sprint_name"`
-	ProjectId   uint   `json:"sprint_id"`
+	SprintName string `json:"sprint_name"`
+	SprintId   uint   `json:"sprint_id"`
 }
 
 type SprintInfoReq struct {
-	ProjectId uint `json:"sprint_id"`
+	SprintId uint `json:"sprint_id"`
 	UserId    uint `json:"user_id"`
 }
 
-type UserEntry struct {
-	UserId   uint `json:"user_id"`
-	UserName uint `json:"user_name"`
-	UserRole uint `json:"user_role"`
-}
-
 type SprintInfoResp struct {
-	SprintId  uint      `json:"sprint_id"`
-	OwnerUName string    `json:"owner_uname"`
-	OwnerId    uint      `json:"owner_id"`
-	OwnerName  string    `json:"owner_name"`
+	SprintId   uint      `json:"sprint_id"`
 	Name       string    `json:"sprint_name"`
 	CreatedAt  time.Time `json:"created_at"`
 }

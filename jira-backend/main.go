@@ -61,6 +61,15 @@ func main() {
 		project.POST("/delete", handlers.DeleteProject)
 	}
 
+	sprint := r.Group("/sprint")
+	{
+		sprint.POST("/create", handlers.CreateSprint)
+		sprint.GET("/list", handlers.ListSprints)
+		sprint.GET("/info", handlers.GetSprintInfo)
+		sprint.POST("/delete", handlers.DeleteSprint)
+		
+	}
+
 	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
 	r.Run(ip_address)
 
