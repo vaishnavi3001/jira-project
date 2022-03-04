@@ -5,6 +5,7 @@ import { ProjectListComponent } from './project/project-list/project-list.compon
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
 import { ProjectComponent } from './project/project.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
+import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 
 const routes: Routes = [
   { path: 'home', component: ProjectComponent,
@@ -18,6 +19,9 @@ const routes: Routes = [
       },
       {
        path:'settings/:projectId', component: ProjectSettingsComponent
+      },
+      {
+        path:'issues/create', component: IssueCreateComponent
       },
       {
         path:'issues/:projectId', component: IssueListComponent

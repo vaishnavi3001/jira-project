@@ -30,7 +30,7 @@ export class IssueListComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
 
-    this.apiService.getIssueList({'data':1})
+    this.apiService.getIssueList({'data':projectIdFromRoute})
     .subscribe((resp:any) =>{
       this.dataSource = resp['response']
     })
