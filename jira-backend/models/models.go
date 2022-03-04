@@ -3,54 +3,10 @@ package models
 import (
 	"database/sql"
 	"time"
-<<<<<<< HEAD
-	"database/sql"
-)
-
-type Project struct {
-	ProjectId uint `gorm:"primaryKey;auto_increment"`
-	Name      string
-	IsDeleted bool
-	OwnerId   uint      //UserRoleId
-	CreatedAt time.Time `gorm:"autoUpdateTime:milli"`
-	UpdatedAt time.Time
-	User      User `gorm:"foreignKey:OwnerId"`
-}
-
-type Issue struct {
-	IssueId    uint
-	Status     string
-	Type       string //`epic/task/subtask/bug/`
-	Title      string
-	CreatedBy  uint //user ref
-	SprintId   uint
-	AssigneeId uint //user ref
-	IsDeleted  sql.NullBool
-	UpdatedAt  time.Time
-	CreatedAt  time.Time `gorm:"autoUpdateTime:milli"`
-	Sprint     Sprint    `gorm:"foreignKey:SprintId"`
-	Creator    User      `gorm:"foreignKey:CreatedBy"`
-	AssignedTo User      `gorm:"foreignKey:AssigneeId"`
-}
-
-type Sprint struct {
-    SprintId    uint `gorm:"primaryKey;auto_increment;"`
-    SprintName  string
-    ProjectId   uint
-    CreatedAt   time.Time `gorm:"autoUpdateTime:milli"`
-    UpdatedAt   time.Time
-    StartDate   time.Time
-    EndDate     time.Time
-    Status      uint    `gorm:"default:1"`
-    ProjectPart Project `gorm:"foreignKey:ProjectId;"`
-	IsDeleted	bool
-}
-=======
 
 	"gorm.io/gorm"
 )
 
->>>>>>> main
 type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint
