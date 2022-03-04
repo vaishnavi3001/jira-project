@@ -47,5 +47,15 @@ def get_project():
 	return Response(json.dumps({'response':data}), 200)
 
 
+@app.route('/issues/1')
+def get_issue_for_project():
+  data = [
+    {'project_id':1, 'status':'open', 'type':'task', 'title':'Sample task 1', 'created_by':'xyz', 'sprint_id':'1', 'assignee_id': '123', 'assigned_to':'456'},
+    {'project_id':1, 'status':'open', 'type':'task', 'title':'Sample task 2', 'created_by':'xyz', 'sprint_id':'1', 'assignee_id': '123', 'assigned_to':'456'},
+    {'project_id':1, 'status':'open', 'type':'task', 'title':'Sample task 3', 'created_by':'xyz', 'sprint_id':'1', 'assignee_id': '123', 'assigned_to':'789'},
+  ]
+
+  return Response(json.dumps({'response':data}), 200)
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug = True)
+    app.run(host="0.0.0.0", port=8000, debug = True)

@@ -17,6 +17,8 @@ import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
+import { SprintComponent } from './sprint/sprint.component';
+import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 // import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -24,6 +26,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
+import { IssueListComponent } from './issue/issue-list/issue-list.component';
+import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -43,6 +48,10 @@ import { NewprojectComponent } from './project/newproject/newproject.component';
     ProjectListComponent,
     ProjectSettingsComponent,
     NewprojectComponent,
+    IssueListComponent,
+    IssueCreateComponent,
+    SprintComponent,
+    SprintListComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
@@ -63,6 +72,7 @@ import { NewprojectComponent } from './project/newproject/newproject.component';
     MatInputModule,
     MatListModule,
     MatSelectModule,
+    DragDropModule,
     NgbModule
     
     

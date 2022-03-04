@@ -1,0 +1,118 @@
+package handlers
+
+import (
+	"jira-backend/models"
+	"jira-backend/skeletons"
+	"jira-backend/utils"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
+
+func CreateIssue(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.AddIssueReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	issue := models.Issue{Title: req.IssueTitle, Description: req.IssueText, Type: req.IssueType, CreatedBy: req.Creator, AssigneeId: req.Assignee, SprintRef: req.SprintId, ProjectRef: req.ProjectId}
+	db.Create(&issue)
+
+	//sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue Created Successfully", skeletons.BaseIssueResp{IssueName: issue.Title, IssueId: issue.IssueId}))
+}
+
+func UpdateIssue(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.UpdateIssueReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	db.Model(&models.Issue{}).Where("issue_id = ?", req.IssueId).Updates(models.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId, ProjectRef: req.ProjectId})
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue Updated Successfully", ""))
+}
+
+func DeleteIssue(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.IssueBaseReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	db.Where("issue_id = ?", req.IssueId).Delete(&models.Issue{})
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue deleted successfully", ""))
+}
+
+func ListIssue(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.IssueListReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	var issues []models.Issue
+	db.Where("project_ref = ? AND sprint_ref=?", req.ProjectId, req.SprintId).Find(&issues)
+
+	var res []skeletons.IssueEntry
+	for _, x := range issues {
+		res = append(res, skeletons.IssueEntry{IssueId: x.IssueId, Name: x.Title, Status: x.Status})
+	}
+
+	c.JSON(http.StatusOK, utils.GetResponse(true, "", skeletons.IssueListResp{Issues: res}))
+}
+
+func GetIssueInfo(c *gin.Context) {
+	db, exists := c.Keys["db"].(*gorm.DB)
+
+	if !exists {
+		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+
+	var req skeletons.IssueBaseReq
+	if err := c.BindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
+
+	var issue models.Issue
+	db.Preload("Creator").Preload("AssignedTo").Where("issue_id", req.IssueId).Find(&issue)
+
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue", skeletons.IssueEntryDetailed{IssueId: issue.IssueId, Name: issue.Title, Status: issue.Status, Description: issue.Description, CreatedBy: issue.Creator.Username, AssignedTo: issue.AssignedTo.Username, ModifiedAt: issue.UpdatedAt, CreatedAt: issue.CreatedAt}))
+}
