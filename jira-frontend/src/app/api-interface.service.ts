@@ -40,4 +40,8 @@ export class ApiInterfaceService {
   getIssueList(data:any): Observable<any>{
     return this.apiResponse = this.http.get<any>(this.url+'/issues/'+data.data)
   }
+
+  getSprintList(data:any): Observable<any>{
+     return this.apiResponse = this.http.get<any>(this.url+'/sprints/'+data.data)
+  }
 }

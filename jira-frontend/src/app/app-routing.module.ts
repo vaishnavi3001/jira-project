@@ -6,6 +6,7 @@ import { ProjectSettingsComponent } from './project/project-settings/project-set
 import { ProjectComponent } from './project/project.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
+import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 
 const routes: Routes = [
   { path: 'home', component: ProjectComponent,
@@ -26,7 +27,9 @@ const routes: Routes = [
       {
         path:'issues/:projectId', component: IssueListComponent
       },
-      
+      {
+        path:'sprint/:projectId', component: SprintListComponent
+      },
     ]},
 
   { path: '', pathMatch: 'full', redirectTo: 'home' },
