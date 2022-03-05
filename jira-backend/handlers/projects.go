@@ -109,21 +109,18 @@ func DeleteProject(c *gin.Context) {
 
 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
 		c.AbortWithStatus(http.StatusBadRequest)
-	}
 
-	var result int64
-	var userRole models.UserRole
-	db.Where("user_id=? AND project_id=? AND role_id=1", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
-	if result == 0 {
-		c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "You do not belong to this project/ You are not the owner of the project", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	} else {
-		var project models.Project
-		db.Delete(&project, req.ProjectId)
-		c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
+		var result int64
+		var userRole models.UserRole
+		db.Where("user_id=? AND project_id=? AND role_id=1", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
+		if result == 0 {
+			c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "You do not belong to this project/ You are not the owner of the project", ""))
+			c.AbortWithStatus(http.StatusInternalServerError)
+		} else {
+			var project models.Project
+			db.Delete(&project, req.ProjectId)
+			c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
+		}
+
 	}
 }
-
-//delete project
-//transfer the ownership
-//add member to the project

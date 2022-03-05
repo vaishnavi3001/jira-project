@@ -62,19 +62,27 @@ func main() {
 		project.POST("/delete", handlers.DeleteProject)
 	}
 
-	issue := r.Group("/issues")
+	sprint := r.Group("/sprint")
 	{
-		issue.POST("/create", handlers.CreateIssue)
-		issue.GET("/list", handlers.ListIssue)
-		issue.GET("/info", handlers.GetIssueInfo)
-		issue.POST("/delete", handlers.DeleteIssue)
-		issue.POST("/update", handlers.UpdateIssue)
+		sprint.POST("/create", handlers.CreateSprint)
+		sprint.GET("/list", handlers.ListSprints)
+		sprint.GET("/info", handlers.GetSprintInfo)
+		sprint.POST("/delete", handlers.DeleteSprint)
+
+		issue := r.Group("/issues")
+		{
+			issue.POST("/create", handlers.CreateIssue)
+			issue.GET("/list", handlers.ListIssue)
+			issue.GET("/info", handlers.GetIssueInfo)
+			issue.POST("/delete", handlers.DeleteIssue)
+			issue.POST("/update", handlers.UpdateIssue)
+		}
+
+		ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
+		r.Run(ip_address)
+
+		/*project1 := models.Project{Name: "Jira-Clone", OwnerId: 1, CreatedAt: time.Now()}
+		db.Create(&project1)*/
+
 	}
-
-	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
-	r.Run(ip_address)
-
-	/*project1 := models.Project{Name: "Jira-Clone", OwnerId: 1, CreatedAt: time.Now()}
-	db.Create(&project1)*/
-
 }
