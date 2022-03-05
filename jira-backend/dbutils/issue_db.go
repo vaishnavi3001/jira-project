@@ -57,7 +57,7 @@ func DeleteIssue(data sk.IssueBaseReq) gin.H {
 	}
 
 	issue := md.Issue{IssueId: data.IssueId}
-	db.Delete(&issue)
+	db.Where("issue_id = ?", data.IssueId).Delete(&md.Issue{})
 	//db.Where("project_id=?", data.IssueId).Delete(&md.UserRole{})
 	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
 }
@@ -73,3 +73,5 @@ func UpdateIssue(req sk.UpdateIssueReq) gin.H {
 	db.Model(&issue).Where("issue_id = ?", req.IssueId).Updates(md.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId, ProjectRef: req.ProjectId})
 	return ut.GetSuccessResponse("issue updated successfully", gin.H{})
 }
+
+func GetIssu
