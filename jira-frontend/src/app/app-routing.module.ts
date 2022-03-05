@@ -30,10 +30,11 @@ const routes: Routes = [
       {
         path:'sprint/:projectId', component: SprintListComponent
       },
+      { path: '**', redirectTo: 'list', pathMatch: 'full' }
     ]},
 
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  //{ path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({
