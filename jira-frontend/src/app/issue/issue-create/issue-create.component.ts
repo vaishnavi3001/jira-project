@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-issue-create',
@@ -12,7 +13,6 @@ export class IssueCreateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
     this.issueDetailsForm = new FormGroup({
       issue_title:new FormControl(),
       project_name:new FormControl(),
@@ -23,10 +23,6 @@ export class IssueCreateComponent implements OnInit {
       issue_assignee:new FormControl(),
       issue_reporter:new FormControl(),
     })
-  }
-
-  onSubmit(): void{
-    console.log(this.issueDetailsForm.value);
   }
 
 }

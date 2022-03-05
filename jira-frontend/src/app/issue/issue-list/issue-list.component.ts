@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 
 export interface IssueDetails {
@@ -26,7 +26,7 @@ export class IssueListComponent implements OnInit {
   displayedColumns: string[] = ['project_id', 'status', 'type', 'title', 'created_by', 'sprint_id', 'assignee_id', 'assigned_to', 'modify'];
   dataSource = issueDataSource;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiInterfaceService) { }
+  constructor(private route: ActivatedRoute, private router: Router , private apiService: ApiInterfaceService) { }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -36,6 +36,10 @@ export class IssueListComponent implements OnInit {
     .subscribe((resp:any) =>{
       this.dataSource = resp['response']
     })
+  }
+
+  onSubmit(val=1): void{
+    this.router.navigate(['home/issues/'+val+'/edit']);
   }
 
 }
