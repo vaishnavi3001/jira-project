@@ -7,6 +7,7 @@ import { ProjectComponent } from './project/project.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
+import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
 
 const routes: Routes = [
   { path: 'home', component: ProjectComponent,
@@ -30,6 +31,9 @@ const routes: Routes = [
       {
         path:'sprint/:projectId', component: SprintListComponent
       },
+      {
+        path:'issues/:issueId/edit', component: IssueModifyComponent
+      },      
     ]},
 
   { path: '', pathMatch: 'full', redirectTo: 'home' },
