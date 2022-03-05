@@ -11,7 +11,8 @@ export interface IssueDetails {
   created_by: string,
   sprint_id: string,
   assignee_id: string,
-  assigned_to: string
+  assigned_to: string,
+  modify: string,
 }
 
 export var issueDataSource: IssueDetails[] = [];
@@ -22,7 +23,7 @@ export var issueDataSource: IssueDetails[] = [];
   styleUrls: ['./issue-list.component.scss']
 })
 export class IssueListComponent implements OnInit {
-  displayedColumns: string[] = ['project_id', 'status', 'type', 'title', 'created_by', 'sprint_id', 'assignee_id', 'assigned_to'];
+  displayedColumns: string[] = ['project_id', 'status', 'type', 'title', 'created_by', 'sprint_id', 'assignee_id', 'assigned_to', 'modify'];
   dataSource = issueDataSource;
 
   constructor(private route: ActivatedRoute, private apiService: ApiInterfaceService) { }
