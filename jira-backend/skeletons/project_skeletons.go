@@ -7,9 +7,6 @@ type CreateProjectReq struct {
 	UserId uint   `json:"user_id"`
 }
 
-type UserIdReq struct {
-	UserId int `json:"user_id"`
-}
 
 type ProjectEntry struct {
 	Name      string    `json:"name"`
@@ -32,19 +29,11 @@ type ProjectInfoReq struct {
 	UserId    uint `json:"user_id"`
 }
 
-type UserEntry struct {
-	UserId   uint `json:"user_id"`
-	UserName uint `json:"user_name"`
-	UserRole uint `json:"user_role"`
-}
 
 type ProjectInfoResp struct {
-	ProjectId  uint      `json:"project_id"`
-	OwnerUName string    `json:"owner_uname"`
-	OwnerId    uint      `json:"owner_id"`
-	OwnerName  string    `json:"owner_name"`
-	Name       string    `json:"project_name"`
-	CreatedAt  time.Time `json:"created_at"`
+	ProjectId uint      `json:"project_id"`
+	Name      string    `json:"project_name"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type ProjectUsers struct {

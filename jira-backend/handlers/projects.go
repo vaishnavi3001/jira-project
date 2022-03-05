@@ -33,13 +33,13 @@ func CreateProject(c *gin.Context) {
 		return
 	}
 
-	project := models.Project{Name: createProjectReq.Name, OwnerId: createProjectReq.UserId}
+	project := models.Project{ProjectName: createProjectReq.Name}
 	db.Create(&project)
 
 	//the one who creates the project will be owner of the project
 	user_role := models.UserRole{UserId: createProjectReq.UserId, RoleId: constants.Owner, ProjectId: project.ProjectId}
 	db.Create(&user_role)
-	c.JSON(http.StatusOK, utils.GetResponse(true, "Project Created Successfully", skeletons.CreateProjectResp{ProjectName: project.Name, ProjectId: project.ProjectId}))
+	c.JSON(http.StatusOK, utils.GetResponse(true, "Project Created Successfully", skeletons.CreateProjectResp{ProjectName: project.ProjectName, ProjectId: project.ProjectId}))
 }
 
 func ListProjects(c *gin.Context) {
@@ -61,7 +61,7 @@ func ListProjects(c *gin.Context) {
 
 	var res []skeletons.ProjectEntry
 	for _, x := range userRoles {
-		res = append(res, skeletons.ProjectEntry{Name: x.Project.Name, Id: x.Project.ProjectId, CreatedAt: x.Project.CreatedAt, UserRole: x.RoleId})
+		res = append(res, skeletons.ProjectEntry{Name: x.Project.ProjectName, Id: x.Project.ProjectId, CreatedAt: x.Project.CreatedAt, UserRole: x.RoleId})
 	}
 
 	c.JSON(http.StatusOK, utils.GetResponse(true, "", skeletons.ProjectListResp{Projects: res}))
@@ -91,7 +91,7 @@ func GetProjectInfo(c *gin.Context) {
 	} else {
 		var project models.Project
 		db.Preload("User").Where("project_id", req.ProjectId).Find(&project)
-		resBody := skeletons.ProjectInfoResp{ProjectId: project.ProjectId, OwnerId: project.OwnerId, Name: project.Name, OwnerName: project.User.Name, OwnerUName: project.User.Username, CreatedAt: project.CreatedAt}
+		resBody := skeletons.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt}
 		c.JSON(http.StatusOK, utils.GetResponse(true, "", resBody))
 	}
 
@@ -109,21 +109,18 @@ func DeleteProject(c *gin.Context) {
 
 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
 		c.AbortWithStatus(http.StatusBadRequest)
-	}
 
-	var result int64
-	var userRole models.UserRole
-	db.Where("user_id=? AND project_id=? AND role_id=1", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
-	if result == 0 {
-		c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "You do not belong to this project/ You are not the owner of the project", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	} else {
-		var project models.Project
-		db.Delete(&project, req.ProjectId)
-		c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
+		var result int64
+		var userRole models.UserRole
+		db.Where("user_id=? AND project_id=? AND role_id=1", req.UserId, req.ProjectId).Find(&userRole).Count(&result)
+		if result == 0 {
+			c.JSON(http.StatusUnauthorized, utils.GetResponse(false, "You do not belong to this project/ You are not the owner of the project", ""))
+			c.AbortWithStatus(http.StatusInternalServerError)
+		} else {
+			var project models.Project
+			db.Delete(&project, req.ProjectId)
+			c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
+		}
+
 	}
 }
-
-//delete project
-//transfer the ownership
-//add member to the project
