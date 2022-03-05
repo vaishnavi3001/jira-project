@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
+import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
 
 
 
@@ -47,6 +49,7 @@ import { IssueCreateComponent } from './issue/issue-create/issue-create.componen
     NewprojectComponent,
     IssueListComponent,
     IssueCreateComponent,
+    IssueModifyComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
