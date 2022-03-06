@@ -6,15 +6,16 @@ package handlers
 //add member to project
 //transfer ownership
 import (
-	"jira-backend/constants"
 	"jira-backend/models"
 	"jira-backend/skeletons"
 	"jira-backend/utils"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
+/*
 func CreateSprint(c *gin.Context) {
 
 	db, exists := c.Keys["db"].(*gorm.DB)
@@ -23,7 +24,7 @@ func CreateSprint(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
-	
+
 	var createSprintReq skeletons.CreateSprintReq
 	if err := c.BindJSON(&createSprintReq); err != nil {
 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
@@ -31,7 +32,7 @@ func CreateSprint(c *gin.Context) {
 		return
 	}
 
-	sprint := models.Sprint{SprintName: createSprintReq.Name, ProjectId: createSprintReq.ProjectId, StartDate: createSprintReq.StartDate, EndDate: createSprintReq.EndDate}
+	sprint := models.Sprint{SprintName: createSprintReq.Name, StartDate: createSprintReq.StartDate, EndDate: createSprintReq.EndDate}
 	db.Create(&sprint)
 
 	//the owner of the project under which the sprint is created is the owner of the sprint
@@ -40,7 +41,7 @@ func CreateSprint(c *gin.Context) {
 	user_role := models.UserRole{UserId: project.OwnerId, RoleId: constants.Owner}
 	db.Create(&user_role)
 	c.JSON(http.StatusOK, utils.GetResponse(true, "Sprint Created Successfully", skeletons.CreateSprintResp{SprintName: sprint.SprintName, SprintId: sprint.SprintId}))
-}
+}*/
 
 func ListSprints(c *gin.Context) {
 	db, exists := c.Keys["db"].(*gorm.DB)
@@ -49,7 +50,7 @@ func ListSprints(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 	var req skeletons.SprintListReq
-	if err := c.BindJSON (&req); err != nil {
+	if err := c.BindJSON(&req); err != nil {
 
 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
 		c.AbortWithStatus(http.StatusBadRequest)
@@ -75,12 +76,11 @@ func GetSprintInfo(c *gin.Context) {
 
 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
 		c.AbortWithStatus(http.StatusBadRequest)
-	}	
+	}
 	var sprint models.Sprint
 	db.Preload("Sprint").Where("sprint_id", req.SprintId).Find(&sprint)
-	resBody := skeletons.SprintInfoResp{SprintId: sprint.SprintId, Name: sprint.SprintName,   CreatedAt: sprint.CreatedAt }
+	resBody := skeletons.SprintInfoResp{SprintId: sprint.SprintId, Name: sprint.SprintName, CreatedAt: sprint.CreatedAt}
 	c.JSON(http.StatusOK, utils.GetResponse(true, "", resBody))
-	
 
 }
 
@@ -97,13 +97,12 @@ func GetSprintInfo(c *gin.Context) {
 
 // 		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
 // 		c.AbortWithStatus(http.StatusBadRequest)
-// 	}	
+// 	}
 
 // 	var sprint models.Sprint
 // 	db.Preload("Sprint").Where("sprint_id", req.SprintId).Find(&sprint)
 // 	resBody := skeletons.SprintInfoResp{SprintId: sprint.SprintId, Name: sprint.SprintName,   CreatedAt: sprint.CreatedAt }
 // 	c.JSON(http.StatusOK, utils.GetResponse(true, "", resBody))
-	
 
 // }
 
@@ -122,7 +121,7 @@ func DeleteSprint(c *gin.Context) {
 	}
 
 	// var result int64
-	
+
 	db.Preload("Sprint").Where("sprint_id", req.SprintId).Update("isDeleted", true)
 	c.JSON(http.StatusOK, utils.GetResponse(true, "Sprint deleted successfully", ""))
 	// sprint = &models.Sprint{
@@ -139,4 +138,3 @@ func DeleteSprint(c *gin.Context) {
 	// 	c.JSON(http.StatusOK, utils.GetResponse(true, "Project deleted successfully", ""))
 	// }
 }
-
