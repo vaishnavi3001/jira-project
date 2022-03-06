@@ -2,11 +2,14 @@ package skeletons
 
 import "time"
 
+type BaseProjectIdReq struct {
+	ProjectId uint `json:"project_id"`
+	UserId    uint `json:"user_id"`
+}
 type CreateProjectReq struct {
 	Name   string `json:"name"`
 	UserId uint   `json:"user_id"`
 }
-
 
 type ProjectEntry struct {
 	Name      string    `json:"name"`
@@ -20,15 +23,15 @@ type ProjectListResp struct {
 }
 
 type CreateProjectResp struct {
-	ProjectName string `json:"project_name"`
-	ProjectId   uint   `json:"project_id"`
+	ProjectName string    `json:"project_name"`
+	ProjectId   uint      `json:"project_id"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type ProjectInfoReq struct {
 	ProjectId uint `json:"project_id"`
 	UserId    uint `json:"user_id"`
 }
-
 
 type ProjectInfoResp struct {
 	ProjectId uint      `json:"project_id"`

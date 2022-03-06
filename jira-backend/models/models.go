@@ -68,6 +68,7 @@ type UserRole struct {
 	Project    Project `gorm:"foreignKey:ProjectId"`
 	User       User    `gorm:"foreignKey:UserId"`
 	Role       Role    `gorm:"foreignKey:RoleId"`
+	DeletedAt  gorm.DeletedAt
 }
 
 type Role struct {
