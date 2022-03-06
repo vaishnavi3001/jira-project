@@ -34,9 +34,13 @@ type ProjectInfoReq struct {
 }
 
 type ProjectInfoResp struct {
-	ProjectId uint      `json:"project_id"`
-	Name      string    `json:"project_name"`
-	CreatedAt time.Time `json:"created_at"`
+	ProjectId  uint      `json:"project_id"`
+	Name       string    `json:"project_name"`
+	OwnerUName string    `json:"owner_uname"`
+	OwnerId    uint      `json:"owner_id"`
+	OwnerFName string    `json:"owner_fname"`
+	OwnerLName string    `json:"owner_lname"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type ProjectUsers struct {

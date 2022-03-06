@@ -39,9 +39,11 @@ func GetProjectInfo(data sk.ProjectInfoReq) gin.H {
 	if count == 0 {
 		return ut.GetErrorResponse(ct.NOT_PART_OF_THE_PROJECT)
 	} else {
+		db.Preload("User").Where("role_id=1 AND project_id=?", data.ProjectId).Find(&userRole)
 		var project md.Project
+		fmt.Println(userRole)
 		db.Where("project_id", data.ProjectId).Find(&project)
-		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt}
+		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt, OwnerUName: userRole.User.Username, OwnerFName: userRole.User.Firstname, OwnerLName: userRole.User.Lastname, OwnerId: userRole.User.UserId}
 		return ut.GetSuccessResponse("", res)
 	}
 }
