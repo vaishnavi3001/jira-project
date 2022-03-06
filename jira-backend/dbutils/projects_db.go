@@ -5,14 +5,21 @@ import (
 	md "jira-backend/models"
 	sk "jira-backend/skeletons"
 	ut "jira-backend/utils"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func CreateProject(data sk.CreateProjectReq) gin.H {
-
-	project := md.Project{ProjectName: data.Name}
+	project_name := strings.TrimSpace(data.Name)
+	project := md.Project{ProjectName: project_name}
 	db.Create(&project)
+
+	var count int64
+	db.Where("project_name = ?", project_name).Find(&md.Project{}).Count(&count)
+	if count > 0 {
+		return ut.GetErrorResponse(ct.PROJECT_ALREADY_EXISTS)
+	}
 
 	//the one who creates the project will be owner of the project
 	user_role := md.UserRole{UserId: data.UserId, RoleId: ct.Owner, ProjectId: project.ProjectId}
@@ -35,7 +42,6 @@ func GetProjectInfo(data sk.ProjectInfoReq) gin.H {
 		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt}
 		return ut.GetSuccessResponse("", res)
 	}
-
 }
 
 func GetProjectList(data sk.UsersBaseReq) gin.H {
