@@ -16,6 +16,20 @@ var db *gorm.DB
 var err error
 var config *viper.Viper
 
+func corsMiddleware(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+	if c.Request.Method == "OPTIONS" {
+		c.AbortWithStatus(204)
+		return
+	}
+
+	c.Next()
+}
+
 func setConfigInContext(c *gin.Context) {
 	c.Set("config", config)
 	c.Next()
@@ -36,7 +50,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(setConfigInContext)
-
+	r.Use(corsMiddleware)
 	/*user := models.User{Name: "Mandar Palkar", Username: "pypalkar23", EmailId: "mandar.palkar23@gmail.com"}
 	db.Create(&user)
 	user1 := models.User{Name: "Ashish Mhaske", Username: "amhaske32", EmailId: "amhaske32@gmail.com"}
