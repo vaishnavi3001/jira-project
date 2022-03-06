@@ -86,7 +86,7 @@ func ListIssue(c *gin.Context) {
 	}
 
 	var issues []models.Issue
-	db.Where("project_ref = ? AND sprint_ref=?", req.ProjectId, req.SprintId).Find(&issues)
+	db.Where("project_ref = ? AND sprint_ref= ?", req.ProjectId, req.SprintId).Find(&issues)
 
 	var res []skeletons.IssueEntry
 	for _, x := range issues {
