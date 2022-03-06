@@ -1,6 +1,7 @@
 package dbutils
 
 import (
+	"fmt"
 	ct "jira-backend/constants"
 	md "jira-backend/models"
 	sk "jira-backend/skeletons"
@@ -13,14 +14,15 @@ import (
 func CreateProject(data sk.CreateProjectReq) gin.H {
 	project_name := strings.TrimSpace(data.Name)
 	project := md.Project{ProjectName: project_name}
-	db.Create(&project)
 
 	var count int64
 	db.Where("project_name = ?", project_name).Find(&md.Project{}).Count(&count)
+	fmt.Println(count)
 	if count > 0 {
 		return ut.GetErrorResponse(ct.PROJECT_ALREADY_EXISTS)
 	}
 
+	db.Create(&project)
 	//the one who creates the project will be owner of the project
 	user_role := md.UserRole{UserId: data.UserId, RoleId: ct.Owner, ProjectId: project.ProjectId}
 	db.Create(&user_role)

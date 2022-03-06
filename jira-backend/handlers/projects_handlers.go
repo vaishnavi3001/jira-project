@@ -11,10 +11,7 @@ import (
 )
 
 func CreateProject(c *gin.Context) {
-	/*
-		Create a project
-		Enter user as a owner in userroles
-	*/
+
 	var createProjectReq sk.CreateProjectReq
 	if err := c.BindJSON(&createProjectReq); err != nil {
 		ut.ThrowBadRequest(c)
@@ -26,9 +23,7 @@ func CreateProject(c *gin.Context) {
 }
 
 func ListProjects(c *gin.Context) {
-	/*
-		Search for project id in user roles
-	*/
+
 	var req sk.UsersBaseReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
@@ -49,10 +44,7 @@ func GetProjectInfo(c *gin.Context) {
 }
 
 func DeleteProject(c *gin.Context) {
-	/*
-		Mark deleted at
-		Mark all roles deleted
-	*/
+
 	var req sk.BaseProjectIdReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
