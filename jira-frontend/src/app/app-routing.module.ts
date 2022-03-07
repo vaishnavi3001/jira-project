@@ -20,13 +20,13 @@ const routes: Routes = [
         path: 'newproject', component: NewprojectComponent
       },
       {
-       path:'settings/:projectId', component: ProjectSettingsComponent
+       path:':projectId/settings', component: ProjectSettingsComponent
       },
       {
-        path:'issues/create', component: IssueCreateComponent
+        path:':projectId/issues/create', component: IssueCreateComponent
       },
       {
-        path:'issues/:projectId', component: IssueListComponent
+        path:':projectId/issues', component: IssueListComponent
       },
       {
         path:'sprint/:projectId', component: SprintListComponent

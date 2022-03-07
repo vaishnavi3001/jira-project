@@ -8,7 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
   providedIn: 'root'
 })
 export class ApiInterfaceService {
-  url = 'http://10.3.2.142:8000'
+  url = 'http://0.0.0.0:8000'
+  post_url = "http://api.jira-clone.com"
+
   apiResponse : any = []
   constructor(private http: HttpClient) { }
   
@@ -22,7 +24,12 @@ export class ApiInterfaceService {
   }
 
   createProject(data:any): Observable<any> {
-    return this.http.post<any>(this.url+'/create-project', data)
+    console.log(data)
+    return this.http.post<any>(this.post_url+'/project/create', data)
+  }
+
+  createIssue(data:any): Observable<any> {
+    return this.http.post<any>(this.post_url+'/issues/create', data)
   }
 
   deleteProject(data:any): Observable<any> {

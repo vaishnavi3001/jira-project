@@ -21,7 +21,7 @@ export class NewprojectComponent implements OnInit {
   submit(){
     let body = {
       name:this.newProjectForm.get('projectName')?.value,
-      key:this.newProjectForm.get('projectKey')?.value
+      user_id:(Number)(this.newProjectForm.get('projectKey')?.value)
     } 
 
     this.apiService.createProject(body)

@@ -34,12 +34,11 @@ export class ProjectListComponent implements OnInit {
   }
 
   createProject() {
-    this.router.navigateByUrl('/home/newproject');
-    
+    this.router.navigateByUrl('/home/newproject');    
   }
 
   getIssuesForProject(element:any){
-    let issuesRoute = '/home/issues/'+element.id
+    let issuesRoute = '/home/'+element.id+'/issues'
     this.router.navigateByUrl(issuesRoute)
   }
 }
