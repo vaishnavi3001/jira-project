@@ -1,16 +1,15 @@
 <header class="py-2">
-  <div class="d-flex">
-    <div class="row">
-      <div >
-        <h1><i class="fa-solid fa-clipboard-check"></i>Issues</h1>
+  <div class="d-flex" id="create_row">
+    <div class="row" >    
+      <div class="col">
+        <a href="/home/sprint/list" class="btn btn-primary btn-block" id="create_sprint">Create Sprint</a>
       </div>
-      <div >
-        <a routerLink="/home/sprint/list" routerLinkActive="active">Sprint</a>
+      <div class="col">
+        <a class="btn btn-primary btn-block" id="create_issue" (click)="onCreateIssue()">Create Issue </a>
       </div>
     </div>
   </div>
 </header>
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-sm table-striped">
 
     <!--- Note that these columns can be defined in any order.

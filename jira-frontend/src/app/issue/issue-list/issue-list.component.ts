@@ -25,6 +25,7 @@ export var issueDataSource: IssueDetails[] = [];
 export class IssueListComponent implements OnInit {
   displayedColumns: string[] = ['project_id', 'status', 'type', 'title', 'created_by', 'sprint_id', 'assignee_id', 'assigned_to', 'modify'];
   dataSource = issueDataSource;
+  //projectIdFromRoute:any 
 
   constructor(private route: ActivatedRoute, private router: Router , private apiService: ApiInterfaceService) { }
 
@@ -40,6 +41,12 @@ export class IssueListComponent implements OnInit {
 
   onSubmit(val=1): void{
     this.router.navigate(['home/issues/'+val+'/edit']);
+  }
+
+  onCreateIssue(): void{
+    const routeParams = this.route.snapshot.paramMap;
+    const projectIdFromRoute = Number(routeParams.get('projectId'));
+    this.router.navigate(['home/'+projectIdFromRoute+'/issues/'+'/create']);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiInterfaceService } from 'src/app/api-interface.service';
 
 @Component({
   selector: 'app-issue-create',
@@ -10,7 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class IssueCreateComponent implements OnInit {
 
   issueDetailsForm!: FormGroup;
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router , private apiService: ApiInterfaceService) { 
+
+  }
 
   ngOnInit(): void {
     this.issueDetailsForm = new FormGroup({
@@ -23,6 +26,29 @@ export class IssueCreateComponent implements OnInit {
       issue_assignee:new FormControl(),
       issue_reporter:new FormControl(),
     })
+  }
+
+  onSubmit(): void{
+
+    const routeParams = this.route.snapshot.paramMap;
+    const projectIdFromRoute = Number(routeParams.get('projectId'));
+
+    let body = {
+      "user_id": 1,
+      "issue_name":this.issueDetailsForm.get('issue_title')?.value,
+      "issue_text": this.issueDetailsForm.get('issue_description')?.value,
+      "issue_type": 1,
+      "creator": this.issueDetailsForm.get('issue_reporter')?.value,
+      "assignee": this.issueDetailsForm.get('issue_assignee')?.value,
+      "sprint_id": this.issueDetailsForm.get('sprint_number')?.value,
+      "project_id": projectIdFromRoute
+  }
+
+  this.apiService.createIssue(body)
+    .subscribe(res => {
+          console.log(res);
+    })
+
   }
 
 }
