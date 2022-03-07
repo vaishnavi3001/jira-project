@@ -7,6 +7,7 @@ import (
 	"jira-backend/utils"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
@@ -50,7 +51,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(setConfigInContext)
-	r.Use(corsMiddleware)
+	r.Use(cors.Default())
 	/*user := models.User{Name: "Mandar Palkar", Username: "pypalkar23", EmailId: "mandar.palkar23@gmail.com"}
 	db.Create(&user)
 	user1 := models.User{Name: "Ashish Mhaske", Username: "amhaske32", EmailId: "amhaske32@gmail.com"}
