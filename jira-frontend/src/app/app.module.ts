@@ -31,7 +31,10 @@ import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
+import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -55,6 +58,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     IssueModifyComponent,
     SprintComponent,
     SprintListComponent,
+    SprintModifyComponent,
+    NewsprintComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
@@ -76,6 +81,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatListModule,
     MatSelectModule,
     DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NgbModule
     
     

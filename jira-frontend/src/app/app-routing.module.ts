@@ -8,6 +8,7 @@ import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
+import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 
 const routes: Routes = [
   { path: 'home', component: ProjectComponent,
@@ -33,7 +34,10 @@ const routes: Routes = [
       },
       {
         path:'issues/:issueId/edit', component: IssueModifyComponent
-      },      
+      },  
+      {
+        path:':projectId/sprint/create', component: NewsprintComponent
+      },    
     ]},
 
   { path: '', pathMatch: 'full', redirectTo: 'home' },

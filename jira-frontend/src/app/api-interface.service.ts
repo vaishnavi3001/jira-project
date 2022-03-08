@@ -32,6 +32,11 @@ export class ApiInterfaceService {
     return this.http.post<any>(this.post_url+'/issues/create', data)
   }
 
+  createSprint(data:any): Observable<any> {
+  
+    return this.http.post<any>(this.post_url+'/sprint/create', data)
+  }
+
   deleteProject(data:any): Observable<any> {
     return this.http.post<any>(this.url+'/delete-project', data)
   }
