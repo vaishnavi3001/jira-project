@@ -25,22 +25,14 @@ func CreateIssue(c *gin.Context) {
 }
 
 func UpdateIssue(c *gin.Context) {
-	db, exists := c.Keys["db"].(*gorm.DB)
-
-	if !exists {
-		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
 
 	var req skeletons.UpdateIssueReq
 	if err := c.BindJSON(&req); err != nil {
-
-		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
-		c.AbortWithStatus(http.StatusBadRequest)
+		ut.ThrowBadRequest(c)
+		return
 	}
 
-	db.Model(&models.Issue{}).Where("issue_id = ?", req.IssueId).Updates(models.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId, ProjectRef: req.ProjectId})
-	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue Updated Successfully", ""))
+	c.JSON(http.StatusOK, dt.UpdateIssue(req))
 }
 
 func DeleteIssue(c *gin.Context) {

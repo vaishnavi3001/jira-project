@@ -61,3 +61,15 @@ func DeleteIssue(data sk.BaseProjectIdReq) gin.H {
 	db.Where("project_id=?", data.ProjectId).Delete(&md.UserRole{})
 	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
 }
+
+func UpdateIssue(req sk.UpdateIssueReq) gin.H {
+	var count int64
+	var userRole md.UserRole
+	db.Where("user_id = ? AND project_id = ? AND role_id = 1", req.UserId, req.ProjectId).Find(&userRole).Count(&count)
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+	var issue md.Issue
+	db.Model(&issue).Where("issue_id = ?", req.IssueId).Updates(md.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId, ProjectRef: req.ProjectId})
+	return ut.GetSuccessResponse("issue updated successfully", gin.H{})
+}
