@@ -22,7 +22,8 @@ export class SprintListComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
-    this.apiService.getSprintList({'data':projectIdFromRoute})
+    this.apiService
+    .getSprintList({"project_id":2, "user_id":1 })
     .subscribe((resp:any) => {
       this.sprintlist = resp['response']
     })

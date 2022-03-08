@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit {
   constructor(private apiService: ApiInterfaceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.apiService.getProjectList({'data':'data'})
+    this.apiService.getProjectList({"project_id":0, "user_id":0})
     .subscribe((resp:any) => {
       this.dataSource = resp['response']
       project_data = this.dataSource

@@ -1,0 +1,40 @@
+<section id="details">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h1><i class="fa-solid fa-plus"></i>Create Sprint</h1>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="issueDetailsForm">
+
+                
+                <div class="form-group">
+                  <label for="title">Sprint</label>
+                  <input type="text" class="form-control" formControlName="sprint_name">
+                </div>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="start_date">
+                    <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                    <mat-datepicker #start_date></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="end_date">
+                    <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+                    <mat-datepicker #end_date></mat-datepicker>
+                  </mat-form-field>
+               
+                <button class="btn btn-primary" (click)="onSubmit()"> Save </button>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

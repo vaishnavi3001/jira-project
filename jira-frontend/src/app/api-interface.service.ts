@@ -15,7 +15,7 @@ export class ApiInterfaceService {
   constructor(private http: HttpClient) { }
   
   getProjectList(data:any): Observable<any> {
-    this.apiResponse = this.http.get<any>(this.url+'/project')
+    this.apiResponse = this.http.post<any>(this.post_url+'/project/list', data)
     return this.apiResponse
   }
 
@@ -30,6 +30,11 @@ export class ApiInterfaceService {
 
   createIssue(data:any): Observable<any> {
     return this.http.post<any>(this.post_url+'/issues/create', data)
+  }
+
+  createSprint(data:any): Observable<any> {
+  
+    return this.http.post<any>(this.post_url+'/sprint/create', data)
   }
 
   deleteProject(data:any): Observable<any> {
@@ -49,6 +54,6 @@ export class ApiInterfaceService {
   }
 
   getSprintList(data:any): Observable<any>{
-     return this.apiResponse = this.http.get<any>(this.url+'/sprints/'+data.data)
+     return this.apiResponse = this.http.post<any>(this.post_url+'/sprint/list', data)
   }
 }
