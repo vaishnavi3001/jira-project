@@ -9,6 +9,7 @@ import { IssueCreateComponent } from './issue/issue-create/issue-create.componen
 import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
 import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
+import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
 
 const routes: Routes = [
   { path: 'home', component: ProjectComponent,
@@ -37,6 +38,9 @@ const routes: Routes = [
       },  
       {
         path:':projectId/sprint/create', component: NewsprintComponent
+      },  
+      {
+        path:'sprint/:sprintId/edit', component: SprintModifyComponent
       },    
     ]},
 

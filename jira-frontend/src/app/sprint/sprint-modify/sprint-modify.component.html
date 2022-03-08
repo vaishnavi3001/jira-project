@@ -1,1 +1,63 @@
-<p>sprint-modify works!</p>
+<section id="details">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+              
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h1><i class="fa-solid fa-pen-to-square"></i>Edit Sprint</h1>
+                        </div>
+                        <div class="row" id="icon_row">
+                            <div class="col-md-3">
+                                <a href="index.html" class="btn btn-success btn-block" id="save_issue">
+                                <i class="fas fa-check"></i> Save Changes
+                                </a>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <a href="index.html" class="btn btn-danger btn-block" id="del_issue">
+                                <i class="fas fa-trash"></i> Delete Sprint
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="card-body">
+              <form [formGroup]="sprintEditForm">
+
+                
+                <div class="form-group">
+                  <label for="title">Sprint Name</label>
+                  <input type="text" class="form-control" formControlName="project_name">
+                </div>
+                <div class="form-group">
+                <mat-form-field appearance="fill">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="start_date">
+                    <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                    <mat-datepicker #start_date></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <br>
+                <div class="form-group">
+                  <mat-form-field appearance="fill">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="end_date">
+                    <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+                    <mat-datepicker #end_date></mat-datepicker>
+                 </mat-form-field>
+                 </div>
+                
+               
+                
+                <!-- <button class="btn btn-primary" (click)="onSubmit()">Save Issue</button> -->
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
