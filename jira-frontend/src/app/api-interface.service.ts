@@ -15,7 +15,7 @@ export class ApiInterfaceService {
   constructor(private http: HttpClient) { }
   
   getProjectList(data:any): Observable<any> {
-    this.apiResponse = this.http.get<any>(this.url+'/project')
+    this.apiResponse = this.http.post<any>(this.post_url+'/project/list', data)
     return this.apiResponse
   }
 
