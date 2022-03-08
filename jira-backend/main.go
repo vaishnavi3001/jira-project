@@ -69,7 +69,7 @@ func main() {
 	{
 		sprint.GET("/list", handlers.ListSprints)
 		sprint.GET("/info", handlers.GetSprintInfo)
-		//sprint.POST("/create", handlers.CreateSprint)
+		sprint.POST("/create", handlers.CreateSprint)
 		sprint.POST("/delete", handlers.DeleteSprint)
 
 	}
