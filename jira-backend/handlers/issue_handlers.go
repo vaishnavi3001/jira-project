@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	dt "jira-backend/dbutils"
 	"jira-backend/models"
 	"jira-backend/skeletons"
 	"jira-backend/utils"
+	ut "jira-backend/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,25 +13,15 @@ import (
 )
 
 func CreateIssue(c *gin.Context) {
-	db, exists := c.Keys["db"].(*gorm.DB)
-
-	if !exists {
-		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
-
 	var req skeletons.AddIssueReq
+
 	if err := c.BindJSON(&req); err != nil {
-
-		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
-		c.AbortWithStatus(http.StatusBadRequest)
+		ut.ThrowBadRequest(c)
+		return
 	}
-
-	issue := models.Issue{Title: req.IssueTitle, Description: req.IssueText, Type: req.IssueType, CreatedBy: req.Creator, AssigneeId: req.Assignee, SprintRef: req.SprintId, ProjectRef: req.ProjectId}
-	db.Create(&issue)
 
 	//sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title
-	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue Created Successfully", skeletons.BaseIssueResp{IssueName: issue.Title, IssueId: issue.IssueId}))
+	c.JSON(http.StatusOK, dt.CreateIssue(req))
 }
 
 func UpdateIssue(c *gin.Context) {

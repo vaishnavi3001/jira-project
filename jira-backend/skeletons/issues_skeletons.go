@@ -9,15 +9,23 @@ type IssueBaseReq struct {
 
 type AddIssueReq struct {
 	UserId     uint   `json:"user_id"`
-	IssueTitle string `json:"issue_name"`
-	IssueText  string `json:"issue_text"`
+	IssueTitle string `json:"issue_title"`
+	IssueText  string `json:"issue_description"`
 	IssueType  uint   `json:"issue_type"`
 	Creator    uint   `json:"creator"`
 	Assignee   uint   `json:"assignee"`
 	SprintId   uint   `json:"sprint_id"`
 	ProjectId  uint   `json:"project_id"`
 }
-
+type AddIssueResp struct {
+	IssueId    uint      `json:"issue_id"`
+	IssueTitle string    `json:"issue_title"`
+	IssueText  string    `json:"issue_description"`
+	IssueType  uint      `json:"issue_type"`
+	Creator    string    `json:"creator_name"`
+	Assignee   string    `json:"assignee_name"`
+	CreatedAt  time.Time `json:"created_at"`
+}
 type UpdateIssueReq struct {
 	UserId     uint   `json:"user_id"`
 	IssueId    uint   `json:"issue_id"`
@@ -44,9 +52,10 @@ type IssueListReq struct {
 }
 
 type IssueEntry struct {
-	IssueId uint   `json:"issue_id"`
-	Name    string `json:"title"`
-	Status  uint   `json:"status"`
+	IssueId   uint      `json:"issue_id"`
+	Name      string    `json:"title"`
+	Status    uint      `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type IssueListResp struct {
