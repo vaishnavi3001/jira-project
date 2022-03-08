@@ -59,16 +59,16 @@ func main() {
 
 	project := r.Group("/project")
 	{
-		project.GET("/list", handlers.ListProjects)
-		project.GET("/info", handlers.GetProjectInfo)
+		project.POST("/list", handlers.ListProjects)
+		project.POST("/info", handlers.GetProjectInfo)
 		project.POST("/delete", handlers.DeleteProject)
 		project.POST("/create", handlers.CreateProject)
 	}
 
 	sprint := r.Group("/sprint")
 	{
-		sprint.GET("/list", handlers.ListSprints)
-		sprint.GET("/info", handlers.GetSprintInfo)
+		sprint.POST("/list", handlers.ListSprints)
+		sprint.POST("/info", handlers.GetSprintInfo)
 		sprint.POST("/create", handlers.CreateSprint)
 		sprint.POST("/delete", handlers.DeleteSprint)
 
