@@ -37,7 +37,7 @@ type Sprint struct {
 	EndDate    time.Time
 	Status     uint         `gorm:"default:1"`
 	Project    Project      `gorm:"foreignKey:ProjectRef"`
-	IsDeleted  sql.NullBool `gorm:default:false"`
+	IsDeleted  sql.NullBool `gorm:"default:false"`
 	DeletedAt  gorm.DeletedAt
 }
 type Issue struct {

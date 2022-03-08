@@ -33,8 +33,8 @@ type UpdateIssueReq struct {
 	IssueText  string `json:"issue_text"`
 	IssueType  uint   `json:"issue_type"`
 	Creator    uint   `json:"creator"`
-	Assignee   uint   `json:"Assignee"`
-	Status     uint   `json:"Status"`
+	Assignee   uint   `json:"assignee"`
+	Status     uint   `json:"status"`
 	SprintId   uint   `json:"sprint_id"`
 	ProjectId  uint   `json:"project_id"`
 }
