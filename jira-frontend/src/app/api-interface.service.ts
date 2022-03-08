@@ -49,6 +49,6 @@ export class ApiInterfaceService {
   }
 
   getSprintList(data:any): Observable<any>{
-     return this.apiResponse = this.http.get<any>(this.url+'/sprints/'+data.data)
+     return this.apiResponse = this.http.post<any>(this.post_url+'/sprint/list', data)
   }
 }
