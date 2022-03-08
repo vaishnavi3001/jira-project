@@ -53,7 +53,7 @@ func GetProjectList(data sk.UsersBaseReq) gin.H {
 	var userRoles []md.UserRole
 	db.Preload("Project").Where("user_id = ?", data.UserId).Find(&userRoles)
 
-	var list []sk.ProjectEntry
+	list := make([]sk.ProjectEntry, 0)
 	for _, x := range userRoles {
 		list = append(list, sk.ProjectEntry{Name: x.Project.ProjectName, Id: x.Project.ProjectId, CreatedAt: x.Project.CreatedAt, UserRole: x.RoleId})
 	}
