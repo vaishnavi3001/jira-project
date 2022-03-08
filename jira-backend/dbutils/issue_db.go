@@ -48,17 +48,17 @@ func GetIssueInfo(data sk.ProjectInfoReq) gin.H {
 	}
 }
 
-func DeleteIssue(data sk.BaseProjectIdReq) gin.H {
+func DeleteIssue(data sk.IssueBaseReq) gin.H {
 	var count int64
-	var userRole md.UserRole
-	db.Where("user_id = ? AND project_id = ? AND role_id = 1", data.UserId, data.ProjectId).Find(&userRole).Count(&count)
+	//var userRole md.UserRole
+	//db.Where("user_id = ? AND project_id = ? AND role_id = 1", data.UserId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
 
-	project := md.Project{ProjectId: data.ProjectId}
-	db.Delete(&project)
-	db.Where("project_id=?", data.ProjectId).Delete(&md.UserRole{})
+	issue := md.Issue{IssueId: data.IssueId}
+	db.Delete(&issue)
+	//db.Where("project_id=?", data.IssueId).Delete(&md.UserRole{})
 	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
 }
 
