@@ -93,7 +93,7 @@ func DeleteSprint(data sk.SprintDeleteReq) gin.H {
 
 	db.Delete(&sprint)
 
-	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
+	return ut.GetSuccessResponse(ct.SPRINT_DELETE_SUCCESS, "")
 }
 
 func GetIssuesForSprint(data sk.BaseSprintReq) gin.H {
