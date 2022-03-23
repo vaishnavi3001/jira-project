@@ -2,12 +2,12 @@
 Software Project Management Tool plays a pivotal role in the lifecycle and success of any Software Project. This project by us strives to address that issue. This project aims to provide a clean UI with minimalistic but most important features of a project management tool.  
   
 
-|Project Group Members|Github User Name|
+|Project Group Members|Github User Name|Developer Type
 -|-
-Ashish Sanjay Mhaske| amhaske
-Divya Bhutani | divyabhutani
-Mandar Palkar | pypalkar23
-Vaishnavi Dongre | vaishnavi3001
+Ashish Sanjay Mhaske| amhaske | Frontend
+Divya Bhutani | divyabhutani | Frontend
+Mandar Palkar | pypalkar23 | Backend
+Vaishnavi Dongre | vaishnavi3001 | Backend
 
 
 ## Technical Stack
