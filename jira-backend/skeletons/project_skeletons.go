@@ -46,3 +46,14 @@ type ProjectInfoResp struct {
 type ProjectUsers struct {
 	Users []UserEntry `json:"users"`
 }
+
+type ProjectMembersResp struct {
+	UserId    uint   `json:"user_id"`
+	FirstName string `json:"front_name"`
+	LastName  string `json:"last_name"`
+	UserRole  uint   `json:"user_role"`
+}
+
+type ProjectMembersListResp struct {
+	Members []ProjectMembersResp `json:"members"`
+}

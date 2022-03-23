@@ -40,9 +40,7 @@ func main() {
 
 	// Migrate the schema
 	dbutils.InitializeConn()
-	//,&models.Project{}, &models.Issue{}, &models.Sprint{},  &models.UserRole{}, &models.Role{}, &models.Permission{}
 
-	//viper config
 	config, err = utils.ConfigReader()
 	if err != nil {
 		fmt.Println("Cannot Read from the Config", err)
@@ -52,35 +50,33 @@ func main() {
 	r := gin.Default()
 	r.Use(setConfigInContext)
 	r.Use(cors.Default())
-	/*user := models.User{Name: "Mandar Palkar", Username: "pypalkar23", EmailId: "mandar.palkar23@gmail.com"}
-	db.Create(&user)
-	user1 := models.User{Name: "Ashish Mhaske", Username: "amhaske32", EmailId: "amhaske32@gmail.com"}
-	db.Create(&user1)*/
 
-	project := r.Group("/project")
+	project := r.Group("/api/project")
 	{
 		project.POST("/list", handlers.ListProjects)
 		project.POST("/info", handlers.GetProjectInfo)
 		project.POST("/delete", handlers.DeleteProject)
 		project.POST("/create", handlers.CreateProject)
+		project.POST("/members", handlers.ListMembers)
 	}
 
-	sprint := r.Group("/sprint")
+	sprint := r.Group("/api/sprint")
 	{
 		sprint.POST("/list", handlers.ListSprints)
 		sprint.POST("/info", handlers.GetSprintInfo)
 		sprint.POST("/create", handlers.CreateSprint)
 		sprint.POST("/delete", handlers.DeleteSprint)
-
+		sprint.POST("/update", handlers.UpdateSprint)
 	}
 
-	issue := r.Group("/issues")
+	issue := r.Group("/api/issue")
 	{
-		issue.GET("/list", handlers.ListIssue)
-		issue.GET("/info", handlers.GetIssueInfo)
+		issue.POST("/info", handlers.GetIssueInfo)
 		issue.POST("/create", handlers.CreateIssue)
 		issue.POST("/delete", handlers.DeleteIssue)
 		issue.POST("/update", handlers.UpdateIssue)
+		issue.POST("/list", handlers.ListIssuesForSprint)
+		issue.POST("/move", handlers.UpdateIssueStatus)
 	}
 
 	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))

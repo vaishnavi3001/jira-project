@@ -10,6 +10,7 @@ import (
 type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint
+	Password  string
 	Username  string
 	Firstname string
 	Lastname  string
@@ -81,4 +82,12 @@ type Role struct {
 type Permission struct {
 	PermissionId   uint `gorm:"primaryKey"`
 	PermissionName string
+}
+
+type UserAuth struct {
+	UserAuthId uint `gorm:"primaryKey;auto_increment;"`
+	UserId     uint
+	Token      string
+	User       User `gorm:"foreignKey:UserId"`
+	DeletedAt  gorm.DeletedAt
 }

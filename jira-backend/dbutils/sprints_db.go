@@ -74,7 +74,7 @@ func GetSprintList(data sk.SprintListReq) gin.H {
 	db.Where("project_ref = ? ", data.ProjectId).Find(&sprintlist)
 	res := make([]sk.SprintEntry, 0)
 	for _, x := range sprintlist {
-		res = append(res, sk.SprintEntry{Name: x.SprintName, Id: x.SprintId, StartDate: x.StartDate, EndDate: x.EndDate, CreatedAt: x.CreatedAt})
+		res = append(res, sk.SprintEntry{Name: x.SprintName, Id: x.SprintId, StartDate: x.StartDate, EndDate: x.EndDate, CreatedAt: x.CreatedAt, ProjectId: x.ProjectRef})
 	}
 
 	return ut.GetSuccessResponse("", sk.SprintListResp{Sprints: res})
@@ -110,12 +110,55 @@ func GetIssuesForSprint(data sk.BaseSprintReq) gin.H {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
 	var issues []md.Issue
-	db.Where("sprintRef = ?", data.SprintId).Delete(&issues)
+	db.Where("sprint_ref = ?", data.SprintId).Find(&issues)
 
-	var resp []sk.IssueEntry
+	var resp = make([]sk.IssueEntry, 0)
 	for _, x := range issues {
 		resp = append(resp, sk.IssueEntry{IssueId: x.IssueId, Name: x.Title, Status: x.Status, CreatedAt: x.CreatedAt})
 	}
 
 	return ut.GetSuccessResponse("", sk.IssueListResp{Issues: resp})
+}
+
+func GetSprintsForUser(data sk.BaseProjectIdReq) gin.H {
+	var count int64
+	db.Where("project_id = ? AND user_id = ?", data.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+
+	var sprints []md.Sprint
+
+	db.Where("project_ref = ?").Find(&sprints)
+
+	var resp []sk.ShortSprintEntry
+
+	for _, x := range sprints {
+		resp = append(resp, sk.ShortSprintEntry{SprintId: x.SprintId, SprintName: x.SprintName})
+	}
+
+	return ut.GetSuccessResponse("", sk.ShortSprintList{Sprints: resp})
+}
+
+func UpdateSprintInfo(data sk.SprintUpdateReq) gin.H {
+	var count int64
+	var sprint md.Sprint
+	db.Joins("JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id = ?", data.SprintId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ?", data.UserId).Find(&sprint).Count(&count)
+
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+
+	startdate, err1 := ut.DateFormat(data.StartDate)
+
+	if err1 != nil {
+		return ut.GetErrorResponse(ct.WRONG_DATE_FORMAT)
+	}
+	enddate, err2 := ut.DateFormat(data.EndDate)
+	if err2 != nil {
+		return ut.GetErrorResponse(ct.WRONG_DATE_FORMAT)
+	}
+
+	db.Model(&md.Sprint{}).Where("sprint_id = ?", data.SprintId).Updates(md.Sprint{SprintName: data.SprintName, StartDate: startdate, EndDate: enddate})
+	return ut.GetSuccessResponse(ct.SPRINT_UPDATE_SUCCESS, "")
 }

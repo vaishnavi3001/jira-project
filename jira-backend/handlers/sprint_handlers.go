@@ -47,8 +47,14 @@ func GetSprintInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, dt.GetSprintInfo(req))
 }
 
-func UpdateSprintInfo(c *gin.Context) {
+func UpdateSprint(c *gin.Context) {
+	var req sk.SprintUpdateReq
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
 
+	c.JSON(http.StatusOK, dt.UpdateSprintInfo(req))
 }
 
 func DeleteSprint(c *gin.Context) {
@@ -69,4 +75,15 @@ func GetSprintsForProject(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, dt.GetSprintList(req))
+}
+
+func ListIssuesForSprint(c *gin.Context) {
+	var req sk.BaseSprintReq
+	if err := c.BindJSON(&req); err != nil {
+
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.GetIssuesForSprint(req))
 }

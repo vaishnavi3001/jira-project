@@ -131,3 +131,59 @@ func TestProjectDelete(t *testing.T) {
 	t.Log(w.Body.String())
 	assert.Equal(t, 200, w.Code, "OK")
 }
+
+func TestSprintCreate(t *testing.T) {
+
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	jsonparam :=
+		`{   
+			"user_id":1,
+			"sprint_name" :"Sprint 1",
+			"project_id" : 2,
+			"start_date": "2021-03-07",
+			"end_date" : "2021-03-21"
+		}`
+
+	_, err := http.NewRequest("POST", "/sprint/create", strings.NewReader(string(jsonparam)))
+
+	assert.Nil(t, err)
+	t.Log(w.Body.String())
+	assert.Equal(t, 200, w.Code, "OK")
+}
+
+func TestSprintInfo(t *testing.T) {
+
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	jsonparam :=
+		`{   
+			"sprint_id" :2,
+			"user_id":1
+		}`
+
+	_, err := http.NewRequest("POST", "/sprint/info", strings.NewReader(string(jsonparam)))
+
+	assert.Nil(t, err)
+	t.Log(w.Body.String())
+	assert.Equal(t, 200, w.Code, "OK")
+}
+
+func TestSprintDelete(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+
+	jsonparam :=
+		`{
+			"sprint_id": 2,
+			"user_id": 1
+		}`
+
+	_, err := http.NewRequest("POST", "/sprint/delete", strings.NewReader(string(jsonparam)))
+
+	assert.Nil(t, err)
+	t.Log(w.Body.String())
+	assert.Equal(t, 200, w.Code, "OK")
+}

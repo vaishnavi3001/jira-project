@@ -2,18 +2,15 @@ package handlers
 
 import (
 	dt "jira-backend/dbutils"
-	"jira-backend/models"
-	"jira-backend/skeletons"
-	"jira-backend/utils"
+	sk "jira-backend/skeletons"
 	ut "jira-backend/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 func CreateIssue(c *gin.Context) {
-	var req skeletons.AddIssueReq
+	var req sk.AddIssueReq
 
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
@@ -26,7 +23,7 @@ func CreateIssue(c *gin.Context) {
 
 func UpdateIssue(c *gin.Context) {
 
-	var req skeletons.UpdateIssueReq
+	var req sk.UpdateIssueReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
 		return
@@ -36,7 +33,7 @@ func UpdateIssue(c *gin.Context) {
 }
 
 func DeleteIssue(c *gin.Context) {
-	var req skeletons.IssueBaseReq
+	var req sk.IssueBaseReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
 		return
@@ -45,49 +42,22 @@ func DeleteIssue(c *gin.Context) {
 	c.JSON(http.StatusOK, dt.DeleteIssue(req))
 }
 
-func ListIssue(c *gin.Context) {
-	db, exists := c.Keys["db"].(*gorm.DB)
-
-	if !exists {
-		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	var req skeletons.IssueListReq
+func GetIssueInfo(c *gin.Context) {
+	var req sk.IssueBaseReq
 	if err := c.BindJSON(&req); err != nil {
-
-		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
-		c.AbortWithStatus(http.StatusBadRequest)
+		ut.ThrowBadRequest(c)
+		return
 	}
 
-	var issues []models.Issue
-	db.Where("project_ref = ? AND sprint_ref= ?", req.ProjectId, req.SprintId).Find(&issues)
-
-	var res []skeletons.IssueEntry
-	for _, x := range issues {
-		res = append(res, skeletons.IssueEntry{IssueId: x.IssueId, Name: x.Title, Status: x.Status})
-	}
-
-	c.JSON(http.StatusOK, utils.GetResponse(true, "", skeletons.IssueListResp{Issues: res}))
+	c.JSON(http.StatusOK, dt.GetIssueInfo(req))
 }
 
-func GetIssueInfo(c *gin.Context) {
-	db, exists := c.Keys["db"].(*gorm.DB)
-
-	if !exists {
-		c.JSON(http.StatusInternalServerError, utils.GetResponse(false, "Something went wrong", ""))
-		c.AbortWithStatus(http.StatusInternalServerError)
-	}
-
-	var req skeletons.IssueBaseReq
+func UpdateIssueStatus(c *gin.Context) {
+	var req sk.UpdateIssueStatusReq
 	if err := c.BindJSON(&req); err != nil {
-
-		c.JSON(http.StatusBadRequest, utils.GetResponse(false, "Could not parse the request", ""))
-		c.AbortWithStatus(http.StatusBadRequest)
+		ut.ThrowBadRequest(c)
+		return
 	}
 
-	var issue models.Issue
-	db.Preload("Creator").Preload("AssignedTo").Where("issue_id", req.IssueId).Find(&issue)
-
-	c.JSON(http.StatusOK, utils.GetResponse(true, "Issue", skeletons.IssueEntryDetailed{IssueId: issue.IssueId, Name: issue.Title, Status: issue.Status, Description: issue.Description, CreatedBy: issue.Creator.Username, AssignedTo: issue.AssignedTo.Username, ModifiedAt: issue.UpdatedAt, CreatedAt: issue.CreatedAt}))
+	c.JSON(http.StatusOK, dt.UpdateIssueStatus(req))
 }

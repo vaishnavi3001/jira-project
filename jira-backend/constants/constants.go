@@ -6,11 +6,24 @@ const (
 	Response = "resp"
 )
 
+const (
+	Access_token = "access_token"
+)
+
 //User Roles
 const (
 	Owner     = 1
 	Developer = 2
 	Tester    = 3
+)
+
+//issue status
+const (
+	Created     = 1
+	In_progress = 2
+	Solved      = 3
+	Closed      = 4
+	Rejected    = 5
 )
 
 //
@@ -25,8 +38,10 @@ const (
 	WRONG_DATE_FORMAT       = "WRONG_DATE_FORMAT"
 	NOT_VALID_SPRINT        = "INVALID_SPRINT"
 	SPRINT_DELETE_SUCCESS   = "SPRINT_DELETE_SUCCESS"
-	USER_DOESNT_EXIST       = "USER_DOESNOT_EXIST"
+	USER_DOESNT_EXIST       = "INVALID_USER"
 	ISSUE_DELETE_SUCCESS    = "ISSUE_DELETE_SUCCESS"
+	SPRINT_UPDATE_SUCCESS   = "SPRINT_UPDATE_SUCCESS"
+	ISSUE_UPDATE_SUCCESS    = "ISSUE_UPDATE_SUCCESS"
 )
 
 const (

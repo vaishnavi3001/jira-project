@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"jira-backend/dbutils"
+	dt "jira-backend/dbutils"
 	sk "jira-backend/skeletons"
 	ut "jira-backend/utils"
 
@@ -19,7 +19,7 @@ func CreateProject(c *gin.Context) {
 	}
 
 	//the one who creates the project will be owner of the project
-	c.JSON(http.StatusOK, dbutils.CreateProject(createProjectReq))
+	c.JSON(http.StatusOK, dt.CreateProject(createProjectReq))
 }
 
 func ListProjects(c *gin.Context) {
@@ -30,7 +30,7 @@ func ListProjects(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dbutils.GetProjectList(req))
+	c.JSON(http.StatusOK, dt.GetProjectList(req))
 }
 
 func GetProjectInfo(c *gin.Context) {
@@ -40,7 +40,7 @@ func GetProjectInfo(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dbutils.GetProjectInfo(req))
+	c.JSON(http.StatusOK, dt.GetProjectInfo(req))
 }
 
 func DeleteProject(c *gin.Context) {
@@ -51,6 +51,17 @@ func DeleteProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dbutils.DeleteProject(req))
+	c.JSON(http.StatusOK, dt.DeleteProject(req))
 
+}
+
+func ListMembers(c *gin.Context) {
+	var req sk.BaseProjectIdReq
+
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.ListMembers(req))
 }

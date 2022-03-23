@@ -17,6 +17,7 @@ type AddIssueReq struct {
 	SprintId   uint   `json:"sprint_id"`
 	ProjectId  uint   `json:"project_id"`
 }
+
 type AddIssueResp struct {
 	IssueId    uint      `json:"issue_id"`
 	IssueTitle string    `json:"issue_title"`
@@ -25,18 +26,26 @@ type AddIssueResp struct {
 	Creator    string    `json:"creator_name"`
 	Assignee   string    `json:"assignee_name"`
 	CreatedAt  time.Time `json:"created_at"`
+	Status     uint      `json:"issue_status"`
 }
 type UpdateIssueReq struct {
 	UserId     uint   `json:"user_id"`
 	IssueId    uint   `json:"issue_id"`
-	IssueTitle string `json:"issue_name"`
-	IssueText  string `json:"issue_text"`
+	IssueTitle string `json:"issue_title"`
+	IssueText  string `json:"issue_description"`
 	IssueType  uint   `json:"issue_type"`
 	Creator    uint   `json:"creator"`
 	Assignee   uint   `json:"assignee"`
 	Status     uint   `json:"status"`
 	SprintId   uint   `json:"sprint_id"`
 	ProjectId  uint   `json:"project_id"`
+}
+
+type UpdateIssueStatusReq struct {
+	UserId    uint `json:"user_id"`
+	IssueId   uint `json:"issue_id"`
+	ProjectId uint `json:"project_id"`
+	Status    uint `json:"status"`
 }
 
 type BaseIssueResp struct {
@@ -62,23 +71,13 @@ type IssueListResp struct {
 	Issues []IssueEntry `json:"issues"`
 }
 
-/*IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
-Status      uint `gorm:"default:1"`
-Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
-Title       string
-CreatedBy   uint //user ref
-SprintRef   uint
-AssigneeId  uint //user ref
-ProjectRef  uint
-IsDeleted   sql.NullBool
-UpdatedAt   time.Time
-Description string
-CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
-Sprint      Sprint    `gorm:"foreignKey:SprintRef"`
-AssignedTo  User      `gorm:"foreignKey:AssigneeId"`
-Creator     User      `gorm:"foreignKey:CreatedBy"`
-Project     Project   `gorm:"foreignKey:ProjectRef"`
-DeletedAt   gorm.DeletedAt*/
+type IssueTransfer struct {
+	UserId      uint `json:"user_id"`
+	IssueId     uint `json:"issue_id"`
+	Sprint_from uint `json:"sprint_from"`
+	Sprint_to   uint `json:"sprint_to"`
+}
+
 type IssueEntryDetailed struct {
 	IssueId     uint      `json:"issue_id"`
 	Name        string    `json:"title"`
@@ -90,4 +89,37 @@ type IssueEntryDetailed struct {
 	ModifiedAt  time.Time `json:"modified_at"`
 }
 
-//sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title
+/*
+IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
+	Status      uint `gorm:"default:1"`
+	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
+	Title       string
+	CreatedBy   uint //user ref
+	SprintRef   uint
+	AssigneeId  uint //user ref
+	ProjectRef  uint
+	IsDeleted   sql.NullBool
+	UpdatedAt   time.Time
+	Description string
+	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
+	Sprint      Sprint    `gorm:"foreignKey:SprintRef"`
+	AssignedTo  User      `gorm:"foreignKey:AssigneeId"`
+	Creator     User      `gorm:"foreignKey:CreatedBy"`
+	Project     Project   `gorm:"foreignKey:ProjectRef"`
+	DeletedAt   gorm.DeletedAt
+*/
+type IssueInfoResp struct {
+	IssueId      uint      `json:"issue_id"`
+	Name         string    `json:"title"`
+	Type         uint      `json:"type"`
+	SprintId     uint      `json:"sprint_id"`
+	SprintName   string    `json:"sprint_name"`
+	ProjectId    uint      `json:"project_id"`
+	Description  string    `json:"description"`
+	AssigneeId   uint      `json:"assignee_id"`
+	AssigneeName string    `json:"assignee_name"`
+	CreatorId    uint      `json:"creator_id"`
+	CreatorName  string    `json:"creator_name"`
+	CreatedAt    time.Time `json:"created_at"`
+	ProjectName  string    `json:"project_name"`
+}

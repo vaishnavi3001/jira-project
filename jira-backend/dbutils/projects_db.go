@@ -37,7 +37,7 @@ func GetProjectInfo(data sk.ProjectInfoReq) gin.H {
 	var userRole md.UserRole
 	db.Where("user_id=? AND project_id=?", data.UserId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
-		return ut.GetErrorResponse(ct.NOT_PART_OF_THE_PROJECT)
+		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
 	} else {
 		db.Preload("User").Where("role_id=1 AND project_id=?", data.ProjectId).Find(&userRole)
 		var project md.Project
@@ -51,8 +51,12 @@ func GetProjectInfo(data sk.ProjectInfoReq) gin.H {
 func GetProjectList(data sk.UsersBaseReq) gin.H {
 
 	var userRoles []md.UserRole
-	db.Preload("Project").Where("user_id = ?", data.UserId).Find(&userRoles)
+	var count int64
+	db.Preload("Project").Where("user_id = ?", data.UserId).Find(&userRoles).Count(&count)
 
+	if count == 0 {
+		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
+	}
 	list := make([]sk.ProjectEntry, 0)
 	for _, x := range userRoles {
 		list = append(list, sk.ProjectEntry{Name: x.Project.ProjectName, Id: x.Project.ProjectId, CreatedAt: x.Project.CreatedAt, UserRole: x.RoleId})
@@ -74,4 +78,23 @@ func DeleteProject(data sk.BaseProjectIdReq) gin.H {
 	db.Delete(&project)
 	db.Where("project_id=?", data.ProjectId).Delete(&md.UserRole{})
 	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
+}
+
+func ListMembers(data sk.BaseProjectIdReq) gin.H {
+	var count int64
+	var userRoles []md.UserRole
+	db.Where("user_id = ? AND project_id = ?", data.UserId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
+
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+
+	db.Preload("User").Where("project_id = ?", data.ProjectId).Find(&userRoles)
+	list := make([]sk.ProjectMembersResp, 0)
+
+	for _, x := range userRoles {
+		list = append(list, sk.ProjectMembersResp{UserId: x.UserId, FirstName: x.User.Firstname, LastName: x.User.Lastname})
+	}
+
+	return ut.GetSuccessResponse("", sk.ProjectMembersListResp{Members: list})
 }

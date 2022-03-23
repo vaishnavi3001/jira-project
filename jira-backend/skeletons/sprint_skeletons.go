@@ -5,8 +5,8 @@ import (
 )
 
 type BaseSprintReq struct {
-	UserId   uint   `json:"user_id"`
-	SprintId string `json:"sprint_id"`
+	UserId   uint `json:"user_id"`
+	SprintId uint `json:"sprint_id"`
 }
 
 type CreateSprintReq struct {
@@ -58,4 +58,21 @@ type SprintUsers struct {
 type SprintDeleteReq struct {
 	SprintId uint `json:"sprint_id"`
 	UserId   uint `json:"user_id"`
+}
+
+type ShortSprintEntry struct {
+	SprintId   uint   `json:"sprint_id"`
+	SprintName string `json:"sprint_name"`
+}
+
+type ShortSprintList struct {
+	Sprints []ShortSprintEntry `json:"sprints"`
+}
+
+type SprintUpdateReq struct {
+	UserId     uint   `json:"user_id"`
+	SprintId   uint   `json:"sprint_id"`
+	SprintName string `json:"sprint_name"`
+	StartDate  string `json:"start_date"`
+	EndDate    string `json:"end_date"`
 }
