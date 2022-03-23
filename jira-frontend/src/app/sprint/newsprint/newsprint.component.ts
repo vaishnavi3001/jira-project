@@ -24,6 +24,7 @@ export class NewsprintComponent implements OnInit {
   }
 
   onSubmit(): void{
+    
 
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
@@ -38,6 +39,7 @@ export class NewsprintComponent implements OnInit {
 
   this.apiService.createSprint(body)
     .subscribe(res => {
+      alert('Sprint Created Successfully!')
           console.log(res);
     })
 

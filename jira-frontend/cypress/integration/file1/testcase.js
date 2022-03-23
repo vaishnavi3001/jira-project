@@ -15,7 +15,7 @@ describe('My First Test', () => {
 
       })
       it('View issues', () => {
-        cy.visit('http://localhost:4200/home/issues/1')
+        cy.visit('http://localhost:4200/home/1/issues')
         cy.contains('Sprint')
        
 

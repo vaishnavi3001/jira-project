@@ -49,11 +49,15 @@ export class ApiInterfaceService {
     console.log(this.apiResponse)
   }
 
+  getSprintInfo(data:any): Observable<any>{
+    return this.http.post<any>(this.post_url+'/sprint/info', data)
+  }
+
   getIssueList(data:any): Observable<any>{
     return this.apiResponse = this.http.get<any>(this.url+'/issues/'+data.data)
   }
 
   getSprintList(data:any): Observable<any>{
-     return this.apiResponse = this.http.post<any>(this.post_url+'/sprint/list', data)
+     return this.apiResponse = this.http.post<any>(this.url+'/sprint/list', data)
   }
 }
