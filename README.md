@@ -3,7 +3,7 @@ Software Project Management Tool plays a pivotal role in the lifecycle and succe
   
 
 |Project Group Members|Github User Name|Developer Type
--|-
+-|-|-
 Ashish Sanjay Mhaske| amhaske | Frontend
 Divya Bhutani | divyabhutani | Frontend
 Mandar Palkar | pypalkar23 | Backend
