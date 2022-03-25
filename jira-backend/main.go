@@ -2,84 +2,60 @@ package main
 
 import (
 	"fmt"
-	"jira-backend/dbutils"
-	"jira-backend/handlers"
-	"jira-backend/utils"
+	dt "jira-backend/dbutils"
+	hd "jira-backend/handlers"
+	ut "jira-backend/utils"
 	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
-	"gorm.io/gorm"
 )
-
-var db *gorm.DB
-var err error
-var config *viper.Viper
-
-func corsMiddleware(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
-
-	if c.Request.Method == "OPTIONS" {
-		c.AbortWithStatus(204)
-		return
-	}
-
-	c.Next()
-}
-
-func setConfigInContext(c *gin.Context) {
-	c.Set("config", config)
-	c.Next()
-}
 
 func main() {
 
 	// Migrate the schema
-	dbutils.InitializeConn()
-
-	config, err = utils.ConfigReader()
-	if err != nil {
-		fmt.Println("Cannot Read from the Config", err)
+	dberr := dt.InitializeConn()
+	if dberr != nil {
+		fmt.Println("Cannot Connect the DB Details")
 		os.Exit(1)
 	}
 
 	r := gin.Default()
-	r.Use(setConfigInContext)
+	err := ut.ConfigReader()
+	if err != nil {
+		fmt.Println("Cannot Read from the Config", err)
+		os.Exit(1)
+	}
 	r.Use(cors.Default())
 
-	project := r.Group("/api/project")
-	{
-		project.POST("/list", handlers.ListProjects)
-		project.POST("/info", handlers.GetProjectInfo)
-		project.POST("/delete", handlers.DeleteProject)
-		project.POST("/create", handlers.CreateProject)
-		project.POST("/members", handlers.ListMembers)
-	}
+	r.POST("/login", hd.Userlogin)
+	r.GET("/logout", hd.AuthInterceptor, hd.UserLogout)
 
-	sprint := r.Group("/api/sprint")
-	{
-		sprint.POST("/list", handlers.ListSprints)
-		sprint.POST("/info", handlers.GetSprintInfo)
-		sprint.POST("/create", handlers.CreateSprint)
-		sprint.POST("/delete", handlers.DeleteSprint)
-		sprint.POST("/update", handlers.UpdateSprint)
-	}
+	api := r.Group("api")
+	api.Use(hd.AuthInterceptor)
 
-	issue := r.Group("/api/issue")
-	{
-		issue.POST("/info", handlers.GetIssueInfo)
-		issue.POST("/create", handlers.CreateIssue)
-		issue.POST("/delete", handlers.DeleteIssue)
-		issue.POST("/update", handlers.UpdateIssue)
-		issue.POST("/list", handlers.ListIssuesForSprint)
-		issue.POST("/move", handlers.UpdateIssueStatus)
-	}
+	project := api.Group("project")
+	project.POST("/list", hd.ListProjects)
+	project.POST("/info", hd.GetProjectInfo)
+	project.POST("/delete", hd.DeleteProject)
+	project.POST("/create", hd.CreateProject)
+	project.POST("/members", hd.ListMembers)
 
-	ip_address := fmt.Sprintf("%s:%d", config.GetString("server.ip_address"), config.GetInt("server.port"))
+	sprint := api.Group("sprint")
+	sprint.POST("/list", hd.ListSprints)
+	sprint.POST("/info", hd.GetSprintInfo)
+	sprint.POST("/create", hd.CreateSprint)
+	sprint.POST("/delete", hd.DeleteSprint)
+	sprint.POST("/update", hd.UpdateSprint)
+
+	issue := api.Group("issue")
+	issue.POST("/info", hd.GetIssueInfo)
+	issue.POST("/create", hd.CreateIssue)
+	issue.POST("/delete", hd.DeleteIssue)
+	issue.POST("/update", hd.UpdateIssue)
+	issue.POST("/list", hd.ListIssuesForSprint)
+	issue.POST("/move", hd.UpdateIssueStatus)
+
+	ip_address := fmt.Sprintf("%s:%d", ut.Vconfig.GetString("server.ip_address"), ut.Vconfig.GetInt("server.port"))
 	r.Run(ip_address)
-
 }

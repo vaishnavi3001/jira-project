@@ -66,7 +66,7 @@ func GetSprintList(data sk.SprintListReq) gin.H {
 	var sprintlist []md.Sprint
 	count := int64(0)
 
-	db.Where("project_id = ? AND user_id = ?", data.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	db.Where("user_id = ? AND project_id = ?", data.UserId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}

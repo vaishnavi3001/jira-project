@@ -80,7 +80,6 @@ func GetSprintsForProject(c *gin.Context) {
 func ListIssuesForSprint(c *gin.Context) {
 	var req sk.BaseSprintReq
 	if err := c.BindJSON(&req); err != nil {
-
 		ut.ThrowBadRequest(c)
 		return
 	}

@@ -12,12 +12,12 @@ var (
 	err error
 )
 
-func InitializeConn() {
+func InitializeConn() error {
 	db, err = gorm.Open(sqlite.Open("jira.db"), &gorm.Config{})
 	if err != nil {
-		panic("Could Not Initialize Connection To The Database")
-
+		return err
 	}
 
-	db.AutoMigrate(&models.User{}, &models.Project{}, &models.Sprint{}, &models.Issue{}, &models.Permission{}, &models.Issue{}, &models.UserRole{})
+	db.AutoMigrate(&models.User{}, &models.Project{}, &models.Sprint{}, &models.Issue{}, &models.Permission{}, &models.Issue{}, &models.UserRole{}, &models.UserAuth{})
+	return nil
 }

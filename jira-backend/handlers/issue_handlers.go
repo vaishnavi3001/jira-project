@@ -17,7 +17,6 @@ func CreateIssue(c *gin.Context) {
 		return
 	}
 
-	//sprint id, project id, issue_type, issue description, createdBy, AssignedTo, title
 	c.JSON(http.StatusOK, dt.CreateIssue(req))
 }
 

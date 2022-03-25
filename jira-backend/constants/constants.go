@@ -1,5 +1,7 @@
 package constants
 
+import "errors"
+
 const (
 	Status   = "status"
 	Message  = "message"
@@ -42,8 +44,16 @@ const (
 	ISSUE_DELETE_SUCCESS    = "ISSUE_DELETE_SUCCESS"
 	SPRINT_UPDATE_SUCCESS   = "SPRINT_UPDATE_SUCCESS"
 	ISSUE_UPDATE_SUCCESS    = "ISSUE_UPDATE_SUCCESS"
+	LOGOUT_SUCCESSFUL       = "LOGOUT_SUCCESSFUL"
+	INVALID_CREDENTIALS     = "INVALID_CREDENTIALS"
+	LOGIN_FAILURE           = "LOGIN_FAILURE"
+	LOGIN_SUCCESSFUL        = "LOGIN_SUCCESSFUL"
 )
 
 const (
 	SPRINT_DATE_FORMAT = "2006-01-02"
+)
+
+var (
+	ErrTokenInvalid = errors.New("token is invalid")
 )
