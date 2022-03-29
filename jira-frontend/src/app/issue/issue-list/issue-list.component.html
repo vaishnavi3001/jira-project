@@ -7,6 +7,11 @@
       <div class="col">
         <a class="btn btn-primary btn-block" id="create_issue" (click)="onCreateIssue()">Create Issue </a>
       </div>
+
+      <div class="col">
+        <a class="btn btn-danger btn-block" id="delete_project" (click)="onDeleteProject()">Delete Project </a>
+      </div>
+
     </div>
   </div>
 </header>
@@ -14,6 +19,13 @@
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
+    
+    <ng-container matColumnDef="issue_id">
+      <th mat-header-cell *matHeaderCellDef> Issue Id </th>
+      <td mat-cell *matCellDef="let element">
+          {{element.issue_id}}   
+      </td>
+    </ng-container>
     
     <ng-container matColumnDef="project_id">
       <th mat-header-cell *matHeaderCellDef> Project Id </th>
@@ -33,7 +45,7 @@
     
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let element">  {{element.title}}  </td>
+      <td mat-cell *matCellDef="let element"> <a (click)="getDetailsPage(element)"> {{element.title}} </a> </td>
     </ng-container>
   
    
