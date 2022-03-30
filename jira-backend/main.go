@@ -16,7 +16,7 @@ func main() {
 	// Migrate the schema
 	dberr := dt.InitializeConn()
 	if dberr != nil {
-		fmt.Println("Cannot Connect the DB Details")
+		fmt.Println("Cannot Connect to the Database")
 		os.Exit(1)
 	}
 

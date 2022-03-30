@@ -55,7 +55,6 @@ func CreateJwtToken(userId uint) (string, error) {
 	claims := sk.Claims{
 		UserId: userId,
 		StandardClaims: jwt.StandardClaims{
-
 			IssuedAt:  currTime.Unix(),
 			ExpiresAt: currTime.Add(time.Duration(duration) * time.Minute).Unix(),
 		},
@@ -84,4 +83,8 @@ func ParseJwtToken(tokenSt string) (sk.Claims, error) {
 	}
 
 	return *claims, err
+}
+
+func GetUserIdFromContext(c *gin.Context) uint {
+	return c.GetUint(ct.USER_ID)
 }

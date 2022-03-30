@@ -11,13 +11,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddSprint(data sk.CreateSprintReq) gin.H {
+func AddSprint(data sk.CreateSprintReq, userId uint) gin.H {
 	sprint_name := strings.TrimSpace(data.SprintName)
 	//sprint_start_date := strings.TrimSpace(data.StartDate)
 	var userRole md.UserRole
 	count := int64(0)
 
-	db.Where("user_id = ? AND project_id = ? AND role_id = ?", data.UserId, data.ProjectId, ct.Owner).Find(&userRole).Count(&count)
+	db.Where("user_id = ? AND project_id = ? AND role_id = ?", userId, data.ProjectId, ct.Owner).Find(&userRole).Count(&count)
 	fmt.Println(data)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -45,7 +45,7 @@ func AddSprint(data sk.CreateSprintReq) gin.H {
 	return ut.GetSuccessResponse("", resp)
 }
 
-func GetSprintInfo(data sk.SprintInfoReq) gin.H {
+func GetSprintInfo(data sk.SprintInfoReq, userId uint) gin.H {
 	var sprint md.Sprint
 	count := int64(0)
 	db.Preload("Project").Where("sprint_id = ?", data.SprintId).Find(&sprint).Count(&count)
@@ -53,7 +53,7 @@ func GetSprintInfo(data sk.SprintInfoReq) gin.H {
 		return ut.GetErrorResponse(ct.NOT_VALID_SPRINT)
 	}
 
-	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, userId).Find(&md.UserRole{}).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
@@ -62,11 +62,11 @@ func GetSprintInfo(data sk.SprintInfoReq) gin.H {
 	return ut.GetSuccessResponse("", resp)
 }
 
-func GetSprintList(data sk.SprintListReq) gin.H {
+func GetSprintList(data sk.SprintListReq, userId uint) gin.H {
 	var sprintlist []md.Sprint
 	count := int64(0)
 
-	db.Where("user_id = ? AND project_id = ?", data.UserId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
+	db.Where("user_id = ? AND project_id = ?", userId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
@@ -80,12 +80,12 @@ func GetSprintList(data sk.SprintListReq) gin.H {
 	return ut.GetSuccessResponse("", sk.SprintListResp{Sprints: res})
 }
 
-func DeleteSprint(data sk.SprintDeleteReq) gin.H {
+func DeleteSprint(data sk.SprintDeleteReq, userId uint) gin.H {
 	var sprint md.Sprint
 	count := int64(0)
 	db.Preload("Project").Where("sprint_id = ?", data.SprintId).Find(&sprint)
 
-	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, userId).Find(&md.UserRole{}).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -96,7 +96,7 @@ func DeleteSprint(data sk.SprintDeleteReq) gin.H {
 	return ut.GetSuccessResponse(ct.SPRINT_DELETE_SUCCESS, "")
 }
 
-func GetIssuesForSprint(data sk.BaseSprintReq) gin.H {
+func GetIssuesForSprint(data sk.BaseSprintReq, userId uint) gin.H {
 	var sprint md.Sprint
 	count := int64(0)
 	db.Preload("Project").Where("sprint_id = ?", data.SprintId).Find(&sprint).Count(&count)
@@ -104,7 +104,7 @@ func GetIssuesForSprint(data sk.BaseSprintReq) gin.H {
 		return ut.GetErrorResponse(ct.NOT_VALID_SPRINT)
 	}
 
-	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	db.Where("project_id = ? AND user_id = ?", sprint.Project.ProjectId, userId).Find(&md.UserRole{}).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -120,9 +120,9 @@ func GetIssuesForSprint(data sk.BaseSprintReq) gin.H {
 	return ut.GetSuccessResponse("", sk.IssueListResp{Issues: resp})
 }
 
-func GetSprintsForUser(data sk.BaseProjectIdReq) gin.H {
+func GetSprintsForUser(data sk.BaseProjectIdReq, userId uint) gin.H {
 	var count int64
-	db.Where("project_id = ? AND user_id = ?", data.ProjectId, data.UserId).Find(&md.UserRole{}).Count(&count)
+	db.Where("project_id = ? AND user_id = ?", data.ProjectId, userId).Find(&md.UserRole{}).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
@@ -140,10 +140,10 @@ func GetSprintsForUser(data sk.BaseProjectIdReq) gin.H {
 	return ut.GetSuccessResponse("", sk.ShortSprintList{Sprints: resp})
 }
 
-func UpdateSprintInfo(data sk.SprintUpdateReq) gin.H {
+func UpdateSprintInfo(data sk.SprintUpdateReq, userId uint) gin.H {
 	var count int64
 	var sprint md.Sprint
-	db.Joins("JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id = ?", data.SprintId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ?", data.UserId).Find(&sprint).Count(&count)
+	db.Joins("JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id = ?", data.SprintId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ?", userId).Find(&sprint).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)

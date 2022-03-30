@@ -37,6 +37,6 @@ func AuthInterceptor(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 		return
 	}
-
+	c.Set(ct.USER_ID, claims.UserId)
 	c.Next()
 }

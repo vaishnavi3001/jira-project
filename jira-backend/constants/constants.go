@@ -2,6 +2,7 @@ package constants
 
 import "errors"
 
+//api response constant
 const (
 	Status   = "status"
 	Message  = "message"
@@ -10,6 +11,7 @@ const (
 
 const (
 	Access_token = "access_token"
+	USER_ID      = "User_Id"
 )
 
 //User Roles
