@@ -1,13 +1,12 @@
 <div class="row">
-  <button class="btn btn-block" mat-raised-button color="primary" (click)="createProject()">Create Project</button>
-</div>
+  
+  <button class="btn btn-block" mat-raised-button color="primary"  
+  id="create_project" (click)="createProject()">Create Project</button>
+
+
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-sm table-striped">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
     
-    <!-- Position Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let element">
@@ -15,32 +14,28 @@
       </td>
     </ng-container>
   
-    <!-- Position Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element">
-         <a (click)="getIssuesForProject(element)">
+        <a (click)="getSprintsForProject(element)">
           {{element.name}}
         </a> 
       </td>
     </ng-container>
   
-    <!-- Name Column -->
     <ng-container matColumnDef="key">
       <th mat-header-cell *matHeaderCellDef> Key </th>
-      <td mat-cell *matCellDef="let element">  {{element.key}}  </td>
+      <td mat-cell *matCellDef="let element">  Sample Key  </td>
     </ng-container>
   
-    <!-- Type Column -->
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      <td mat-cell *matCellDef="let element"> Sample Type </td>
     </ng-container>
   
-    <!-- Lead Column -->
     <ng-container matColumnDef="lead">
       <th mat-header-cell *matHeaderCellDef> Lead </th>
-      <td mat-cell *matCellDef="let element"> {{element.lead}} </td>
+      <td mat-cell *matCellDef="let element"> Lead 1 </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

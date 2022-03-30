@@ -8,8 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
   providedIn: 'root'
 })
 export class ApiInterfaceService {
-  url = 'http://0.0.0.0:8000'
-  post_url = "http://api.jira-clone.com"
+  url = 'http://0.0.0.0:6000'
+  post_url = "http://api.jira-clone.com/api"
 
   apiResponse : any = []
   constructor(private http: HttpClient) { }
@@ -24,21 +24,27 @@ export class ApiInterfaceService {
   }
 
   createProject(data:any): Observable<any> {
-    console.log(data)
     return this.http.post<any>(this.post_url+'/project/create', data)
   }
 
   createIssue(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/issues/create', data)
+    return this.http.post<any>(this.post_url+'/issue/create', data)
   }
 
-  createSprint(data:any): Observable<any> {
-  
+  createSprint(data:any): Observable<any> { 
     return this.http.post<any>(this.post_url+'/sprint/create', data)
   }
 
+  updateIssue(data:any): Observable<any> {
+    return this.http.post<any>(this.post_url+'/issues/update', data)
+  }
+
+  deleteIssue(data:any): Observable<any> {
+    return this.http.post<any>(this.post_url+'/issue/delete', data)
+  }
+
   deleteProject(data:any): Observable<any> {
-    return this.http.post<any>(this.url+'/delete-project', data)
+    return this.http.post<any>(this.post_url+'/project/delete', data)
   }
 
   onChange($event:any){
@@ -54,10 +60,15 @@ export class ApiInterfaceService {
   }
 
   getIssueList(data:any): Observable<any>{
-    return this.apiResponse = this.http.get<any>(this.url+'/issues/'+data.data)
+    return this.apiResponse = this.http.post<any>(this.post_url+'/issue/list',data)
   }
 
   getSprintList(data:any): Observable<any>{
-     return this.apiResponse = this.http.post<any>(this.url+'/sprint/list', data)
+     return this.apiResponse = this.http.post<any>(this.post_url+'/sprint/list', data)
   }
+
+  getIssueDetails(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/issue/info', data)
+  }
+
 }

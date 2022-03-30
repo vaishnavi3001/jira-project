@@ -25,20 +25,27 @@ export class ProjectListComponent implements OnInit {
   constructor(private apiService: ApiInterfaceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.apiService.getProjectList({"project_id":0, "user_id":0})
+    this.apiService.getProjectList({"user_id":1})
     .subscribe((resp:any) => {
-      this.dataSource = resp['response']
+      this.dataSource = resp["resp"]['projects']
       project_data = this.dataSource
     })
 
   }
 
   createProject() {
-    this.router.navigateByUrl('/home/newproject');    
+    this.router.navigateByUrl('/home/project/newproject');    
   }
 
   getIssuesForProject(element:any){
     let issuesRoute = '/home/'+element.id+'/issues'
     this.router.navigateByUrl(issuesRoute)
   }
+
+  getSprintsForProject(element:any){
+    //'project/:projectId/sprints/'
+    let sprintRoute = 'home/project/'+element.id+'/sprints'
+    this.router.navigateByUrl(sprintRoute);
+  }
+
 }

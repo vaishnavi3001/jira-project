@@ -1,27 +1,50 @@
-<div class="example-container">
+<!-- <div class="example-container">
     <div class="form-container">
       <form [formGroup]="newProjectForm" (submit)="submit()">
         <mat-form-field class="form-field" appearance="outline">
-          <mat-label> Project name
+          <mat-label> Project Name
           </mat-label>
           <input matInput formControlName="projectName" required>
-          <!-- <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
-            <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
-            <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
-          </mat-error> -->
         </mat-form-field>
         <mat-form-field class="form-field" appearance="outline">
             <mat-label> Project Key
             </mat-label>
             <input matInput formControlName="projectKey" required>
-            <!-- <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
-              <span *ngIf="loginForm.controls.email.errors.required">This field is mandatory.</span>
-              <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid.</span>
-            </mat-error> -->
           </mat-form-field>
 
           
         <button mat-raised-button color="primary" type="submit">Create</button>
       </form>
+    </div>
+  </div> -->
+
+  <div class="create-project-modal" id="createModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h2 class="modal-title">
+            Create Project
+          </h2>
+        </div>
+  
+        <div class="modal-body">
+          <form>
+            <div class="form-group" [formGroup]="newProjectForm" >
+              <label for="create-project"></label>
+              <input type="text" placeholder="Project name" class="form-control"  formControlName="projectName" required>
+            
+              <label for="project-key"></label>
+              <input type="text" placeholder="Project key" class="form-control"  formControlName="projectKey" required>
+            </div>
+          </form>
+        </div>
+  
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="submit()"> Create </button>
+          <button class="btn btn-secondary" data-dismiss="create-project-modal"> Close </button>
+        </div>
+  
+        </div>
+  
     </div>
   </div>

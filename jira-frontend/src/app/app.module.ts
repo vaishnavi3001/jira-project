@@ -35,6 +35,7 @@ import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.comp
 import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 
 
 
@@ -60,6 +61,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     SprintListComponent,
     SprintModifyComponent,
     NewsprintComponent,
+    IssueDetailComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
