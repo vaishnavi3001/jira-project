@@ -78,7 +78,6 @@ func ParseJwtToken(tokenSt string) (sk.Claims, error) {
 	}
 
 	if !tkn.Valid {
-		fmt.Println("here")
 		err = ct.ErrTokenInvalid
 	}
 

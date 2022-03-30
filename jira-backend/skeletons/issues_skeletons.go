@@ -42,7 +42,6 @@ type UpdateIssueReq struct {
 }
 
 type UpdateIssueStatusReq struct {
-	UserId    uint `json:"user_id"`
 	IssueId   uint `json:"issue_id"`
 	ProjectId uint `json:"project_id"`
 	Status    uint `json:"status"`
@@ -103,4 +102,5 @@ type IssueInfoResp struct {
 	CreatorName  string    `json:"creator_name"`
 	CreatedAt    time.Time `json:"created_at"`
 	ProjectName  string    `json:"project_name"`
+	Status       uint      `json:"issue_status"`
 }
