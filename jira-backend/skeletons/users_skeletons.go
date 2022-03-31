@@ -1,7 +1,14 @@
 package skeletons
 
+import "github.com/golang-jwt/jwt"
+
 type UsersBaseReq struct {
 	UserId uint `json:"user_id"`
+}
+
+type UserAuthReq struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type UserIdReq struct {
@@ -10,7 +17,7 @@ type UserIdReq struct {
 
 type UserEntry struct {
 	UserId   uint `json:"user_id"`
-	UserName uint `json:"user_name"`
+	UserName uint `json:"username"`
 	UserRole uint `json:"user_role"`
 }
 
@@ -21,4 +28,17 @@ type UserLoginReq struct {
 
 type UserRegisterReq struct {
 	Firstname string
+}
+
+type Claims struct {
+	UserId uint `json:"user_id"`
+	jwt.StandardClaims
+}
+
+type UserRegister struct {
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Email     string `json:"email_id"`
 }

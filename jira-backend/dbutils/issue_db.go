@@ -9,8 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateIssue(data sk.AddIssueReq) gin.H {
-	res, creator := IsUserPartOfTheProject(data.Creator, data.ProjectId)
+func CreateIssue(data sk.AddIssueReq, userId uint) gin.H {
+	res, creator := IsUserPartOfTheProject(userId, data.ProjectId)
 	if !res {
 		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
 	}
@@ -20,30 +20,31 @@ func CreateIssue(data sk.AddIssueReq) gin.H {
 		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
 	}
 
-	issue := md.Issue{Title: data.IssueTitle, Description: data.IssueText, Type: data.IssueType, CreatedBy: data.Creator, AssigneeId: data.Assignee, SprintRef: data.SprintId, ProjectRef: data.ProjectId, Status: ct.Created}
+	issue := md.Issue{Title: data.IssueTitle, Description: data.IssueText, Type: data.IssueType, CreatedBy: userId, AssigneeId: data.Assignee, SprintRef: data.SprintId, ProjectRef: data.ProjectId, Status: ct.Created}
 	db.Create(&issue)
 
 	resp := sk.AddIssueResp{IssueTitle: issue.Title, IssueText: issue.Description, IssueType: issue.Type, Creator: creator.User.Username, Assignee: assignee.User.Username, CreatedAt: issue.CreatedAt, Status: issue.Status}
 	return ut.GetSuccessResponse("", resp)
 }
 
-func GetIssueInfo(data sk.IssueBaseReq) gin.H {
+func GetIssueInfo(data sk.IssueBaseReq, userId uint) gin.H {
 	var count int64
 	var issue md.Issue
-	db.Joins("JOIN projects ON projects.project_id = issues.project_ref AND issues.issue_id = ?", data.IssueId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ?", data.UserId).Find(&issue).Count(&count)
+	db.Joins("JOIN projects ON projects.project_id = issues.project_ref AND issues.issue_id = ?", data.IssueId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ?", userId).Find(&issue).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	} else {
 		db.Preload("Sprint").Preload("Project").Preload("Creator").Preload("AssignedTo").Where("issue_id", data.IssueId).Find(&issue)
-		res := sk.IssueInfoResp{IssueId: issue.IssueId, Name: issue.Title, Type: issue.Type, SprintId: issue.SprintRef, SprintName: issue.Sprint.SprintName, ProjectId: issue.ProjectRef, ProjectName: issue.Project.ProjectName, Description: issue.Description, CreatorId: issue.CreatedBy, CreatorName: issue.Creator.Username, AssigneeId: issue.AssigneeId, AssigneeName: issue.AssignedTo.Username, CreatedAt: issue.CreatedAt}
+
+		res := sk.IssueInfoResp{IssueId: issue.IssueId, Name: issue.Title, Type: issue.Type, SprintId: issue.SprintRef, SprintName: issue.Sprint.SprintName, ProjectId: issue.ProjectRef, ProjectName: issue.Project.ProjectName, Description: issue.Description, CreatorId: issue.CreatedBy, CreatorName: issue.Creator.Username, AssigneeId: issue.AssigneeId, AssigneeName: issue.AssignedTo.Username, CreatedAt: issue.CreatedAt, Status: issue.Status}
 		return ut.GetSuccessResponse("", res)
 	}
 }
 
-func DeleteIssue(data sk.IssueBaseReq) gin.H {
+func DeleteIssue(data sk.IssueBaseReq, userId uint) gin.H {
 	var count int64
-	db.Joins("JOIN projects ON projects.project_id = issues.project_ref AND issues.issue_id = ?", data.IssueId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ? AND user_roles.role_id = 1", data.UserId).Find(&md.Issue{}).Count(&count)
+	db.Joins("JOIN projects ON projects.project_id = issues.project_ref AND issues.issue_id = ?", data.IssueId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ? AND user_roles.role_id = 1", userId).Find(&md.Issue{}).Count(&count)
 	//db.Where("user_id = ? AND project_id = ? AND role_id = 1", data.UserId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -54,10 +55,10 @@ func DeleteIssue(data sk.IssueBaseReq) gin.H {
 	return ut.GetSuccessResponse(ct.ISSUE_DELETE_SUCCESS, "")
 }
 
-func UpdateIssue(req sk.UpdateIssueReq) gin.H {
+func UpdateIssue(req sk.UpdateIssueReq, userId uint) gin.H {
 	var count int64
 	var userRole md.UserRole
-	db.Where("user_id = ? AND project_id = ?", req.UserId, req.ProjectId).Find(&userRole).Count(&count)
+	db.Where("user_id = ? AND project_id = ?", userId, req.ProjectId).Find(&userRole).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -65,15 +66,19 @@ func UpdateIssue(req sk.UpdateIssueReq) gin.H {
 
 	db.Where("sprint_id = ? AND project_ref = ?", req.SprintId, req.ProjectId).Find(&md.Sprint{}).Count(&count)
 
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+
 	var issue md.Issue
 	db.Model(&issue).Where("issue_id = ?", req.IssueId).Updates(md.Issue{Title: req.IssueTitle, Type: req.IssueType, Description: req.IssueText, Status: req.Status, SprintRef: req.SprintId})
 	return ut.GetSuccessResponse(ct.ISSUE_UPDATE_SUCCESS, gin.H{})
 }
 
-func UpdateIssueStatus(req sk.UpdateIssueStatusReq) gin.H {
+func UpdateIssueStatus(req sk.UpdateIssueStatusReq, userId uint) gin.H {
 	var count int64
 	var userRole md.UserRole
-	db.Where("user_id = ? AND project_id = ?", req.UserId, req.ProjectId).Find(&userRole).Count(&count)
+	db.Where("user_id = ? AND project_id = ?", userId, req.ProjectId).Find(&userRole).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
@@ -84,7 +89,7 @@ func UpdateIssueStatus(req sk.UpdateIssueStatusReq) gin.H {
 	return ut.GetSuccessResponse(ct.ISSUE_UPDATE_SUCCESS, gin.H{})
 }
 
-func ChangeSprint(req sk.IssueTransfer) gin.H {
+func ChangeSprint(req sk.IssueTransfer, userId uint) gin.H {
 	sprint_to := req.Sprint_to
 	sprint_from := req.Sprint_from
 
@@ -96,7 +101,7 @@ func ChangeSprint(req sk.IssueTransfer) gin.H {
 	}
 
 	//SELECT sprints.sprint_id,sprints.sprint_name,projects.project_name FROM sprints JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id=3 JOIN user_roles ON user_roles.project_id=projects.project_id AND user_roles.user_id=1
-	db.Joins("JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id = ?", sprint_from).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND users.user_id = ?", req.UserId).Find(&md.Sprint{}).Count(&count)
+	db.Joins("JOIN projects ON projects.project_id = sprints.project_ref AND sprints.sprint_id = ?", sprint_from).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND users.user_id = ?", userId).Find(&md.Sprint{}).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)

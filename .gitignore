@@ -2,3 +2,7 @@ jira-backend/config/project.config.json
 jira-backend/.DS_Store
 .DS_Store
 sampleflask/venv
+.idea
+.vscode
+.idea/*.iml
+.idea/*.xml

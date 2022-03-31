@@ -11,7 +11,7 @@ import (
 )
 
 func CreateProject(c *gin.Context) {
-
+	user_id := ut.GetUserIdFromContext(c)
 	var createProjectReq sk.CreateProjectReq
 	if err := c.BindJSON(&createProjectReq); err != nil {
 		ut.ThrowBadRequest(c)
@@ -19,43 +19,39 @@ func CreateProject(c *gin.Context) {
 	}
 
 	//the one who creates the project will be owner of the project
-	c.JSON(http.StatusOK, dt.CreateProject(createProjectReq))
+	c.JSON(http.StatusOK, dt.CreateProject(createProjectReq, user_id))
 }
 
 func ListProjects(c *gin.Context) {
-
-	var req sk.UsersBaseReq
-	if err := c.BindJSON(&req); err != nil {
-		ut.ThrowBadRequest(c)
-		return
-	}
-
-	c.JSON(http.StatusOK, dt.GetProjectList(req))
+	user_id := ut.GetUserIdFromContext(c)
+	c.JSON(http.StatusOK, dt.GetProjectList(user_id))
 }
 
 func GetProjectInfo(c *gin.Context) {
+	user_id := ut.GetUserIdFromContext(c)
 	var req sk.ProjectInfoReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
 		return
 	}
 
-	c.JSON(http.StatusOK, dt.GetProjectInfo(req))
+	c.JSON(http.StatusOK, dt.GetProjectInfo(req, user_id))
 }
 
 func DeleteProject(c *gin.Context) {
-
+	user_id := ut.GetUserIdFromContext(c)
 	var req sk.BaseProjectIdReq
 	if err := c.BindJSON(&req); err != nil {
 		ut.ThrowBadRequest(c)
 		return
 	}
 
-	c.JSON(http.StatusOK, dt.DeleteProject(req))
+	c.JSON(http.StatusOK, dt.DeleteProject(req, user_id))
 
 }
 
 func ListMembers(c *gin.Context) {
+	user_id := ut.GetUserIdFromContext(c)
 	var req sk.BaseProjectIdReq
 
 	if err := c.BindJSON(&req); err != nil {
@@ -63,5 +59,5 @@ func ListMembers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dt.ListMembers(req))
+	c.JSON(http.StatusOK, dt.ListMembers(req, user_id))
 }

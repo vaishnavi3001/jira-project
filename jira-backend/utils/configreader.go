@@ -1,22 +1,24 @@
 package utils
 
 import (
+	"fmt"
+
 	"github.com/spf13/viper"
 )
 
-func ConfigReader() (*viper.Viper, error) {
+var Vconfig *viper.Viper
 
-	v := viper.New()
-	v.SetConfigType("json")
-	v.SetConfigName("project.config")
+func ConfigReader() error {
+	Vconfig = viper.New()
+	Vconfig.SetConfigType("json")
+	Vconfig.SetConfigName("project.config")
 
-	v.AddConfigPath("./config")
-
-	if err := v.ReadInConfig(); err != nil {
-		return nil, err
+	Vconfig.AddConfigPath("./config")
+	fmt.Println(Vconfig.GetInt("server.port"))
+	err := Vconfig.ReadInConfig()
+	if err != nil {
+		return err
 	}
-	//fmt.Println(v.ConfigFileUsed())
-	//fmt.Println(v.GetString("server.ip_address"))
 
-	return v, nil
+	return nil
 }
