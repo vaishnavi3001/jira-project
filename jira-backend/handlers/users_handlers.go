@@ -50,7 +50,6 @@ func UserLogout(c *gin.Context) {
 }
 
 func UserRegister(c *gin.Context) {
-	//first name //last name //email id //password // designation//
 	var req sk.UserRegister
 
 	if err := c.BindJSON(&req); err != nil {
