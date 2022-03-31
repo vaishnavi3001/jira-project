@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 export interface SprintDetails {
   id: number,
@@ -24,7 +25,7 @@ export class SprintListComponent implements OnInit {
 
   done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
-  constructor(private route: ActivatedRoute,private apiService: ApiInterfaceService) { }
+  constructor(private route: ActivatedRoute,private apiService: ApiInterfaceService, private router: Router) { }
 
   sprintlist: SprintDetails[] = [
   ];
@@ -40,14 +41,21 @@ export class SprintListComponent implements OnInit {
     .getSprintList({"project_id":projectIdFromRoute, "user_id":1 })
     .subscribe((resp:any) => {
       this.sprintlist = (resp['resp']['sprints'])
-      this.sprintlist.forEach( (value: { name: any; id: any; }) => {
-        this.apiService.getIssueList({"user_id":1, "sprint_id":value.id})
-        .subscribe((resp:any) => {
-          this.issueList = resp
-          this.mainIssueList = this.issueList['resp']['issues']
-        })
-      })
+      // this.sprintlist.forEach( (value: { name: any; id: any; }) => {
+      //   this.apiService.getIssueList({"user_id":1, "sprint_id":value.id})
+      //   .subscribe((resp:any) => {
+      //     this.issueList = resp
+      //     this.mainIssueList = this.issueList['resp']['issues']
+      //   })
+      // })
     })
+  }
+
+  openCreateSprint(): void{
+    const routeParams = this.route.snapshot.paramMap;
+    const projectIdFromRoute = Number(routeParams.get('projectId'))
+    let _route = 'home/'+projectIdFromRoute+'/sprint/create'
+    this.router.navigateByUrl(_route);
   }
 
   drop(event: CdkDragDrop<string[]>) {

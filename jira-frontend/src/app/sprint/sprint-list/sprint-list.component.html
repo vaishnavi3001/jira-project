@@ -1,41 +1,22 @@
-<!-- <div cdkDropListGroup>
-
-  <div class="example-container">
-    <h2>Sprint1</h2>
-
-    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-    </div>
-  </div>
-
-  <div class="example-container">
-    <h2>Sprint2</h2>
-
-    <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-    </div>
-  </div>
-</div> -->
 <header class="py-2">
-  <div class="d-flex">
-    <div class="row">
-      <div >
-        <h1><i class="fa-solid fa-clipboard-check">Sprints</i></h1>
-      </div>
-      <div >
-        <a routerLink="/home/issues/1" routerLinkActive="active">Issues</a>
-      </div>
-    </div>
-  </div>
 </header>
+
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-md-6">Total cost</div> -->
+    <div><span class="float-end"><a class="btn btn-primary btn-block" id="create_sprint" (click)="openCreateSprint()">Create Sprint</a></span></div>
+  </div>
+</div>
+
+
 <div cdkDropListGroup>
 <div *ngFor="let sprint of sprintlist" >
  
   <div class="example-container">
     <h2>{{sprint.name}}</h2>
-    <div cdkDropList [cdkDropListData]="issueList" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let issue of mainIssueList" cdkDrag>{{issue.title}}</div>
-    </div>
+    <!-- <div cdkDropList [cdkDropListData]="issueList" class="example-list" (cdkDropListDropped)="drop($event)"> -->
+      <!-- <div class="example-box" *ngFor="let issue of mainIssueList" cdkDrag>{{issue.title}}</div> -->
+    <!-- </div> -->
   </div>
 
   

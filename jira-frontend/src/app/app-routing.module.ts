@@ -1,3 +1,4 @@
+import { SprintDetailComponent } from './sprint/sprint-detail/sprint-detail.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewprojectComponent } from './project/newproject/newproject.component';
@@ -32,9 +33,6 @@ const routes: Routes = [
         path:'project/:projectId/issues', component: IssueListComponent
       },
       {
-        path:'project/:projectId/sprints', component: SprintListComponent
-      },
-      {
         path:'issue/:issueId/edit', component: IssueModifyComponent
       },
       {
@@ -46,6 +44,12 @@ const routes: Routes = [
       {
         path:'sprint/:sprintId/edit', component: SprintModifyComponent
       },    
+      {
+        path:'project/:projectId/sprints', component: SprintListComponent
+      },
+      {
+        path:'sprint/:sprintId/details', component: SprintDetailComponent
+      },
     ]},
 
   { path: '**', pathMatch: 'full', redirectTo: 'home/projects' },
