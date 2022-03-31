@@ -48,3 +48,15 @@ func UserLogout(c *gin.Context) {
 	c.SetCookie(ct.Access_token, "", 0, "/", ".jira-clone.com", false, true)
 	c.JSON(http.StatusOK, ut.GetSuccessResponse(ct.LOGOUT_SUCCESSFUL, ""))
 }
+
+func UserRegister(c *gin.Context) {
+	//first name //last name //email id //password // designation//
+	var req sk.UserRegister
+
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.RegisterUser(req))
+}

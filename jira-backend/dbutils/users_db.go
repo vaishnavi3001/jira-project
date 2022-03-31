@@ -1,6 +1,14 @@
 package dbutils
 
-import md "jira-backend/models"
+import (
+	"fmt"
+	ct "jira-backend/constants"
+	md "jira-backend/models"
+	sk "jira-backend/skeletons"
+	ut "jira-backend/utils"
+
+	"github.com/gin-gonic/gin"
+)
 
 func CheckLoginCreds(username string, password string) int64 {
 	var count int64
@@ -11,4 +19,21 @@ func CheckLoginCreds(username string, password string) int64 {
 		return int64(user.UserId)
 	}
 	return -1
+}
+
+func RegisterUser(data sk.UserRegister) gin.H {
+	username := data.Username
+	email := data.Email
+
+	var count int64
+
+	db.Where("username = ? OR email_id = ?", username, email).Find(&md.User{}).Count(&count)
+	fmt.Println(count)
+	if count != 0 {
+		return ut.GetErrorResponse(ct.USER_ALREADY_EXISTS)
+	}
+
+	db.Create(&md.User{Username: username, EmailId: email, Firstname: data.FirstName, Lastname: data.LastName, Password: data.Password})
+
+	return ut.GetSuccessResponse(ct.REGISTERATION_SUCCESSFUL, "")
 }

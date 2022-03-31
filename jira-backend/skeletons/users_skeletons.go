@@ -34,3 +34,11 @@ type Claims struct {
 	UserId uint `json:"user_id"`
 	jwt.StandardClaims
 }
+
+type UserRegister struct {
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Email     string `json:"email_id"`
+}
