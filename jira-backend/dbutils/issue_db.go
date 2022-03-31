@@ -1,7 +1,6 @@
 package dbutils
 
 import (
-	"fmt"
 	ct "jira-backend/constants"
 	md "jira-backend/models"
 	sk "jira-backend/skeletons"
@@ -37,8 +36,7 @@ func GetIssueInfo(data sk.IssueBaseReq, userId uint) gin.H {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	} else {
 		db.Preload("Sprint").Preload("Project").Preload("Creator").Preload("AssignedTo").Where("issue_id", data.IssueId).Find(&issue)
-		fmt.Println(issue.Sprint)
-		fmt.Println(issue.Project)
+
 		res := sk.IssueInfoResp{IssueId: issue.IssueId, Name: issue.Title, Type: issue.Type, SprintId: issue.SprintRef, SprintName: issue.Sprint.SprintName, ProjectId: issue.ProjectRef, ProjectName: issue.Project.ProjectName, Description: issue.Description, CreatorId: issue.CreatedBy, CreatorName: issue.Creator.Username, AssigneeId: issue.AssigneeId, AssigneeName: issue.AssignedTo.Username, CreatedAt: issue.CreatedAt, Status: issue.Status}
 		return ut.GetSuccessResponse("", res)
 	}
