@@ -10,6 +10,7 @@ import (
 type User struct {
 	UserId uint `gorm:"primaryKey;auto_increment;not_null"`
 	//RoleId    uint
+	Password  string
 	Username  string
 	Firstname string
 	Lastname  string
@@ -37,7 +38,7 @@ type Sprint struct {
 	EndDate    time.Time
 	Status     uint         `gorm:"default:1"`
 	Project    Project      `gorm:"foreignKey:ProjectRef"`
-	IsDeleted  sql.NullBool `gorm:default:false"`
+	IsDeleted  sql.NullBool `gorm:"default:false"`
 	DeletedAt  gorm.DeletedAt
 }
 type Issue struct {
@@ -68,6 +69,7 @@ type UserRole struct {
 	Project    Project `gorm:"foreignKey:ProjectId"`
 	User       User    `gorm:"foreignKey:UserId"`
 	Role       Role    `gorm:"foreignKey:RoleId"`
+	DeletedAt  gorm.DeletedAt
 }
 
 type Role struct {
@@ -80,4 +82,12 @@ type Role struct {
 type Permission struct {
 	PermissionId   uint `gorm:"primaryKey"`
 	PermissionName string
+}
+
+type UserAuth struct {
+	UserAuthId uint `gorm:"primaryKey;auto_increment;"`
+	UserId     uint
+	Token      string
+	User       User `gorm:"foreignKey:UserId"`
+	DeletedAt  gorm.DeletedAt
 }

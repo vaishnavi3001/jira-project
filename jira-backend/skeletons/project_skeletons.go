@@ -2,11 +2,14 @@ package skeletons
 
 import "time"
 
+type BaseProjectIdReq struct {
+	ProjectId uint `json:"project_id"`
+	UserId    uint `json:"user_id"`
+}
 type CreateProjectReq struct {
 	Name   string `json:"name"`
 	UserId uint   `json:"user_id"`
 }
-
 
 type ProjectEntry struct {
 	Name      string    `json:"name"`
@@ -20,8 +23,9 @@ type ProjectListResp struct {
 }
 
 type CreateProjectResp struct {
-	ProjectName string `json:"project_name"`
-	ProjectId   uint   `json:"project_id"`
+	ProjectName string    `json:"project_name"`
+	ProjectId   uint      `json:"project_id"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type ProjectInfoReq struct {
@@ -29,13 +33,27 @@ type ProjectInfoReq struct {
 	UserId    uint `json:"user_id"`
 }
 
-
 type ProjectInfoResp struct {
-	ProjectId uint      `json:"project_id"`
-	Name      string    `json:"project_name"`
-	CreatedAt time.Time `json:"created_at"`
+	ProjectId  uint      `json:"project_id"`
+	Name       string    `json:"project_name"`
+	OwnerUName string    `json:"owner_uname"`
+	OwnerId    uint      `json:"owner_id"`
+	OwnerFName string    `json:"owner_fname"`
+	OwnerLName string    `json:"owner_lname"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type ProjectUsers struct {
 	Users []UserEntry `json:"users"`
+}
+
+type ProjectMembersResp struct {
+	UserId    uint   `json:"user_id"`
+	FirstName string `json:"front_name"`
+	LastName  string `json:"last_name"`
+	UserRole  uint   `json:"user_role"`
+}
+
+type ProjectMembersListResp struct {
+	Members []ProjectMembersResp `json:"members"`
 }
