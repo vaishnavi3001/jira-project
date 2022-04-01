@@ -33,6 +33,32 @@ describe('My First Test', () => {
 
       })
       
+      it('Login', () => {
+        cy.visit('http://localhost:4200/login')
+        cy.contains('Email')
+        cy.contains('Password')
+        cy.contains('Login')
+        cy.contains('Logout')
+        
+       
+
+      })
+
+      it('Register', () => {
+        cy.visit('http://localhost:4200/register')
+        cy.contains('Signup')
+        cy.contains('First Name')
+        cy.contains('Last Name')
+        cy.contains('Email')
+        cy.contains('Password')
+        
+       
+
+      })
+      
+
+      
+      
       
         
         
