@@ -277,6 +277,72 @@ var apiTestData = []testBody{
 		`{"message":"INVALID_USER","status":false}`,
 		func() bool { return true },
 	},
+	/*issue create bad request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/create",
+		"POST",
+		`{}`,
+		http.StatusOK,
+		`{"message":"INVALID_USER","status":false}`,
+		func() bool { return true },
+	},
+	/*issue list bad request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/list",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
+		func() bool { return true },
+	},
+	/* issue list with invalid sprint id*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/list",
+		"POST",
+		`{}`,
+		http.StatusOK,
+		`{"message":"INVALID_SPRINT","status":false}`,
+		func() bool { return true },
+	},
+	/* issue list correct request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/list",
+		"POST",
+		`{"sprint_id":1}`,
+		http.StatusOK,
+		`{"message":"","resp":{"issues":[{"issue_id":1,"title":"issue title 1","status":1,"created_at":"[TZ0-9:\-\.]+"}]},"status":true}`,
+		func() bool { return true },
+	},
+	/*issue info correct request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/info",
+		"POST",
+		`{"issue_id":2}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*issue info correct request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/info",
+		"POST",
+		`{"issue_id":1}`,
+		http.StatusOK,
+		`{"message":"","resp":{"issue_id":[0-9]+,"title":"issue title 1","type":[0-9]+,"sprint_id":[0-9]+,"sprint_name":"Sprint Name Changed","project_id":[0-9]+,"description":"sample issue description","assignee_id":[0-9]+,"assignee_name":"pypalkar23","creator_id":[0-9]+,"creator_name":"pypalkar23","created_at":"[TZ0-9:\-\.]+","project_name":"Project 1","issue_status":[0-9]+},"status":true}`,
+		func() bool { return true },
+	},
 }
 
 var loginTestData = []testBody{

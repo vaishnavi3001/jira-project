@@ -60,5 +60,6 @@ func TestLoginLogout(t *testing.T) {
 
 		asserts.Equal(testentry.expectedCode, w.Code)
 		asserts.Regexp(testentry.expectedResp, w.Body.String())
+		asserts.Equal(true, testentry.afterfunc())
 	}
 }
