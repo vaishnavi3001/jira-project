@@ -13,7 +13,7 @@ import (
 func AddComments(data sk.CommentAddReq, userId uint) gin.H {
 
 	comment := md.Comment{CommentText: data.CommentText, UserId: userId, IssueId: data.IssueId}
-	db.Create(&comment)
+	DB.Create(&comment)
 
 	resp := sk.AddIssueCommentResp{Comment: data.CommentText}
 	return ut.GetSuccessResponse("", resp)
