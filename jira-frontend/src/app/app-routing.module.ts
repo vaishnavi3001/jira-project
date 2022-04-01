@@ -12,9 +12,15 @@ import { IssueModifyComponent } from './issue/issue-modify/issue-modify.componen
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
-
+import { RegisterComponent } from './register/register.component';
+import { LoginComponentComponent } from './login-component/login-component.component';
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponentComponent },
+
   { path: 'home', component: ProjectComponent,
+
+  
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {

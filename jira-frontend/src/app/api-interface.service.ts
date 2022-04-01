@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ApiInterfaceService {
   url = 'http://0.0.0.0:6000'
   post_url = "http://api.jira-clone.com/api"
+  auth_url = "http://api.jira-clone.com"
 
   apiResponse : any = []
   constructor(private http: HttpClient) { }
@@ -69,6 +70,18 @@ export class ApiInterfaceService {
 
   getIssueDetails(data:any): Observable<any>{
     return this.apiResponse = this.http.post<any>(this.post_url+'/issue/info', data)
+  }
+
+  login(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.auth_url+'/login', data)
+  }
+
+  register(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.auth_url+'/register', data)
+  }
+
+  logout(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.auth_url+'/logout', data)
   }
 
 }
