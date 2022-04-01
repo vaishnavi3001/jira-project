@@ -18,8 +18,13 @@ func AuthInterceptor(c *gin.Context) {
 
 	if err != nil {
 		headerToken := c.Request.Header.Get("Authorization")
+		if len(headerToken) == 0 {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
+			return
+		}
 		tokenArr := strings.Split(headerToken, " ")
 		tokenStr = tokenArr[1]
+		fmt.Println(tokenStr)
 		if len(tokenStr) == 0 {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 			return
@@ -43,6 +48,7 @@ func AuthInterceptor(c *gin.Context) {
 	}
 
 	if !dt.CheckTokenInDb(tokenStr, claims.UserId) {
+		fmt.Println("Not in database")
 		c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 		return
 	}

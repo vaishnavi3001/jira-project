@@ -10,7 +10,12 @@ import (
 func SetupRouter(useAuth bool) *gin.Engine {
 	r := gin.Default()
 
-	r.Use(cors.Default())
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AllowCredentials = true
+	config.AllowWildcard = true
+	config.AllowHeaders = []string{"Authorization", "Content-type"}
+	r.Use(cors.New(config))
 
 	r.POST("/login", hd.Userlogin)
 	r.POST("/register", hd.UserRegister)

@@ -3,22 +3,42 @@
 
 <div class="container">
   <div class="row">
-    <!-- <div class="col-md-6">Total cost</div> -->
-    <div><span class="float-end"><a class="btn btn-primary btn-block" id="create_sprint" (click)="openCreateSprint()">Create Sprint</a></span></div>
+    <div><span class="float-end"><a class="btn btn-primary btn-block" id="create_sprint"
+          (click)="openCreateSprint()">Create Sprint</a></span></div>
   </div>
 </div>
 
 
-<div cdkDropListGroup>
-<div *ngFor="let sprint of sprintlist" >
- 
-  <div class="example-container">
-    <h2>{{sprint.name}}</h2>
-    <!-- <div cdkDropList [cdkDropListData]="issueList" class="example-list" (cdkDropListDropped)="drop($event)"> -->
-      <!-- <div class="example-box" *ngFor="let issue of mainIssueList" cdkDrag>{{issue.title}}</div> -->
-    <!-- </div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"  *ngFor="let sprint of sprintlist">
+      <div class="card card-margin">
+        <div class="card-header no-border">
+          <h5 class="card-title">Issue</h5>
+        </div>
+        <div class="card-body pt-0">
+          <div class="widget-49">
+            <div class="widget-49-title-wrapper">
+              <div class="widget-49-date-primary">
+                <span class="widget-49-date-day">0{{sprint.id}}</span>
+              </div>
+              <div class="widget-49-meeting-info">
+                <span class="widget-49-pro-title">{{sprint.name}}</span>
+                <span class="widget-49-meeting-time">Ends on : {{sprint.end_date | date:'dd/MM/yyy'}}</span>
+              </div>
+            </div>
+            <ol class="widget-49-meeting-points">
+              <li class="widget-49-meeting-item"><span>Created at: {{ sprint.created_at | date:'dd/MM/yyy' }}</span></li>
+              <li class="widget-49-meeting-item"><span>End date: {{sprint.end_date | date:'dd/MM/yyy'}}</span></li>
+              <li class="widget-49-meeting-item"><span>Project id: {{sprint.project_id}}</span></li>
+            </ol>
+            <div class="widget-49-meeting-action">
+              <a href="#" class="btn btn-sm btn-flash-border-primary">Go to sprint</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  
-</div>
 </div>
