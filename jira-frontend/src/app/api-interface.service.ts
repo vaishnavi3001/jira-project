@@ -71,4 +71,16 @@ export class ApiInterfaceService {
     return this.apiResponse = this.http.post<any>(this.post_url+'/issue/info', data)
   }
 
+  login(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/login', data)
+  }
+
+  register(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/register', data)
+  }
+
+  logout(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/logout', data)
+  }
+
 }

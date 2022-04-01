@@ -36,7 +36,8 @@ import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
-
+import { LoginComponentComponent } from './login-component/login-component.component';
+import { RegisterComponent } from './register/register.component';
 
 
 //import { NavbarComponent } from './navbar/navbar.component';
@@ -62,6 +63,8 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
     SprintModifyComponent,
     NewsprintComponent,
     IssueDetailComponent,
+    LoginComponentComponent,
+    RegisterComponent
     //NavbarComponent,
     //NavbarComponent
   ],
