@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	db  *gorm.DB
+	DB  *gorm.DB
 	err error
 )
 
@@ -19,12 +19,12 @@ func InitializeConn(isTest bool) error {
 		db_name = ut.Vconfig.GetString("test_db_name")
 	}
 
-	db, err = gorm.Open(sqlite.Open(db_name), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open(db_name), &gorm.Config{})
 	if err != nil {
 		return err
 	}
 
-	db.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{})
+	DB.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{})
 	return nil
 }
 
@@ -32,5 +32,5 @@ func GetDBInstance(isTest bool) *gorm.DB {
 	if err := InitializeConn(isTest); err != nil {
 		return nil
 	}
-	return db
+	return DB
 }

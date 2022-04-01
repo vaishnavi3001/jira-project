@@ -14,7 +14,7 @@ func CheckLoginCreds(username string, password string) int64 {
 	var count int64
 	var user md.User
 
-	db.Where("username = ? AND password = ?", username, password).Find(&user).Count(&count)
+	DB.Where("username = ? AND password = ?", username, password).Find(&user).Count(&count)
 	if count == 1 {
 		return int64(user.UserId)
 	}
@@ -27,13 +27,13 @@ func RegisterUser(data sk.UserRegister) gin.H {
 
 	var count int64
 
-	db.Where("username = ? OR email_id = ?", username, email).Find(&md.User{}).Count(&count)
+	DB.Where("username = ? OR email_id = ?", username, email).Find(&md.User{}).Count(&count)
 	fmt.Println(count)
 	if count != 0 {
 		return ut.GetErrorResponse(ct.USER_ALREADY_EXISTS)
 	}
 
-	db.Create(&md.User{Username: username, EmailId: email, Firstname: data.FirstName, Lastname: data.LastName, Password: data.Password})
+	DB.Create(&md.User{Username: username, EmailId: email, Firstname: data.FirstName, Lastname: data.LastName, Password: data.Password})
 
 	return ut.GetSuccessResponse(ct.REGISTERATION_SUCCESSFUL, "")
 }

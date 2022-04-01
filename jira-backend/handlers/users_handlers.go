@@ -32,7 +32,7 @@ func Userlogin(c *gin.Context) {
 
 	dt.AddUserToken(tokenStr, uint(uid))
 	c.SetCookie(ct.Access_token, tokenStr, 216000, "/", ".jira-clone.com", false, true)
-	c.JSON(http.StatusOK, ut.GetSuccessResponse(ct.LOGIN_SUCCESSFUL, ""))
+	c.JSON(http.StatusOK, ut.GetSuccessResponse(ct.LOGIN_SUCCESSFUL, sk.LoginSuccessResp{Access_token: tokenStr}))
 }
 
 func UserLogout(c *gin.Context) {

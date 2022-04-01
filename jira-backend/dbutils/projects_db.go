@@ -15,16 +15,16 @@ func CreateProject(data sk.CreateProjectReq, userId uint) gin.H {
 	project_name := strings.TrimSpace(data.Name)
 	project := md.Project{ProjectName: project_name}
 	var count int64
-	db.Where("project_name = ?", project_name).Find(&md.Project{}).Count(&count)
+	DB.Where("project_name = ?", project_name).Find(&md.Project{}).Count(&count)
 	fmt.Println(count)
 	if count > 0 {
 		return ut.GetErrorResponse(ct.PROJECT_ALREADY_EXISTS)
 	}
 
-	db.Create(&project)
+	DB.Create(&project)
 	//the one who creates the project will be owner of the project
 	user_role := md.UserRole{UserId: userId, RoleId: ct.Owner, ProjectId: project.ProjectId}
-	db.Create(&user_role)
+	DB.Create(&user_role)
 
 	res := sk.CreateProjectResp{ProjectName: project.ProjectName, ProjectId: project.ProjectId, CreatedAt: project.CreatedAt}
 	return ut.GetSuccessResponse("", res)
@@ -34,13 +34,13 @@ func GetProjectInfo(data sk.ProjectInfoReq, userId uint) gin.H {
 	var res sk.ProjectInfoResp
 	var count int64
 	var userRole md.UserRole
-	db.Where("user_id=? AND project_id=?", userId, data.ProjectId).Find(&userRole).Count(&count)
+	DB.Where("user_id=? AND project_id=?", userId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
 	} else {
-		db.Preload("User").Where("role_id=1 AND project_id=?", data.ProjectId).Find(&userRole)
+		DB.Preload("User").Where("role_id=1 AND project_id=?", data.ProjectId).Find(&userRole)
 		var project md.Project
-		db.Where("project_id", data.ProjectId).Find(&project)
+		DB.Where("project_id", data.ProjectId).Find(&project)
 		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt, OwnerUName: userRole.User.Username, OwnerFName: userRole.User.Firstname, OwnerLName: userRole.User.Lastname, OwnerId: userRole.User.UserId}
 		return ut.GetSuccessResponse("", res)
 	}
@@ -50,7 +50,7 @@ func GetProjectList(userId uint) gin.H {
 
 	var userRoles []md.UserRole
 	var count int64
-	db.Preload("Project").Where("user_id = ?", userId).Find(&userRoles).Count(&count)
+	DB.Preload("Project").Where("user_id = ?", userId).Find(&userRoles).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
@@ -67,27 +67,27 @@ func GetProjectList(userId uint) gin.H {
 func DeleteProject(data sk.BaseProjectIdReq, userId uint) gin.H {
 	var count int64
 	var userRole md.UserRole
-	db.Where("user_id = ? AND project_id = ? AND role_id = 1", userId, data.ProjectId).Find(&userRole).Count(&count)
+	DB.Where("user_id = ? AND project_id = ? AND role_id = 1", userId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
 
 	project := md.Project{ProjectId: data.ProjectId}
-	db.Delete(&project)
-	db.Where("project_id=?", data.ProjectId).Delete(&md.UserRole{})
+	DB.Delete(&project)
+	DB.Where("project_id=?", data.ProjectId).Delete(&md.UserRole{})
 	return ut.GetSuccessResponse(ct.PROJECT_DELETE_SUCCESS, "")
 }
 
 func ListMembers(data sk.BaseProjectIdReq, userId uint) gin.H {
 	var count int64
 	var userRoles []md.UserRole
-	db.Where("user_id = ? AND project_id = ?", userId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
+	DB.Where("user_id = ? AND project_id = ?", userId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
 
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}
 
-	db.Preload("User").Where("project_id = ?", data.ProjectId).Find(&userRoles)
+	DB.Preload("User").Where("project_id = ?", data.ProjectId).Find(&userRoles)
 	list := make([]sk.ProjectMembersResp, 0)
 
 	for _, x := range userRoles {
