@@ -2,6 +2,8 @@ package tests
 
 import (
 	ct "jira-backend/constants"
+	"jira-backend/dbutils"
+	"jira-backend/models"
 	"net/http"
 	"time"
 )
@@ -13,9 +15,9 @@ type testBody struct {
 	bodyData     string
 	expectedCode int
 	expectedResp string
+	afterfunc    func() bool
 }
 
-//{"message":"","resp":{"project_name":"Project 5","project_id":5,"created_at":"2022-03-31T19:12:09.045909-04:00"},"status":true}
 const (
 	TokenStr         = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2ODAzMTI1MTQsImlhdCI6MTY0ODc3NjUxNH0.kWl7lZpDsywQDUGKeEG4h7d_P9nF4HvoUnNUhzQXVsk"
 	badRequestString = `{"message":"BAD_REQUEST","status":false}`
@@ -36,6 +38,11 @@ var apiTestData = []testBody{
 		`{"name":"Project 1"}`,
 		http.StatusOK,
 		`{"message":"","resp":{"project_name":"Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
+		func() bool {
+			var count int64
+			dbutils.DB.Where("role_id = 1 AND user_id = 1 AND project_id = 1").Find(&models.UserRole{}).Count(&count)
+			return count == 1
+		},
 	},
 	//Project Create Test Bad Request
 	{func(req *http.Request) {
@@ -46,6 +53,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusBadRequest,
 		badRequestString,
+		func() bool { return true },
 	},
 	//Project List API Correct Request-Response
 	{func(req *http.Request) {
@@ -56,6 +64,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusOK,
 		`{"message":"","resp":{"projects":[{"name":"Project 1","id":[0-9]+,"created_at":"([TZ0-9:\-\.]+)","user_role":[0-9]+}]},"status":true}`,
+		func() bool { return true },
 	},
 	//Project List API Bad Request
 	{func(req *http.Request) {
@@ -66,6 +75,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusBadRequest,
 		badRequestString,
+		func() bool { return true },
 	},
 	//Project List API Correct Request Response
 	{func(req *http.Request) {
@@ -76,6 +86,7 @@ var apiTestData = []testBody{
 		`{"project_id": 1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"project_id":([0-9]+),"project_name":"Project 1","owner_uname":"pypalkar23","owner_id":([0-9]+),"owner_fname":"Mandar","owner_lname":"Palkar","created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
+		func() bool { return true },
 	},
 	//List Project Members - Correct Request Response
 	{func(req *http.Request) {
@@ -86,6 +97,7 @@ var apiTestData = []testBody{
 		`{"project_id": 1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"members":[{"user_id":[0-9]+,"first_name":"Mandar","last_name":"Palkar","user_role":[0-9]+}]},"status":true}`,
+		func() bool { return true },
 	},
 	//Project Members - Bad Request
 	{func(req *http.Request) {
@@ -96,6 +108,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusBadRequest,
 		badRequestString,
+		func() bool { return true },
 	},
 	//Project Members - Bad Request
 	{func(req *http.Request) {
@@ -106,6 +119,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusBadRequest,
 		badRequestString,
+		func() bool { return true },
 	},
 
 	/*sprint*/
@@ -118,6 +132,7 @@ var apiTestData = []testBody{
 		``,
 		http.StatusBadRequest,
 		badRequestString,
+		func() bool { return true },
 	},
 	/*sprint create success request*/
 	{func(req *http.Request) {
@@ -128,6 +143,7 @@ var apiTestData = []testBody{
 		`{"sprint_name" :"Sprint 1","project_id" : 1,"start_date": "2021-03-07","end_date" : "2021-03-21"}`,
 		http.StatusOK,
 		`{"message":"","resp":{"sprint_name":"Sprint 1","sprint_id":[0-9]+},"status":true}`,
+		func() bool { return true },
 	},
 	/*sprint create with same name*/
 	{func(req *http.Request) {
@@ -138,6 +154,7 @@ var apiTestData = []testBody{
 		`{"sprint_name" :"Sprint 1","project_id" : 1,"start_date": "2021-03-07","end_date" : "2021-03-21"}`,
 		http.StatusOK,
 		`{"message":"SPRINT_EXISTS","status":false}`,
+		func() bool { return true },
 	},
 	/*creating another sprint*/
 	{func(req *http.Request) {
@@ -148,6 +165,7 @@ var apiTestData = []testBody{
 		`{"sprint_name" :"Sprint 2","project_id" : 1,"start_date": "2021-03-07","end_date" : "2021-03-21"}`,
 		http.StatusOK,
 		`{"message":"","resp":{"sprint_name":"Sprint 2","sprint_id":[0-9]+},"status":true}`,
+		func() bool { return true },
 	},
 	/*sprint list correct*/
 	{func(req *http.Request) {
@@ -158,6 +176,7 @@ var apiTestData = []testBody{
 		`{"project_id":1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"sprints":[{"name":"Sprint 1","id":[0-9]+,"start_date":"[TZ0-9:\-\.]+","end_date":"[TZ0-9:\-\.]+","created_at":"[TZ0-9:\-\.]+","project_id":[0-9]+},{"name":"Sprint 2","id":[0-9]+,"start_date":"[TZ0-9:\-\.]+","end_date":"[TZ0-9:\-\.]+","created_at":"[TZ0-9:\-\.]+","project_id":[0-9]+}]},"status":true}`,
+		func() bool { return true },
 	},
 	/*sprint delete*/
 	{func(req *http.Request) {
@@ -168,6 +187,7 @@ var apiTestData = []testBody{
 		`{"sprint_id":2}`,
 		http.StatusOK,
 		`{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
 	},
 	/*sprint delete again*/
 	{func(req *http.Request) {
@@ -178,6 +198,7 @@ var apiTestData = []testBody{
 		`{"sprint_id":2}`,
 		http.StatusOK,
 		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
 	},
 	/*sprint list after deletion*/
 	{func(req *http.Request) {
@@ -188,6 +209,7 @@ var apiTestData = []testBody{
 		`{"project_id":1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"sprints":[{"name":"Sprint 1","id":1,"start_date":"[TZ0-9:\-\.]+","end_date":"[TZ0-9:\-\.]+","created_at":"[TZ0-9:\-\.]+","project_id":1}]},"status":true}`,
+		func() bool { return true },
 	},
 	/*sprint info*/
 	{func(req *http.Request) {
@@ -198,6 +220,7 @@ var apiTestData = []testBody{
 		`{"sprint_id":1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"sprint_id":1,"sprint_name":"Sprint 1","created_at":"[TZ0-9:\-\.]+","start_date":"[TZ0-9:\-\.]+","end_date":"[TZ0-9:\-\.]+"},"status":true}`,
+		func() bool { return true },
 	},
 	/*sprint update success*/
 	{func(req *http.Request) {
@@ -208,6 +231,7 @@ var apiTestData = []testBody{
 		`{"sprint_name" :"Sprint Name Changed","sprint_id": 1,"start_date": "2021-03-06","end_date" : "2021-03-21"}`,
 		http.StatusOK,
 		`{"message":"SPRINT_UPDATE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
 	},
 	//sprint update without token
 	{func(req *http.Request) {
@@ -217,6 +241,7 @@ var apiTestData = []testBody{
 		`{"sprint_name" :"Sprint Name Changed","sprint_id": 1,"start_date": "2021-03-06","end_date" : "2021-03-21"}`,
 		http.StatusUnauthorized,
 		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
 	},
 	/*****Sprint Test Cases End*****/
 	/*****Issues test cases start ****/
@@ -228,6 +253,7 @@ var apiTestData = []testBody{
 		`{"issue_title":"issue title 1","issue_description": "sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
 		http.StatusUnauthorized,
 		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
 	},
 	/*issue create correct request*/
 	{func(req *http.Request) {
@@ -238,6 +264,7 @@ var apiTestData = []testBody{
 		`{"issue_title":"issue title 1","issue_description":"sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
 		http.StatusOK,
 		`{"message":"","resp":{"issue_id":0,"issue_title":"issue title 1","issue_description":"sample issue description","issue_type":1,"creator_name":"pypalkar23","assignee_name":"pypalkar23","created_at":"[TZ0-9:\-\.]+","issue_status":1},"status":true}`,
+		func() bool { return true },
 	},
 	/*issue create bad request*/
 	{func(req *http.Request) {
@@ -248,6 +275,7 @@ var apiTestData = []testBody{
 		`{}`,
 		http.StatusOK,
 		`{"message":"INVALID_USER","status":false}`,
+		func() bool { return true },
 	},
 }
 
@@ -260,6 +288,7 @@ var loginTestData = []testBody{
 		`{"username":"pypalkar23","password":"wrong password"}`,
 		http.StatusOK,
 		`{"message":"INVALID_CREDENTIALS","status":false}`,
+		func() bool { return true },
 	},
 	//User Logout Request
 	{func(req *http.Request) {
@@ -269,7 +298,9 @@ var loginTestData = []testBody{
 		`{"username":"pypalkar23","password":"dd29b8cb089a56606fca480e137c27c4"}`,
 		http.StatusOK,
 		`{"message":"LOGIN_SUCCESSFUL","resp":"","status":true}`,
+		func() bool { return true },
 	},
+	//Successful Logout
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
 	},
@@ -278,5 +309,17 @@ var loginTestData = []testBody{
 		``,
 		http.StatusOK,
 		`{"message":"LOGOUT_SUCCESSFUL","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	//Invalid Logout
+	{func(req *http.Request) {
+
+	},
+		"/logout",
+		"GET",
+		``,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
 	},
 }
