@@ -1,7 +1,6 @@
 package dbutils
 
 import (
-	"fmt"
 	ct "jira-backend/constants"
 	md "jira-backend/models"
 	sk "jira-backend/skeletons"
@@ -18,7 +17,6 @@ func AddSprint(data sk.CreateSprintReq, userId uint) gin.H {
 	count := int64(0)
 
 	DB.Where("user_id = ? AND project_id = ? AND role_id = ?", userId, data.ProjectId, ct.Owner).Find(&userRole).Count(&count)
-	fmt.Println(data)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}

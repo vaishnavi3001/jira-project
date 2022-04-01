@@ -2,6 +2,7 @@ package tests
 
 import (
 	"bytes"
+	"fmt"
 	"jira-backend/routes"
 	"net/http"
 	"net/http/httptest"
@@ -13,6 +14,7 @@ import (
 func TestBackend(t *testing.T) {
 
 	r := routes.SetupRouter(true)
+	fmt.Printf("--- Running suite of %d test cases ---\n", len(testData))
 	for _, testentry := range testData {
 		asserts := assert.New(t)
 		bodyData := testentry.bodyData
