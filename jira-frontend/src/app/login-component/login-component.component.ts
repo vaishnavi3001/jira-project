@@ -11,7 +11,7 @@ import { ApiInterfaceService } from 'src/app/api-interface.service';
 export class LoginComponentComponent implements OnInit {
   
   newLoginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required]),
   });
 
@@ -22,7 +22,7 @@ export class LoginComponentComponent implements OnInit {
 
   submit(){
     let body = {
-      email:this.newLoginForm.get('email')?.value,
+      username:this.newLoginForm.get('username')?.value,
       password: this.newLoginForm.get('password')?.value,
     } 
 
