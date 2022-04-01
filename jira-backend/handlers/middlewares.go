@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	ct "jira-backend/constants"
 	dt "jira-backend/dbutils"
 	ut "jira-backend/utils"
@@ -20,7 +19,6 @@ func AuthInterceptor(c *gin.Context) {
 		headerToken := c.Request.Header.Get("Authorization")
 		tokenArr := strings.Split(headerToken, " ")
 		tokenStr = tokenArr[1]
-		fmt.Println(tokenStr)
 		if len(tokenStr) == 0 {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 			return
