@@ -24,7 +24,7 @@ func InitializeConn(isTest bool) error {
 		return err
 	}
 
-	db.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{})
+	db.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{}, &md.Comment{})
 	return nil
 }
 
