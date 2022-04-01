@@ -26,7 +26,7 @@ func setTokenRequestInCookie(req *http.Request) {
 	req.AddCookie(&cookie)
 }
 
-var testData = []testBody{
+var apiTestData = []testBody{
 	//Project Create Test - Success
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
@@ -248,5 +248,35 @@ var testData = []testBody{
 		`{}`,
 		http.StatusOK,
 		`{"message":"INVALID_USER","status":false}`,
+	},
+}
+
+var loginTestData = []testBody{
+	//User Login Request Incorrect Credentials
+	{func(req *http.Request) {
+	},
+		"/login",
+		"POST",
+		`{"username":"pypalkar23","password":"wrong password"}`,
+		http.StatusOK,
+		`{"message":"INVALID_CREDENTIALS","status":false}`,
+	},
+	//User Logout Request
+	{func(req *http.Request) {
+	},
+		"/login",
+		"POST",
+		`{"username":"pypalkar23","password":"dd29b8cb089a56606fca480e137c27c4"}`,
+		http.StatusOK,
+		`{"message":"LOGIN_SUCCESSFUL","resp":"","status":true}`,
+	},
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/logout",
+		"GET",
+		``,
+		http.StatusOK,
+		`{"message":"LOGOUT_SUCCESSFUL","resp":"","status":true}`,
 	},
 }

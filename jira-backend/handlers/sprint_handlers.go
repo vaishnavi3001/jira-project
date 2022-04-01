@@ -9,12 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//list project
-//new sprint
-//delete project
-//add member to project
-//transfer ownership
-
 func CreateSprint(c *gin.Context) {
 	var req sk.CreateSprintReq
 	user_id := ut.GetUserIdFromContext(c)

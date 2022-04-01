@@ -6,18 +6,7 @@ import (
 	md "jira-backend/models"
 	ut "jira-backend/utils"
 	"os"
-	"testing"
 )
-
-func TestMain(m *testing.M) {
-	InitConfig()
-	DBFree()
-	DBInitForTest()
-	DBInsertRows()
-	exitval := m.Run()
-	DBFree()
-	os.Exit(exitval)
-}
 
 func InitConfig() {
 	if err := ut.ConfigReader(true); err != nil {
