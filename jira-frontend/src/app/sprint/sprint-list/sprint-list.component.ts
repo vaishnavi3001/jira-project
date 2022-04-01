@@ -41,13 +41,6 @@ export class SprintListComponent implements OnInit {
     .getSprintList({"project_id":projectIdFromRoute, "user_id":1 })
     .subscribe((resp:any) => {
       this.sprintlist = (resp['resp']['sprints'])
-      // this.sprintlist.forEach( (value: { name: any; id: any; }) => {
-      //   this.apiService.getIssueList({"user_id":1, "sprint_id":value.id})
-      //   .subscribe((resp:any) => {
-      //     this.issueList = resp
-      //     this.mainIssueList = this.issueList['resp']['issues']
-      //   })
-      // })
     })
   }
 

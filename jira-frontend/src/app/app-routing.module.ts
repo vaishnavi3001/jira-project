@@ -12,9 +12,17 @@ import { IssueModifyComponent } from './issue/issue-modify/issue-modify.componen
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponentComponent } from './login-component/login-component.component';
+import { SampleSprintsBoardComponent } from './sample-sprints-board/sample-sprints-board.component';
 
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponentComponent },
+
   { path: 'home', component: ProjectComponent,
+
+  
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
@@ -49,6 +57,9 @@ const routes: Routes = [
       },
       {
         path:'sprint/:sprintId/details', component: SprintDetailComponent
+      },
+      {
+        path:'sample-sprint', component: SampleSprintsBoardComponent
       },
     ]},
 
