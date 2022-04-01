@@ -38,7 +38,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
-
+import { LoginComponentComponent } from './login-component/login-component.component';
+import { RegisterComponent } from './register/register.component';
 
 
 //import { NavbarComponent } from './navbar/navbar.component';
@@ -64,6 +65,8 @@ import { AuthinterceptorService } from './interceptors/authinterceptor.service';
     SprintModifyComponent,
     NewsprintComponent,
     IssueDetailComponent,
+    LoginComponentComponent,
+    RegisterComponent
     //NavbarComponent,
     //NavbarComponent
   ],

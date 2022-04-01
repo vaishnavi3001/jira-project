@@ -91,3 +91,15 @@ type UserAuth struct {
 	User       User `gorm:"foreignKey:UserId"`
 	DeletedAt  gorm.DeletedAt
 }
+
+type Comment struct {
+	CommentId   uint `gorm:"primaryKey;auto_increment;"`
+	IssueId     uint
+	CommentText string
+	UserId      uint
+	User        User      `gorm:"foreignKey:UserId"`
+	Issue       Issue     `gorm:"foreignKey:IssueId"`
+	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
+	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`
+	DeletedAt   gorm.DeletedAt
+}
