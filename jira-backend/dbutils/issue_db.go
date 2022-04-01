@@ -45,7 +45,6 @@ func GetIssueInfo(data sk.IssueBaseReq, userId uint) gin.H {
 func DeleteIssue(data sk.IssueBaseReq, userId uint) gin.H {
 	var count int64
 	db.Joins("JOIN projects ON projects.project_id = issues.project_ref AND issues.issue_id = ?", data.IssueId).Joins("JOIN user_roles ON user_roles.project_id = projects.project_id AND user_roles.user_id = ? AND user_roles.role_id = 1", userId).Find(&md.Issue{}).Count(&count)
-	//db.Where("user_id = ? AND project_id = ? AND role_id = 1", data.UserId, data.ProjectId).Find(&userRole).Count(&count)
 	if count == 0 {
 		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
 	}

@@ -44,5 +44,9 @@ func SetupRouter(useAuth bool) *gin.Engine {
 	issue.POST("/list", hd.ListIssuesForSprint)
 	issue.POST("/move", hd.UpdateIssueStatus)
 
+	comment := api.Group("comment")
+	comment.POST("/add", hd.AddComment)
+	comment.POST("/edit", hd.EditComment)
+
 	return r
 }
