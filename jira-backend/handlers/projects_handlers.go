@@ -47,7 +47,6 @@ func DeleteProject(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, dt.DeleteProject(req, user_id))
-
 }
 
 func ListMembers(c *gin.Context) {

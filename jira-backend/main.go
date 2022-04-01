@@ -10,7 +10,7 @@ import (
 
 func main() {
 	//Initialize The Configuration
-	err := ut.ConfigReader()
+	err := ut.ConfigReader(false)
 	if err != nil {
 		fmt.Println("Cannot Read from the Config", err)
 		os.Exit(1)
