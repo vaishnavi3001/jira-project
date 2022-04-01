@@ -42,3 +42,7 @@ type UserRegister struct {
 	LastName  string `json:"lastname"`
 	Email     string `json:"email_id"`
 }
+
+type LoginSuccessResp struct {
+	Access_token string `json:"access_token"`
+}
