@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	ct "jira-backend/constants"
 	dt "jira-backend/dbutils"
 	ut "jira-backend/utils"
@@ -23,9 +24,11 @@ func AuthInterceptor(c *gin.Context) {
 
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid || err == ct.ErrTokenInvalid {
+			fmt.Println(err)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 			return
 		} else {
+			fmt.Println(err)
 			c.AbortWithStatusJSON(http.StatusBadRequest, ut.GetErrorResponse(ct.EXPIRED_TOKEN))
 			return
 		}
@@ -35,6 +38,7 @@ func AuthInterceptor(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 		return
 	}
+
 	c.Set(ct.USER_ID, claims.UserId)
 	c.Next()
 }
