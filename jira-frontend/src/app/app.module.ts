@@ -10,11 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { MatInputModule } from '@angular/material/input';
 import { ProjectComponent } from './project/project.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
@@ -23,19 +24,20 @@ import { SprintListComponent } from './sprint/sprint-list/sprint-list.component'
 // import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {MatListModule} from '@angular/material/list';
-import {MatSelectModule} from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
 import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
+import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 
 
 
@@ -86,10 +88,15 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
     MatDatepickerModule,
     MatNativeDateModule,
     NgbModule
-    
-    
+
+
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthinterceptorService,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
