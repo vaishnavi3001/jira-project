@@ -6,4 +6,10 @@
     "config":{
         "secret_key" : "b64 encoded key"
     }
+    "creds":{
+        "secret_key" : "bGlmZV9pc190aGlzX2lfd2FudF90aGlz",
+        "duration" : 60
+    },
+    "db_name":"jira.db",
+    "test_db_name":"test.db"
 }
