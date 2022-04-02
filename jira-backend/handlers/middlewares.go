@@ -48,7 +48,6 @@ func AuthInterceptor(c *gin.Context) {
 	}
 
 	if !dt.CheckTokenInDb(tokenStr, claims.UserId) {
-		fmt.Println("Not in database")
 		c.AbortWithStatusJSON(http.StatusUnauthorized, ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED))
 		return
 	}

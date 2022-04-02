@@ -43,7 +43,6 @@ export class LoginComponentComponent implements OnInit {
             console.log("Invalid Credentials");
           }
     })
-    
   }
 
 }

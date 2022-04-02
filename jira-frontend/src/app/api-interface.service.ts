@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-import { MatTableDataSource } from '@angular/material/table';
-
+import {JwtHelperService} from '@auth0/angular-jwt';
+import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class ApiInterfaceService {
   token  = ""
 
   apiResponse : any = []
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private jwtService: JwtHelperService) { }
   
   getProjectList(data:any): Observable<any> {
     this.apiResponse = this.http.post<any>(this.post_url+'/project/list', data)
@@ -91,6 +92,11 @@ export class ApiInterfaceService {
 
   setToken(token:string) {
     localStorage.setItem("access-token",token);
+  }
+
+  isAuthenticated(){
+    let currToken = this.getToken()||undefined;
+    return !this.jwtService.isTokenExpired(currToken)
   }
 
 }

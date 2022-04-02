@@ -40,6 +40,7 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
+import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
 
 
 
@@ -100,7 +101,9 @@ import { RegisterComponent } from './register/register.component';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthinterceptorService,
     multi: true
-  }
+  },
+  { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
