@@ -15,30 +15,31 @@ describe('My First Test', () => {
 
       })
       it('View issues', () => {
-        cy.visit('http://localhost:4200/home/1/issues')
+        cy.visit('http://localhost:4200/home/project/1/issues')
         cy.contains('Sprint')
        
 
       })
       it('View Sprints', () => {
-        cy.visit('http://localhost:4200/home/sprint/list')
-        cy.contains('Sprint1')
-        cy.contains('Create delete button')
-        cy.contains('Create Add button')
-        cy.contains('Sprint2')
-        cy.contains('Create add API')
-        cy.contains('Create Delete API')
-        cy.contains('Write test cases')
+        cy.visit('http://localhost:4200/home/project/1/sprints')
+        cy.contains('Sprint 1')
+        // cy.contains('Create delete button')
+        // cy.contains('Create Add button')
+        cy.contains('Sprint 2')
+        cy.contains('Sprint 4')
+        // cy.contains('Create add API')
+        // cy.contains('Create Delete API')
+        // cy.contains('Write test cases')
        
 
       })
       
       it('Login', () => {
         cy.visit('http://localhost:4200/login')
-        cy.contains('Email')
+        cy.contains('Username')
         cy.contains('Password')
         cy.contains('Login')
-        cy.contains('Logout')
+     
         
        
 
@@ -46,11 +47,12 @@ describe('My First Test', () => {
 
       it('Register', () => {
         cy.visit('http://localhost:4200/register')
-        cy.contains('Signup')
+        cy.contains('SIGN UP')
         cy.contains('First Name')
         cy.contains('Last Name')
         cy.contains('Email')
         cy.contains('Password')
+        cy.contains('Username')
         
        
 
