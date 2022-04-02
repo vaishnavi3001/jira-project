@@ -14,15 +14,15 @@ import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
+import { AuthguardService } from './guards/authguard.service';
 
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponentComponent },
 
-  { path: 'home', component: ProjectComponent,
+  { path: 'home', component: ProjectComponent, canActivate: [AuthguardService], 
 
-  
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {

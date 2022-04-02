@@ -66,7 +66,6 @@ export class IssueListComponent implements OnInit {
     this.apiService.deleteProject({'data':body})
     .subscribe((resp:any) =>{
       this.dataSource = resp['response']
-      console.log(this.dataSource)
     })
 
   }
