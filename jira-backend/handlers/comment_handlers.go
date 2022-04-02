@@ -21,6 +21,17 @@ func AddComment(c *gin.Context) {
 
 }
 
+func ViewComment(c *gin.Context) {
+	user_id := ut.GetUserIdFromContext(c)
+	var req sk.CommentViewReq
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.ViewComments(req, user_id))
+}
+
 func EditComment(c *gin.Context) {
 
 }
