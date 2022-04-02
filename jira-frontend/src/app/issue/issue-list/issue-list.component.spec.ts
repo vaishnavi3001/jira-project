@@ -26,4 +26,8 @@ describe('IssueListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have', () => {
+    expect(component).toBeTruthy();
+  });
 });

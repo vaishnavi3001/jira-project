@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
- 
+
+const jwtHelper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +15,11 @@ export class ApiInterfaceService {
   auth_url = "http://api.jira-clone.com"
   token  = ""
 
+  
   apiResponse : any = []
-  constructor(private http: HttpClient,private jwtService: JwtHelperService) { }
+  constructor(private http: HttpClient) { 
+
+  }
   
   getProjectList(data:any): Observable<any> {
     this.apiResponse = this.http.post<any>(this.post_url+'/project/list', data)
@@ -100,7 +104,7 @@ export class ApiInterfaceService {
 
   isAuthenticated(){
     let currToken = this.getToken()||undefined;
-    return !this.jwtService.isTokenExpired(currToken)
+    return !jwtHelper.isTokenExpired(currToken)
   }
 
 }

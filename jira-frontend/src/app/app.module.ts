@@ -41,7 +41,7 @@ import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
+import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
 
 
 
@@ -99,7 +99,14 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
     FormsModule,
     ReactiveFormsModule,
     RouterTestingModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -107,7 +114,7 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
     multi: true
   },
   { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        JwtHelperService
+        JwtHelperService,
   ],
   bootstrap: [AppComponent]
 })
