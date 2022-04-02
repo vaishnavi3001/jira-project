@@ -11,7 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {HTTP_INTERCEPTORS} from '@angular/common/http'
+import {HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { MatInputModule } from '@angular/material/input';
 import { ProjectComponent } from './project/project.component';
@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
@@ -40,7 +40,8 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
+import { RouterTestingModule } from '@angular/router/testing';
+import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
 
 
 
@@ -93,9 +94,19 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgbModule
-
-
+    NgbModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule,
+    NgbDropdownModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -103,7 +114,7 @@ import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
     multi: true
   },
   { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        JwtHelperService
+        JwtHelperService,
   ],
   bootstrap: [AppComponent]
 })

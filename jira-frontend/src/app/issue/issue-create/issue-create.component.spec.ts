@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { IssueCreateComponent } from './issue-create.component';
 
@@ -8,7 +10,8 @@ describe('IssueCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IssueCreateComponent ]
+      declarations: [ IssueCreateComponent],
+      imports:[RouterTestingModule,HttpClientModule]
     })
     .compileComponents();
   });
@@ -21,5 +24,13 @@ describe('IssueCreateComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    
   });
+
+  it('should have',()=>{
+    const title = fixture.debugElement.nativeElement.querySelector('.fa-plus');
+    expect(title.innerHTML).not.toBeNull();
+    const random_text = fixture.debugElement.nativeElement.querySelector('.text-muted');
+    expect(random_text.innerHTML).toBe('Max Size 3mb');
+  })
 });
