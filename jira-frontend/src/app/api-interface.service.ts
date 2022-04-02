@@ -11,6 +11,7 @@ export class ApiInterfaceService {
   url = 'http://0.0.0.0:6000'
   post_url = "http://api.jira-clone.com/api"
   auth_url = "http://api.jira-clone.com"
+  token  = ""
 
   apiResponse : any = []
   constructor(private http: HttpClient) { }
@@ -82,6 +83,14 @@ export class ApiInterfaceService {
 
   logout(data:any): Observable<any>{
     return this.apiResponse = this.http.post<any>(this.auth_url+'/logout', data)
+  }
+
+  getToken() {
+    return this.token
+  }
+
+  setToken(token:string) {
+    this.token = token
   }
 
 }

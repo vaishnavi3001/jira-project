@@ -28,7 +28,9 @@ export class LoginComponentComponent implements OnInit {
 
     this.apiService.login(body)
     .subscribe(res => {
-          console.log(res);
+        // console.log(res["resp"]["access_token"])
+          this.apiService.setToken(res["resp"]["access_token"]);
+
     })
     
   }
