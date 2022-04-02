@@ -591,33 +591,38 @@ The code associated with test cases is in **tests** directory and is divided int
 - **tests_data.go** : Contains list of test cases
 - **run_test.go** : Driver code that picks a test case one by one from *tests_data.go* and runs those testcases.
 
+**How to run the test cases**: The test cases can be executed by running the command ```go test ./tests```
+
 Rather than writing multiple test functions for multiple testcases which require setup of environment prior to running actual test code, the testcases were combined into an array of custom designed struct. The structure of a single entry for a test case that tests the API is as follows:
 ```
-{
-    init function,  
-    REST method - e.g. GET,POST,PUT etc) 
-    Actual API handler -e.g. "/api/sprint/delete")
-    Post Body, - e.g. `{"sprint_id":2}`)
-    Expected Status Code - e.g. 200,401,400 etc.)
-    Expected Response - e.g. `{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`)
-    post function(optional), - function that tests for changes happened in test environment after calling an API
-}
+	{
+	    init function,  
+	    REST method - e.g. GET,POST,PUT etc) 
+	    Actual API handler -e.g. "/api/sprint/delete")
+	    Post Body, - e.g. `{"sprint_id":2}`)
+	    Expected Status Code - e.g. 200,401,400 etc.)
+	    Expected Response - e.g. `{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`)
+	    post function(optional), - function that tests for changes happened in test environment after calling an API
+	}
 
 An example:
-    {func(req *http.Request) {
+	{
+	    func(req *http.Request) {
+	    	// init function sets cookie into the request
 		setTokenRequestInCookie(req)
-	},
-		"/api/project/create",
-		"POST",
-		`{"name":"Project 1"}`,
-		http.StatusOK,
-		`{"message":"","resp":{"project_name":"Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
-		func() bool {
-			var count int64
-			dbutils.DB.Where("role_id = 1 AND user_id = 1 AND project_id = 1").Find(&models.UserRole{}).Count(&count)
-			return count == 1
-		},
-	},
+	    },
+	    "/api/project/create",
+	    "POST",
+	    `{"name":"Project 1"}`,
+	    http.StatusOK,
+	    `{"message":"","resp":{"project_name":"Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
+	    func() bool {
+	        //Post function that checks whether the user entry is created or not in the user table.
+		var count int64
+		dbutils.DB.Where("role_id = 1 AND user_id = 1 AND project_id = 1").Find(&models.UserRole{}).Count(&count)
+		return count == 1
+	      },
+	 },
 ```
 
  
