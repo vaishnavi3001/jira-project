@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponentComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiInterfaceService) { }
+  constructor(private apiService: ApiInterfaceService, private route: ActivatedRoute, private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +30,7 @@ export class LoginComponentComponent implements OnInit {
     this.apiService.login(body)
     .subscribe(res => {
           console.log(res);
+          this.router.navigate(['home/project/list']);
     })
     
   }
