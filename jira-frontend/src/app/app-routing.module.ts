@@ -14,7 +14,7 @@ import { NewsprintComponent } from './sprint/newsprint/newsprint.component';
 import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
-import { SampleSprintsBoardComponent } from './sample-sprints-board/sample-sprints-board.component';
+
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -57,10 +57,7 @@ const routes: Routes = [
       },
       {
         path:'sprint/:sprintId/details', component: SprintDetailComponent
-      },
-      {
-        path:'sample-sprint', component: SampleSprintsBoardComponent
-      },
+      }
     ]},
 
   { path: '**', pathMatch: 'full', redirectTo: 'home/projects' },
