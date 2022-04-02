@@ -81,7 +81,8 @@
                                                 <small class="text-muted">Today 2:10 pm - 12.06.2014</small> -->
                                                 <h5><strong> Post comments here: </strong></h5>
                                                 <div class="well">
-                                                    
+                                                    <input type="text" id="comment" name="comment" #comment>
+                                                    <button (click)="sendcomment(comment.value)" class="btn-primary" id="comment"> Comment </button>
                                                 </div>
                                             </div>
                                         </div>
