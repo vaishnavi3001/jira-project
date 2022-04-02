@@ -151,7 +151,7 @@ Authorization: Bearer ********.
 <br/>
 
 - **Delete a Project**	  
-*Request Format* -
+  *Request Format* -
 ``` 
     POST /api/project/delete
     {
@@ -170,7 +170,7 @@ Authorization: Bearer ********.
 ```  
 
 - **List Members**	  
-*Request Format* -
+  *Request Format* -
 ``` 
     POST /api/project/members
     {
@@ -297,8 +297,8 @@ Authorization: Bearer ********.
 ```  
 <br/>
 
-- **Delete a Sprint**	  
-*Request Format* -
+- **Delete a Sprint**  	  
+	*Request Format* -
 ``` 
     POST /api/sprint/delete
     {
@@ -317,8 +317,8 @@ Authorization: Bearer ********.
 ``` 
 <br/> 
 
--  **To Create an Issue**
-    *Request Format* -
+-  **To Create an Issue**. 
+	*Request Format* -
 ```
     POST /api/issue/create
    {    
@@ -351,8 +351,8 @@ Authorization: Bearer ********.
 ```
 <br/>
 
-- **To get a issue’s info**
-    *Request Format* -
+- **To get a issue’s info**  
+	*Request Format* -
 ```
     POST api/issues/info
     {
@@ -384,8 +384,8 @@ Authorization: Bearer ********.
 ```
 <br/>
 
-- **To list issues for sprint**
-  *Request Format* -
+- **To list issues for sprint**  
+ 	*Request Format* -
 ```
     GET api/issue/list
     {
@@ -423,8 +423,8 @@ Authorization: Bearer ********.
 ```
 <br/>
 
-- **To delete an issue**	  
-*Request Format* -
+- **To delete an issue**  	  
+ 	*Request Format* -
 ``` 
     POST /api/issue/delete
     {
@@ -442,8 +442,8 @@ Authorization: Bearer ********.
     }
 ``` 
 
-- **To update an issue**	  
-*Request Format* -
+- **To update an issue**  	  
+ 	*Request Format* -
 ``` 
     POST /api/issue/delete
     {
@@ -468,8 +468,8 @@ Authorization: Bearer ********.
     }
 ``` 
 
-- **To update an issue**	  
-*Request Format* -
+- **To update an issue**  	  
+	*Request Format* -
 ``` 
     POST /api/issue/move
     {
@@ -489,8 +489,8 @@ Authorization: Bearer ********.
     }
 ``` 
 
-- **To Register a User**
-*Request Format* -
+- **To Register a User**  
+ 	*Request Format* -
 ```
     POST /register
     {
@@ -512,8 +512,8 @@ Authorization: Bearer ********.
 <br/>
 
 
-- **To Login**
-*Request Format* -
+- **To Login**  
+	*Request Format* -
 ```
     POST /login
     {
@@ -534,10 +534,10 @@ Authorization: Bearer ********.
 <br/>
 
 
-- **To Add Comments To An Issue**
-*Request Format* -
+- **To Add Comments To An Issue**  
+    *Request Format* -
 ```
-    POST /comment/add
+    POST /api/comment/add
     {
         "issue_id": 3,
         "comment": "This is a comment for issue_id: 3"
@@ -556,10 +556,10 @@ Authorization: Bearer ********.
 ```
 <br/>
 
-- **View Comments**
-*Request Format* -
+- **View Comments**  
+    *Request Format* -
 ```
-    POST /comment/view
+    POST /api/comment/view
     {
         "issue_id": 3
     }
