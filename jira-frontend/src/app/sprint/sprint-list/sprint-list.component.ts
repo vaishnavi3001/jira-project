@@ -51,6 +51,13 @@ export class SprintListComponent implements OnInit {
     this.router.navigateByUrl(_route);
   }
 
+  gotoSprint(): void{
+    const routeParams = this.route.snapshot.paramMap;
+    const sprintIdFromRoute = Number(routeParams.get('sprintId'))
+    let _route = 'home/sprint/'+sprintIdFromRoute+'/details'
+    this.router.navigateByUrl(_route)
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

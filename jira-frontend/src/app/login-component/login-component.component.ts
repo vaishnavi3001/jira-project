@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { has } from 'lodash';
+=======
+import { ActivatedRoute, Router } from '@angular/router';
+>>>>>>> main
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 import {Md5} from 'ts-md5/dist/md5'
 

@@ -51,7 +51,7 @@ export class IssueListComponent implements OnInit {
 
   getDetailsPage(element: any): void{
     console.log(element.issue_id)
-    this.router.navigate(['home/issues/'+element.issue_id+'/details'])
+    this.router.navigate(['home/issue/'+element.issue_id+'/details'])
   }
 
   onDeleteProject(): void{
