@@ -11,7 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {HTTP_INTERCEPTORS} from '@angular/common/http'
+import {HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { MatInputModule } from '@angular/material/input';
 import { ProjectComponent } from './project/project.component';
@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewprojectComponent } from './project/newproject/newproject.component';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
@@ -40,6 +40,10 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
+import { FormBuilder } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router';
+import { ApiInterfaceService } from './api-interface.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 
@@ -92,14 +96,17 @@ import { RegisterComponent } from './register/register.component';
     DragDropModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgbModule
-
-
+    NgbModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule,
+    NgbDropdownModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthinterceptorService,
-    multi: true
+    multi: true,
   }
   ],
   bootstrap: [AppComponent]
