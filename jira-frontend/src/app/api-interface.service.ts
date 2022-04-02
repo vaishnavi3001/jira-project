@@ -86,11 +86,11 @@ export class ApiInterfaceService {
   }
 
   getToken() {
-    return this.token
+    return localStorage.getItem("access-token");
   }
 
   setToken(token:string) {
-    this.token = token
+    localStorage.setItem("access-token",token);
   }
 
 }
