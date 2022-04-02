@@ -51,7 +51,7 @@ export class IssueListComponent implements OnInit {
 
   getDetailsPage(element: any): void{
     console.log(element.issue_id)
-    this.router.navigate(['home/issues/'+element.issue_id+'/details'])
+    this.router.navigate(['home/issue/'+element.issue_id+'/details'])
   }
 
   onDeleteProject(): void{
@@ -66,7 +66,6 @@ export class IssueListComponent implements OnInit {
     this.apiService.deleteProject({'data':body})
     .subscribe((resp:any) =>{
       this.dataSource = resp['response']
-      console.log(this.dataSource)
     })
 
   }

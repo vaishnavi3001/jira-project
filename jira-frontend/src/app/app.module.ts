@@ -40,10 +40,8 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
-import { FormBuilder } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router';
-import { ApiInterfaceService } from './api-interface.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
 
 
 
@@ -106,8 +104,10 @@ import { RouterTestingModule } from '@angular/router/testing';
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthinterceptorService,
-    multi: true,
-  }
+    multi: true
+  },
+  { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
