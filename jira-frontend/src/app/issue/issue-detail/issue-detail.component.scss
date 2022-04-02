@@ -2,6 +2,10 @@ body{
     margin-top:20px;
     background:#eee;
     }
+
+  a, p, h1, h2, h3, h4, h5, ul, dt {
+    font-family: Cabin;
+  }
     /* PROJECTS */
     .project-people,
     .project-actions {
@@ -188,4 +192,8 @@ body{
     ul.notes li,
     ul.tag-list li {
       list-style: none;
+    }
+
+    #add_files{
+      margin-right: 1em;
     }

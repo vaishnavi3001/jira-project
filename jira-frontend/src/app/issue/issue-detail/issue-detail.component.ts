@@ -9,6 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class IssueDetailComponent implements OnInit {
 
+  title = ""
+  issue_creator = ""
+  assignee_name = ""
+  description = ""
+
   constructor(private route: ActivatedRoute, private apiService:ApiInterfaceService) { }
 
   ngOnInit(): void {
@@ -21,6 +26,11 @@ export class IssueDetailComponent implements OnInit {
     this.apiService.getIssueDetails({'user_id':1,'issue_id':issueIdFromRoute})
     .subscribe((resp:any) => {
       console.log(resp)
+      this.title = resp['resp']['title']
+      this.issue_creator = resp['resp']['creator_name']
+      this.assignee_name = resp['resp']['assignee_name']
+      this.description = resp['resp']['description']
+
     })
   }
 
