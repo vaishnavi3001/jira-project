@@ -363,7 +363,7 @@ var loginTestData = []testBody{
 		"POST",
 		`{"username":"pypalkar23","password":"dd29b8cb089a56606fca480e137c27c4"}`,
 		http.StatusOK,
-		`{"message":"LOGIN_SUCCESSFUL","resp":"","status":true}`,
+		`{"message":"LOGIN_SUCCESSFUL","resp":{"access_token":"[A-Za-z0-9\._\-]+"},"status":true}`,
 		func() bool { return true },
 	},
 	//Successful Logout
