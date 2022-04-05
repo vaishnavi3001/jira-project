@@ -25,4 +25,13 @@ describe('LoginComponentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have',()=>{
+    const title = fixture.debugElement.nativeElement.querySelector('.modal-title');
+    expect(title.innerHTML).not.toBeNull();
+    const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
+    expect(footer.innerHTML).not.toBeNull();
+    
+  })
+
+
 });
