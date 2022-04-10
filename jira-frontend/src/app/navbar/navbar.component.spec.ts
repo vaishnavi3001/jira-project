@@ -24,6 +24,12 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+  it('should have',()=>{
+    const dropdown = fixture.debugElement.nativeElement.querySelector('.d-inline-block');
+    expect(dropdown.innerHTML).not.toBeNull();
+    const b = fixture.debugElement.nativeElement.querySelector('.example-icon');
+    expect(b.innerHTML).not.toBeNull();
+    
+  })
 
 });

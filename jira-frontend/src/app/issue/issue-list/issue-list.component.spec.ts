@@ -30,4 +30,7 @@ describe('IssueListComponent', () => {
   it('should have', () => {
     expect(component).toBeTruthy();
   });
+   
+  
+  
 });
