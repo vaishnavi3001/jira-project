@@ -29,7 +29,9 @@ describe('RegisterComponent', () => {
   it('should have',()=>{
     const title = fixture.debugElement.nativeElement.querySelector('.modal-title');
     expect(title.innerHTML).not.toBeNull();
-    const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
+    const body = fixture.debugElement.nativeElement.querySelector('.modal-body');
+    expect(body.innerHTML).not.toBeNull();
+     const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
     expect(footer.innerHTML).not.toBeNull();
     
   })
