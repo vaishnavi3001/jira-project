@@ -32,4 +32,9 @@ describe('NewsprintComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have',()=>{
+    const  body = fixture.debugElement.nativeElement.querySelector('.card-body');
+    expect(body.innerHTML).not.toBeNull();
+  });
+  
 });
