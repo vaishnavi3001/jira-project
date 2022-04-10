@@ -26,4 +26,10 @@ describe('SprintListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have',()=>{
+    const  body = fixture.debugElement.nativeElement.querySelector('.container');
+    expect(body.innerHTML).not.toBeNull();
+  
+  });
 });
