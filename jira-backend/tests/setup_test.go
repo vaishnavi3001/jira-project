@@ -39,6 +39,6 @@ func DBInsertRows() {
 	dt.DB.Create(user1)
 	user2 := &md.User{Username: "amhaske32", Password: "7b69ad8a8999d4ca7c42b8a729fb0ffd", Firstname: "Ashish", Lastname: "Mhaske", EmailId: "amhaske32@gmail.com"}
 	dt.DB.Create(user2)
-	user_auth1 := &md.UserAuth{UserId: user1.UserId, Token: TokenStr}
+	user_auth1 := &md.UserAuth{UserRef: user1.UserId, Token: TokenStr}
 	dt.DB.Create(&user_auth1)
 }
