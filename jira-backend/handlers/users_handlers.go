@@ -59,3 +59,25 @@ func UserRegister(c *gin.Context) {
 
 	c.JSON(http.StatusOK, dt.RegisterUser(req))
 }
+
+func InviteUser(c *gin.Context) {
+	var req sk.InviteUserRequest
+	user_id := ut.GetUserIdFromContext(c)
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.PrepareInvite(req, user_id))
+}
+
+func ValidateUserInvite(c *gin.Context) {
+	var req sk.ValidateUserInviteReq
+	user_id := ut.GetUserIdFromContext(c)
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.ValidateInvite(req.InviteLink, user_id))
+}

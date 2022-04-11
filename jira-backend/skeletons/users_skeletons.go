@@ -46,3 +46,25 @@ type UserRegister struct {
 type LoginSuccessResp struct {
 	Access_token string `json:"access_token"`
 }
+type ProjectJoinReq struct {
+	HashedString string `json:"hashed_string"`
+}
+
+type ProjectJoinResp struct {
+	JoinSuccessful string `json:"join_successful"`
+}
+
+type InviteClaim struct {
+	EmailId   string
+	ProjectId uint
+	jwt.StandardClaims
+}
+
+type InviteUserRequest struct {
+	EmailId   string `json:"email_id"`
+	ProjectId uint   `json:"project_id"`
+}
+
+type ValidateUserInviteReq struct {
+	InviteLink string `json:"invite_link"`
+}

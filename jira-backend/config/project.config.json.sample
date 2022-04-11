@@ -1,15 +1,24 @@
 {
     "server": {
         "ip_address": "0.0.0.0",
-        "port": 5000
+        "port": 6000,
+        "test_port":6000
     },
-    "config":{
-        "secret_key" : "b64 encoded key"
-    }
     "creds":{
-        "secret_key" : "bGlmZV9pc190aGlzX2lfd2FudF90aGlz",
+        "secret_key" : `jwt token encryption key string`,
         "duration" : 60
     },
-    "db_name":"jira.db",
-    "test_db_name":"test.db"
-}
+    "mail_config":{
+        "mail_encryption_key": `mail text encryption key string`,
+        "duration": 14
+    },
+    "db":{
+        "db_name":"jira.db",
+        "test_db_name":"test.db"
+    },
+    "email-sender":{
+        "access_key": `aws access key string`,
+        "secret_key": `aws secret key string`,
+        "email_id": `sender email id from ses`,
+        "aws-region": `aws region 2` 
+    }

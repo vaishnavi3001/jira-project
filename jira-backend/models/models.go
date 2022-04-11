@@ -86,20 +86,28 @@ type Permission struct {
 
 type UserAuth struct {
 	UserAuthId uint `gorm:"primaryKey;auto_increment;"`
-	UserId     uint
+	UserRef    uint
 	Token      string
-	User       User `gorm:"foreignKey:UserId"`
+	User       User `gorm:"foreignKey:UserRef"`
 	DeletedAt  gorm.DeletedAt
 }
 
 type Comment struct {
 	CommentId   uint `gorm:"primaryKey;auto_increment;"`
-	IssueId     uint
 	CommentText string
-	UserId      uint
-	User        User      `gorm:"foreignKey:UserId"`
-	Issue       Issue     `gorm:"foreignKey:IssueId"`
+	UserRef     uint
+	IssueRef    uint
+	User        User      `gorm:"foreignKey:UserRef"`
+	Issue       Issue     `gorm:"foreignKey:IssueRef"`
 	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`
 	DeletedAt   gorm.DeletedAt
+}
+
+type Invite struct {
+	InviteId   uint `gorm:"primaryKey;auto_increment;not_null"`
+	EmailId    string
+	ProjectId  uint
+	InviteLink string
+	CreatedAt  time.Time `gorm:"autoCreateTime:milli"`
 }
