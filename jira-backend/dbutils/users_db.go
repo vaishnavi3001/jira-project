@@ -37,3 +37,18 @@ func RegisterUser(data sk.UserRegister) gin.H {
 
 	return ut.GetSuccessResponse(ct.REGISTERATION_SUCCESSFUL, "")
 }
+
+func GetProfileUser(user_id uint) gin.H {
+
+	var count int64
+	var user md.User
+
+	DB.Where("user_id = ?", user_id).Find(&user)
+	fmt.Println(count)
+	if count == 0 {
+		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
+	}
+	
+	resp := sk.UserProfile{Username: user.Username, Email: user.EmailId, FirstName: user.Firstname, LastName: user.Lastname}
+	return ut.GetSuccessResponse(ct.USER_FOUND, resp)
+}
