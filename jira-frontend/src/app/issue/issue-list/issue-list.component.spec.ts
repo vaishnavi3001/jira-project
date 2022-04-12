@@ -23,7 +23,7 @@ describe('IssueListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create issue-list', () => {
     expect(component).toBeTruthy();
   });
 

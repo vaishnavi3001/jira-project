@@ -22,7 +22,7 @@ describe('IssueCreateComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create issue-create component', () => {
     expect(component).toBeTruthy();
     
   });
