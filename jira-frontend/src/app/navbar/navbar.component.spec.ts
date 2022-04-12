@@ -21,7 +21,7 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create navbar component', () => {
     expect(component).toBeTruthy();
   });
   it('should have',()=>{
