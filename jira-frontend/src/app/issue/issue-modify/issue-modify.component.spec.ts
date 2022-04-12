@@ -24,6 +24,8 @@ describe('IssueModifyComponent', () => {
   });
   
   it('should have',()=>{
+    const header= fixture.debugElement.nativeElement.querySelector('.card-header');
+    expect(header.innerHTML).not.toBeNull();
     const body = fixture.debugElement.nativeElement.querySelector('.card-body');
     expect(body.innerHTML).not.toBeNull();
     
