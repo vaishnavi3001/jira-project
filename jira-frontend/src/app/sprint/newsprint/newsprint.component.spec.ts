@@ -35,6 +35,8 @@ describe('NewsprintComponent', () => {
   it('should have',()=>{
     const  body = fixture.debugElement.nativeElement.querySelector('.card-body');
     expect(body.innerHTML).not.toBeNull();
+    const  f= fixture.debugElement.nativeElement.querySelector('.form-group');
+    expect(f.innerHTML).not.toBeNull();
   
   });
 
