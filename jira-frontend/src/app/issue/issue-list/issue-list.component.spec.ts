@@ -30,7 +30,12 @@ describe('IssueListComponent', () => {
   it('should have', () => {
     expect(component).toBeTruthy();
   });
-   
+  it('should have',()=>{
+    const header = fixture.debugElement.nativeElement.querySelector('.py-2');
+    expect(header.innerHTML).not.toBeNull();
+    
+    
+  })
   
   
 });
