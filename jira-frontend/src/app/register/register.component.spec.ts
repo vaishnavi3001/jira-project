@@ -33,6 +33,8 @@ describe('RegisterComponent', () => {
     expect(body.innerHTML).not.toBeNull();
      const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
     expect(footer.innerHTML).not.toBeNull();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('SIGN UP');
     
   })
 });
