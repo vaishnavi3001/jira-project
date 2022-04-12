@@ -32,7 +32,9 @@ describe('SprintListComponent', () => {
     expect(header.innerHTML).not.toBeNull();
     const  body = fixture.debugElement.nativeElement.querySelector('.container');
     expect(body.innerHTML).not.toBeNull();
-    
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('span').textContent).toContain('Create Sprint');
+  
   
   });
 });
