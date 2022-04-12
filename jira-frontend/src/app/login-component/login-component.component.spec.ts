@@ -32,7 +32,8 @@ describe('LoginComponentComponent', () => {
     expect(body.innerHTML).not.toBeNull();
     const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
     expect(body.innerHTML).not.toBeNull();
-    
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Login');
     
   })
 
