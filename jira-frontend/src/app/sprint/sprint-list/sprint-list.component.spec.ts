@@ -23,7 +23,7 @@ describe('SprintListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create sprint-list component', () => {
     expect(component).toBeTruthy();
   });
 
