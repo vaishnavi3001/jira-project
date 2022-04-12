@@ -28,6 +28,8 @@ describe('SprintListComponent', () => {
   });
 
   it('should have',()=>{
+    const  header = fixture.debugElement.nativeElement.querySelector('.py-2');
+    expect(header.innerHTML).not.toBeNull();
     const  body = fixture.debugElement.nativeElement.querySelector('.container');
     expect(body.innerHTML).not.toBeNull();
     
