@@ -37,7 +37,8 @@ describe('NewsprintComponent', () => {
     expect(body.innerHTML).not.toBeNull();
     const  f= fixture.debugElement.nativeElement.querySelector('.form-group');
     expect(f.innerHTML).not.toBeNull();
-  
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Create Sprint');
   });
 
   
