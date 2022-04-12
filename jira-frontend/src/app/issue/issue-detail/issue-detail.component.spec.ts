@@ -32,6 +32,8 @@ describe('IssueDetailComponent', () => {
     expect(title.innerHTML).not.toBeNull();
     const b = fixture.debugElement.nativeElement.querySelector('.panel-body');
     expect(b.innerHTML).not.toBeNull();
+    const c = fixture.debugElement.nativeElement.querySelector('.container');
+    expect(c.innerHTML).not.toBeNull();
     
   })
 
