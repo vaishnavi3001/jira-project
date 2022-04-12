@@ -30,6 +30,8 @@ describe('SprintModifyComponent', () => {
     expect(header.innerHTML).not.toBeNull();
     const body = fixture.debugElement.nativeElement.querySelector('.card-body');
     expect(body.innerHTML).not.toBeNull();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Edit Sprint');
     
   })
 });
