@@ -24,4 +24,11 @@ describe('SprintModifyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+   it('should have',()=>{
+   const header = fixture.debugElement.nativeElement.querySelector('.card-header');
+    expect(header.innerHTML).not.toBeNull();
+   
+    
+  })
 });
