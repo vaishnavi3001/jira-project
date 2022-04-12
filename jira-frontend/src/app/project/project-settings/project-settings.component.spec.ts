@@ -27,4 +27,14 @@ describe('ProjectSettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have',()=>{
+    
+     const c = fixture.debugElement.nativeElement.querySelector('.wrapper');
+    expect(c.innerHTML).not.toBeNull();
+    const header = fixture.debugElement.nativeElement.querySelector('.sidebar-header');
+    expect(header.innerHTML).not.toBeNull();
+    
+  })
+
 });

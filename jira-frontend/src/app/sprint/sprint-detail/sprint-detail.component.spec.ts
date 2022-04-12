@@ -19,7 +19,7 @@ describe('SprintDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create sprint-detail component', () => {
     expect(component).toBeTruthy();
   });
 });
