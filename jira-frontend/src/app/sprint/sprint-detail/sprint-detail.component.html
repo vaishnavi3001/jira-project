@@ -136,6 +136,7 @@
             <div 
             cdkDropList
             (cdkDropListDropped)="onDrop($event)"
+
             class="col-12 col-lg-6 col-xl-3">
                 <div class="card card-border-warning">
                     <div class="card-header">
@@ -235,7 +236,11 @@
             </div>
 
             <!-- Review -->
-            <div class="col-12 col-lg-6 col-xl-3">
+            <div 
+            cdkDropList
+            (cdkDropListDropped)="onDrop($event)"
+            
+            class="col-12 col-lg-6 col-xl-3">
                 <div class="card card-border-danger">
                     <div class="card-header">
                         <div class="card-actions float-right">
@@ -318,7 +323,11 @@
             </div>
 
             <!-- Done -->
-            <div class="col-12 col-lg-6 col-xl-3">
+            <div 
+            cdkDropList
+            (cdkDropListDropped)="onDrop($event)"
+            
+            class="col-12 col-lg-6 col-xl-3">
                 <div class="card card-border-success">
                     <div class="card-header">
                         <div class="card-actions float-right">

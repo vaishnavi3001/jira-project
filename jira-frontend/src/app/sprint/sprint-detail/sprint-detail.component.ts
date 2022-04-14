@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ActivatedRoute } from '@angular/router';
+import { ApiInterfaceService } from 'src/app/api-interface.service';
 
 @Component({
   selector: 'app-sprint-detail',
@@ -8,9 +10,17 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class SprintDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private apiService:ApiInterfaceService) { }
 
   ngOnInit(): void {
+    const routeParams = this.route.snapshot.paramMap;
+    const sprintIdFromRoute = Number(routeParams.get('sprintId'));
+    console.log(sprintIdFromRoute)
+       this.apiService.getIssueList({'user_id':1, 'sprint_id': sprintIdFromRoute})
+       .subscribe((resp:any) =>{
+       console.log(resp)
+      })
+       
   }
 
   Upcoming = [];
