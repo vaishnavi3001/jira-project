@@ -5,7 +5,7 @@ import { NewprojectComponent } from './project/newproject/newproject.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
 import { ProjectComponent } from './project/project.component';
-import { IssueListComponent, IssueDetails } from './issue/issue-list/issue-list.component';
+import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
@@ -20,9 +20,7 @@ import { AuthguardService } from './guards/authguard.service';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponentComponent },
-
   { path: 'home', component: ProjectComponent, canActivate: [AuthguardService], 
-
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
