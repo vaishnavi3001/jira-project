@@ -1,4 +1,4 @@
-module jira-build
+module jira-frontend
 
 go 1.17
 
