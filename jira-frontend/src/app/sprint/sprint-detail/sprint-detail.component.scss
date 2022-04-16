@@ -35,6 +35,10 @@ body{
     font-family: 'Cabin';
 }
 
+.row{
+    margin-top: 1em;
+}
+
 .card {
     font-family: 'Cabin';
     margin-bottom: 1.5rem;
@@ -149,4 +153,16 @@ body{
     color: inherit;
     background-color: #fff;
     border-bottom: 1px solid #e5e9f2;
+}
+
+#addNew {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0.8em;
+    margin-right: 0.8em;
+    background-color: #3f51b5;
+}
+
+#viewDetails {
+    outline-color: #3f51b5;
 }

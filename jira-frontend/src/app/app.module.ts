@@ -40,8 +40,10 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
-import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
-
+import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
+import { SprintDetailComponent } from './sprint/sprint-detail/sprint-detail.component';
+import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -70,6 +72,8 @@ import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
     IssueDetailComponent,
     LoginComponentComponent,
     RegisterComponent,
+    TrialDragAndDropComponent,
+    SprintDetailComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
@@ -95,6 +99,7 @@ import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
     MatNativeDateModule,
     NgbModule,
     HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
