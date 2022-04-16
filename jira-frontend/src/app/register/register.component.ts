@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
-
+import {Md5} from 'ts-md5/dist/md5'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,12 +24,14 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(){
-    
+    let tempPassword = this.registerForm.get('password')?.value,
+    md5 = new Md5()
+    let hashedPassword = md5.appendStr(tempPassword).end()
     let body = {
       username: this.registerForm.get('username')?.value,
       firstname:this.registerForm.get('firstname')?.value,
       lastname: this.registerForm.get('lastname')?.value,
-      password: this.registerForm.get('password')?.value,
+      password: hashedPassword,
       email: this.registerForm.get('email')?.value
     } 
 
