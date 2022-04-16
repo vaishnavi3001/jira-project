@@ -1,0 +1,26 @@
+[Unit]
+Description=Service to start jira-frontend
+
+# After networking because we need that
+After=network.target
+
+[Service]
+
+# Simple services don't do any forking / background nonsence
+Type=simple
+
+# User with which to run the service
+User=mandar
+
+# Set the working directory for the application
+WorkingDirectory=/home/mandar/project/jira-project/jira-backend
+
+# Command to run the application
+ExecStart=/home/mandar/project/jira-project/jira-backend/jira-backend
+
+# Restart policy, only on failure
+Restart=on-failure
+
+[Install]
+# Start the service before we get to multi-user mode
+WantedBy=multi-user.target

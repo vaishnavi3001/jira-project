@@ -1,15 +1,54 @@
 {
-    "server": {
-        "ip_address": "0.0.0.0",
-        "port": 5000
+    "dev": {
+        "server": {
+            "ip_address": "0.0.0.0",
+            "port": 6000,
+            "test_port": 6000
+        },
+        "creds": {
+            "secret_key": "********",
+            "duration": 60
+        },
+        "mail_config": {
+            "mail_encryption_key": "***************",
+            "duration": 14
+        },
+        "db": {
+            "db_name": "jira.db",
+            "test_db_name": "test.db"
+        },
+        "email": {//AWS SES credentials
+            "access_key": "******************",
+            "secret_key": "***********************",
+            "email_id": "************************",
+            "aws-region": "***************"
+        },
+        "frontend-url":"http://localhost:4200"
     },
-    "config":{
-        "secret_key" : "b64 encoded key"
+    "prod": {
+        "server": {
+            "ip_address": "0.0.0.0",
+            "port": 6000,
+            "test_port": 6000
+        },
+        "creds": {
+            "secret_key": "***************",
+            "duration": 60
+        },
+        "mail_config": {
+            "mail_encryption_key": "***************",
+            "duration": 14
+        },
+        "db": {
+            "db_name": "jira.db",
+            "test_db_name": "test.db"
+        },
+        "email": {
+            "access_key": "***************",
+            "secret_key": "***************",
+            "email_id": "***************",
+            "aws-region": "***************"
+        },
+        "frontend-url":"https://app.se-gators.co.in"
     }
-    "creds":{
-        "secret_key" : "bGlmZV9pc190aGlzX2lfd2FudF90aGlz",
-        "duration" : 60
-    },
-    "db_name":"jira.db",
-    "test_db_name":"test.db"
 }

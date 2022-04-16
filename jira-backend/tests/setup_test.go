@@ -2,6 +2,7 @@ package tests
 
 import (
 	"fmt"
+	ct "jira-backend/constants"
 	dt "jira-backend/dbutils"
 	md "jira-backend/models"
 	ut "jira-backend/utils"
@@ -9,14 +10,14 @@ import (
 )
 
 func InitConfig() {
-	if err := ut.ConfigReader(true); err != nil {
+	if err := ut.ConfigReader(ct.TEST); err != nil {
 		fmt.Println("Couldn't read config.. Exiting Tests")
 		os.Exit(-1)
 	}
 }
 func DBInitForTest() {
 	os.Remove(ut.Vconfig.GetString("test_db_name"))
-	dt.GetDBInstance(true)
+	dt.GetDBInstance(ct.TEST)
 	if dt.DB == nil {
 		fmt.Println("Couldn't create db.. Exiting Tests")
 		os.Exit(-1)

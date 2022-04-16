@@ -2,6 +2,12 @@ package constants
 
 import "errors"
 
+const (
+	DEV  = "dev"
+	PROD = "prod"
+	TEST = "test"
+)
+
 //api response constant
 const (
 	Status   = "status"

@@ -1,22 +1,21 @@
 package main
+
 import (
-	"net/http"
-	"embed"
-	"io/fs"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
-
-//go:embed assets/*
-var static embed.FS
-
-
 func main() {
-	host :=  "0.0.0.0"
-	port := "8080"
-	contentStatic, _ := fs.Sub(static, "assets/jira-frontend")
-	http.Handle("/", http.FileServer(http.FS(contentStatic)))
-	log.Fatal(http.ListenAndServe(host+":"+port,nil))
-	fmt.Printf("Server is running at %s:%s",host, port)
+	r := mux.NewRouter()
+
+	host := "0.0.0.0"
+	port := "8500"
+	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./assets/jira-frontend/index.html")
+	})
+	fmt.Printf("Server is running at %s:%s", host, port)
+	log.Fatal(http.ListenAndServe(host+":"+port, r))
 }
