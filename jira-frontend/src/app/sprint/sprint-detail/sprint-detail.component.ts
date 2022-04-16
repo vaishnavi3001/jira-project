@@ -9,7 +9,8 @@ import { ApiInterfaceService } from 'src/app/api-interface.service';
   styleUrls: ['./sprint-detail.component.scss']
 })
 export class SprintDetailComponent implements OnInit {
-
+  issue_list = []
+  move_here :any[] = []
   constructor(private route: ActivatedRoute, private apiService:ApiInterfaceService) { }
 
   ngOnInit(): void {
@@ -18,7 +19,7 @@ export class SprintDetailComponent implements OnInit {
     console.log(sprintIdFromRoute)
        this.apiService.getIssueList({'user_id':1, 'sprint_id': sprintIdFromRoute})
        .subscribe((resp:any) =>{
-       console.log(resp)
+       this.issue_list = (resp['resp']['issues'])
       })
        
   }

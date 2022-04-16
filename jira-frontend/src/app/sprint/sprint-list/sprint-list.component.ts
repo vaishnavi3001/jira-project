@@ -51,10 +51,8 @@ export class SprintListComponent implements OnInit {
     this.router.navigateByUrl(_route);
   }
 
-  gotoSprint(): void{
-    const routeParams = this.route.snapshot.paramMap;
-    const sprintIdFromRoute = Number(routeParams.get('sprintId'))
-    let _route = 'home/sprint/'+sprintIdFromRoute+'/details'
+  gotoSprint(sprint_id:number): void{
+    let _route = 'home/sprint/'+sprint_id+'/details'
     this.router.navigateByUrl(_route)
   }
 
