@@ -2,6 +2,7 @@ package dbutils
 
 import (
 	"fmt"
+	ct "jira-backend/constants"
 	md "jira-backend/models"
 	ut "jira-backend/utils"
 
@@ -14,9 +15,9 @@ var (
 	err error
 )
 
-func InitializeConn(isTest bool) error {
+func InitializeConn(env string) error {
 	db_name := ut.Vconfig.GetString("db.db_name")
-	if isTest {
+	if env == ct.TEST {
 		db_name = ut.Vconfig.GetString("db.test_db_name")
 	}
 
@@ -29,8 +30,8 @@ func InitializeConn(isTest bool) error {
 	return nil
 }
 
-func GetDBInstance(isTest bool) *gorm.DB {
-	if err := InitializeConn(isTest); err != nil {
+func GetDBInstance(env string) *gorm.DB {
+	if err := InitializeConn(env); err != nil {
 		return nil
 	}
 	return DB

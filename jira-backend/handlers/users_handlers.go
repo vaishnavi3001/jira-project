@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	ct "jira-backend/constants"
 	dt "jira-backend/dbutils"
 	sk "jira-backend/skeletons"
@@ -80,4 +81,21 @@ func ValidateUserInvite(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, dt.ValidateInvite(req.InviteLink, user_id))
+}
+
+func GetUserProfile(c *gin.Context) {
+	user_id := ut.GetUserIdFromContext(c)
+	fmt.Println(user_id)
+	c.JSON(http.StatusOK, dt.GetProfileUser(user_id))
+}
+
+func UpdateUserProfile(c *gin.Context) {
+	var req sk.UserProfile
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+	user_id := ut.GetUserIdFromContext(c)
+
+	c.JSON(http.StatusOK, dt.UpdateProfileUser(user_id, req))
 }

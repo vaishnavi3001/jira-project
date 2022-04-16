@@ -68,3 +68,11 @@ type InviteUserRequest struct {
 type ValidateUserInviteReq struct {
 	InviteLink string `json:"invite_link"`
 }
+
+type UserProfile struct {
+	UserId    uint   `json:"user_id"`
+	Username  string `json:"username"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Email     string `json:"email_id"`
+}

@@ -22,4 +22,16 @@ describe('IssueModifyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('should have',()=>{
+    const header= fixture.debugElement.nativeElement.querySelector('.card-header');
+    expect(header.innerHTML).not.toBeNull();
+    const random_text = fixture.debugElement.nativeElement.querySelector('.row');
+    expect(random_text.innerHTML).not.toBeNull();
+    const body = fixture.debugElement.nativeElement.querySelector('.card-body');
+    expect(body.innerHTML).not.toBeNull();
+    
+    
+  })
+  
 });

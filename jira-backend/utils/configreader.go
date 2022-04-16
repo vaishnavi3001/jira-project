@@ -2,28 +2,33 @@ package utils
 
 import (
 	"fmt"
+	ct "jira-backend/constants"
+	"os"
 
 	"github.com/spf13/viper"
 )
 
 var Vconfig *viper.Viper
 
-func ConfigReader(isTest bool) error {
-	Vconfig = viper.New()
-	Vconfig.SetConfigType("json")
-	Vconfig.SetConfigName("project.config")
-	Vconfig.AddConfigPath("$HOME/jira-clone/")
-	Vconfig.AddConfigPath("./config")
+func ConfigReader(env string) error {
+	vInst := viper.New()
+	vInst.SetConfigType("json")
+	vInst.SetConfigName("project.config")
+	vInst.AddConfigPath("$HOME/config")
+	vInst.AddConfigPath("./config")
+	if env == ct.TEST {
+		vInst.AddConfigPath("../config")
+	}
+	vInst.ReadInConfig()
+	Vconfig = vInst.Sub(ct.DEV)
 
-	if isTest {
-		Vconfig.AddConfigPath("../config")
+	if env == ct.PROD {
+		Vconfig = vInst.Sub(ct.PROD)
 	}
 
-	fmt.Println(Vconfig.GetInt("server.port"))
-	err := Vconfig.ReadInConfig()
-	if err != nil {
-		fmt.Println(err)
-		return err
+	if Vconfig == nil {
+		fmt.Println("Couldn't read config. Exiting")
+		os.Exit(1)
 	}
 
 	return nil

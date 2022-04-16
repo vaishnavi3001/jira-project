@@ -32,4 +32,14 @@ describe('NewsprintComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have',()=>{
+    const  body = fixture.debugElement.nativeElement.querySelector('.card-body');
+    expect(body.innerHTML).not.toBeNull();
+    const  f= fixture.debugElement.nativeElement.querySelector('.form-group');
+    expect(f.innerHTML).not.toBeNull();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Create Sprint');
+  });
+
+  
 });

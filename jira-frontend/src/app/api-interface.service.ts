@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+import { environment } from 'src/environments/environment';
 
 const jwtHelper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
 export class ApiInterfaceService {
-  url = 'http://0.0.0.0:6000'
-  post_url = "http://api.jira-clone.com/api"
-  auth_url = "http://api.jira-clone.com"
+  url = `${environment.url}`
+  post_url = `${environment.post_url}`
+  auth_url = `${environment.auth_url}`
   token  = ""
 
   

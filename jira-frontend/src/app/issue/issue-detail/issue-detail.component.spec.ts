@@ -25,4 +25,17 @@ describe('IssueDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  
+  it('should have',()=>{
+    const title = fixture.debugElement.nativeElement.querySelector('.m-b-md');
+    expect(title.innerHTML).not.toBeNull();
+    const b = fixture.debugElement.nativeElement.querySelector('.panel-body');
+    expect(b.innerHTML).not.toBeNull();
+    const c = fixture.debugElement.nativeElement.querySelector('.container');
+    expect(c.innerHTML).not.toBeNull();
+    
+  })
+
+  
 });

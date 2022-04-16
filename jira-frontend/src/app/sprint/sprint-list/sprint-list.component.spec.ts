@@ -23,7 +23,18 @@ describe('SprintListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create sprint-list component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have',()=>{
+    const  header = fixture.debugElement.nativeElement.querySelector('.py-2');
+    expect(header.innerHTML).not.toBeNull();
+    const  body = fixture.debugElement.nativeElement.querySelector('.container');
+    expect(body.innerHTML).not.toBeNull();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('span').textContent).toContain('Create Sprint');
+  
+  
   });
 });

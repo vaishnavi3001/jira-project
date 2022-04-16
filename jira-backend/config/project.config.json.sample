@@ -1,24 +1,54 @@
 {
-    "server": {
-        "ip_address": "0.0.0.0",
-        "port": 6000,
-        "test_port":6000
+    "dev": {
+        "server": {
+            "ip_address": "0.0.0.0",
+            "port": 6000,
+            "test_port": 6000
+        },
+        "creds": {
+            "secret_key": "********",
+            "duration": 60
+        },
+        "mail_config": {
+            "mail_encryption_key": "***************",
+            "duration": 14
+        },
+        "db": {
+            "db_name": "jira.db",
+            "test_db_name": "test.db"
+        },
+        "email": {//AWS SES credentials
+            "access_key": "******************",
+            "secret_key": "***********************",
+            "email_id": "************************",
+            "aws-region": "***************"
+        },
+        "frontend-url":"http://localhost:4200"
     },
-    "creds":{
-        "secret_key" : `jwt token encryption key string`,
-        "duration" : 60
-    },
-    "mail_config":{
-        "mail_encryption_key": `mail text encryption key string`,
-        "duration": 14
-    },
-    "db":{
-        "db_name":"jira.db",
-        "test_db_name":"test.db"
-    },
-    "email-sender":{
-        "access_key": `aws access key string`,
-        "secret_key": `aws secret key string`,
-        "email_id": `sender email id from ses`,
-        "aws-region": `aws region 2` 
+    "prod": {
+        "server": {
+            "ip_address": "0.0.0.0",
+            "port": 6000,
+            "test_port": 6000
+        },
+        "creds": {
+            "secret_key": "***************",
+            "duration": 60
+        },
+        "mail_config": {
+            "mail_encryption_key": "***************",
+            "duration": 14
+        },
+        "db": {
+            "db_name": "jira.db",
+            "test_db_name": "test.db"
+        },
+        "email": {
+            "access_key": "***************",
+            "secret_key": "***************",
+            "email_id": "***************",
+            "aws-region": "***************"
+        },
+        "frontend-url":"https://app.se-gators.co.in"
     }
+}

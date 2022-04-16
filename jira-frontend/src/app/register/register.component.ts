@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(){
+    
     let body = {
       username: this.registerForm.get('username')?.value,
       firstname:this.registerForm.get('firstname')?.value,
