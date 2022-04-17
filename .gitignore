@@ -14,5 +14,5 @@ jira-frontend/build/assets
 jira-frontend/build/jira-frontend
 jira-backend/*.db
 jira-backend/jira-backend
-
-
+jira-frontend/node-server/assets/
+**/node_modules
