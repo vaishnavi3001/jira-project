@@ -343,6 +343,145 @@ var apiTestData = []testBody{
 		`{"message":"","resp":{"issue_id":[0-9]+,"title":"issue title 1","type":[0-9]+,"sprint_id":[0-9]+,"sprint_name":"Sprint Name Changed","project_id":[0-9]+,"description":"sample issue description","assignee_id":[0-9]+,"assignee_name":"pypalkar23","creator_id":[0-9]+,"creator_name":"pypalkar23","created_at":"[TZ0-9:\-\.]+","project_name":"Project 1","issue_status":[0-9]+},"status":true}`,
 		func() bool { return true },
 	},
+	/*issue update request correct*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/update",
+		"POST",
+		`{"issue_id": 1,"issue_title": "Sample Issue Edited","issue_description": "Sample Text Edited","issue_type": 1,"creator": 1,"assignee": 2,"sprint_id": 1,"project_id": 1
+		}`,
+		http.StatusOK,
+		`{"message":"ISSUE_UPDATE_SUCCESS","resp":{},"status":true}`,
+		func() bool { return true },
+	},
+	/*issue delete request correct*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
+		http.StatusOK,
+		`{"message":"ISSUE_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*repeating issue delete request for same id as previous*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*issue delete unauthenticated request*/
+	{func(req *http.Request) {
+
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*sprint delete request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusOK,
+		`{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*sprint delete request for same id as previous*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*unauthenticated sprint delete request*/
+	{func(req *http.Request) {
+	},
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*correct project delete request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusOK,
+		`{"message":"PROJECT_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*unauthenticated project delete request*/
+	{func(req *http.Request) {
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*correct project delete request repeated for the same id*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/delete",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/sprint/delete",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
+		func() bool { return true },
+	},
 }
 
 var loginTestData = []testBody{
