@@ -7,7 +7,7 @@ OR as a **Authentication Header**
 ```
 Authorization: Bearer ********.
 ```
-# Updated Backend APIs Endpoints
+# Backend APIs Endpoints
 - Any request that goes without token gets 401 status code in reply and response as follows:
     ```
     {
