@@ -33,7 +33,7 @@ const routes: Routes = [
         path: 'project/newproject', component: NewprojectComponent
       },
       {
-       path:':projectId/settings', component: ProjectSettingsComponent
+       path:'project/:projectId/settings', component: ProjectSettingsComponent
       },
       {
         path:':projectId/issues/create', component: IssueCreateComponent
