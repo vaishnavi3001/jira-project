@@ -47,4 +47,9 @@ export class ProjectListComponent implements OnInit {
     this.router.navigateByUrl(sprintRoute);
   }
 
+  getProjectSettings(element: any){
+    let settingsRoute = 'home/project/' + element.id + '/settings'
+    this.router.navigateByUrl(settingsRoute);
+  }
+
 }
