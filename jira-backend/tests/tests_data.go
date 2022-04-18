@@ -366,7 +366,44 @@ var apiTestData = []testBody{
 		`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
 		func() bool { return true },
 	},
+	// /*Set username to a username that already exists*/
+	// {func(req *http.Request) {
+	// 	setTokenRequestInCookie(req)
+	// },
+	// 	"/api/user/info",
+	// 	"PATCH",
+	// 	`{"username":"amhaske32","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
+	// 	http.StatusOK,
+	// 	`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+	// 	func() bool { return true },
+	// },
+
+	/*Set username to a username that does not exist*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+
+	/*Set username to a username that does not exist*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+
 	
+
 }
 
 var loginTestData = []testBody{
