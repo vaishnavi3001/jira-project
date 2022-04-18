@@ -564,6 +564,42 @@ var apiTestData = []testBody{
         `{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar13@gmail.com"},"status":true}`,
         func() bool { return true },
     },
+
+	/*Change password by providing correct old password*/
+	{func(req *http.Request) {
+        setTokenRequestInCookie(req)
+    },
+        "/api/user/change-password",
+        "PUT",
+        `{"old_password":"dd29b8cb089a56606fca480e137c27c4","new_password":"e807f1fcf82d132f9bb018ca6738a19f"}`,
+        http.StatusOK,
+        `{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
+        func() bool { return true },
+    },
+
+	/*Change password by providing correct old password*/
+	{func(req *http.Request) {
+        setTokenRequestInCookie(req)
+    },
+        "/api/user/change-password",
+        "PUT",
+        `{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
+        http.StatusOK,
+        `{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
+        func() bool { return true },
+    },
+
+	/*Change password by providing incorrect old password*/
+	{func(req *http.Request) {
+        setTokenRequestInCookie(req)
+    },
+        "/api/user/change-password",
+        "PUT",
+        `{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
+        http.StatusOK,
+        `{"message":"INVALID_CREDENTIALS","status":false}`,
+        func() bool { return true },
+    },
 }
 
 var loginTestData = []testBody{
