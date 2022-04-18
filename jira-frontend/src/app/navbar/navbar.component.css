@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap");
+.example-spacer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  font-family: Cabin;
+}
+
+.mat-button, .mat-raised-button {
+  font-family: Cabin;
+}
+/*# sourceMappingURL=navbar.component.css.map */
