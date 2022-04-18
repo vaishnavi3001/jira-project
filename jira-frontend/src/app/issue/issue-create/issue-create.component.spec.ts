@@ -22,7 +22,7 @@ describe('IssueCreateComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create issue-create component', () => {
     expect(component).toBeTruthy();
     
   });
@@ -30,6 +30,8 @@ describe('IssueCreateComponent', () => {
   it('should have',()=>{
     const title = fixture.debugElement.nativeElement.querySelector('.fa-plus');
     expect(title.innerHTML).not.toBeNull();
+    const body = fixture.debugElement.nativeElement.querySelector('.card-body');
+    expect(body.innerHTML).not.toBeNull();
     const random_text = fixture.debugElement.nativeElement.querySelector('.text-muted');
     expect(random_text.innerHTML).toBe('Max Size 3mb');
   })

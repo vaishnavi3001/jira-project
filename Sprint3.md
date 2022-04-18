@@ -591,7 +591,7 @@ The code associated with test cases is in **tests** directory and is divided int
 - **tests_data.go** : Contains list of test cases
 - **run_test.go** : Driver code that picks a test case one by one from *tests_data.go* and runs those testcases.
 
-**How to run the test cases**: The test cases can be executed by running the command ```go test ./tests```
+**How to run the test cases**: The test cases can be executed by running the command ```go test -v ./tests```
 
 Rather than writing multiple test functions for multiple testcases which require setup of environment prior to running actual test code, the testcases were combined into an array of custom designed struct. The structure of a single entry for a test case that tests the API is as follows:
 ```

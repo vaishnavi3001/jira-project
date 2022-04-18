@@ -22,7 +22,19 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create register component', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have',()=>{
+    const title = fixture.debugElement.nativeElement.querySelector('.modal-title');
+    expect(title.innerHTML).not.toBeNull();
+    const body = fixture.debugElement.nativeElement.querySelector('.modal-body');
+    expect(body.innerHTML).not.toBeNull();
+     const footer = fixture.debugElement.nativeElement.querySelector('.modal-footer');
+    expect(footer.innerHTML).not.toBeNull();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('SIGN UP');
+    
+  })
 });

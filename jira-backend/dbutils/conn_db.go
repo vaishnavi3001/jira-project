@@ -1,6 +1,7 @@
 package dbutils
 
 import (
+	ct "jira-backend/constants"
 	md "jira-backend/models"
 	ut "jira-backend/utils"
 
@@ -13,10 +14,10 @@ var (
 	err error
 )
 
-func InitializeConn(isTest bool) error {
-	db_name := ut.Vconfig.GetString("db_name")
-	if isTest {
-		db_name = ut.Vconfig.GetString("test_db_name")
+func InitializeConn(env string) error {
+	db_name := ut.Vconfig.GetString("db.db_name")
+	if env == ct.TEST {
+		db_name = ut.Vconfig.GetString("db.test_db_name")
 	}
 
 	DB, err = gorm.Open(sqlite.Open(db_name), &gorm.Config{})
@@ -28,8 +29,8 @@ func InitializeConn(isTest bool) error {
 	return nil
 }
 
-func GetDBInstance(isTest bool) *gorm.DB {
-	if err := InitializeConn(isTest); err != nil {
+func GetDBInstance(env string) *gorm.DB {
+	if err := InitializeConn(env); err != nil {
 		return nil
 	}
 	return DB

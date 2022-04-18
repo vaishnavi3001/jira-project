@@ -23,11 +23,19 @@ describe('IssueListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create issue-list', () => {
     expect(component).toBeTruthy();
   });
 
   it('should have', () => {
     expect(component).toBeTruthy();
   });
+  it('should have',()=>{
+    const header = fixture.debugElement.nativeElement.querySelector('.py-2');
+    expect(header.innerHTML).not.toBeNull();
+    
+    
+  })
+  
+  
 });

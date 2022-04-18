@@ -46,3 +46,16 @@ type UserRegister struct {
 type LoginSuccessResp struct {
 	Access_token string `json:"access_token"`
 }
+
+type UserProfile struct {
+	UserId    uint   `json:"user_id"`
+	Username  string `json:"username"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Email     string `json:"email_id"`
+}
+
+type ChangePasswordReq struct {
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}
