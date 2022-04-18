@@ -1,43 +1,45 @@
-<div class="row">
-  
-  <button class="btn btn-block" mat-raised-button color="primary"  
-  id="create_project" (click)="createProject()">Create Project</button>
+<section class="projects no-padding-top">
 
+  <div class="container">
+    <div class="d-flex">
+      <span class="float-end">
+        <button class="btn" color="primary" id="create_project" (click)="createProject()">Create Project</button>
+      </span>
+    </div>
+  </div>
 
+  <div class="container" *ngFor="let project of dataSource">
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-sm table-striped">
-    
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element">
-          {{element.id}}   
-      </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element">
-        <a (click)="getSprintsForProject(element)">
-          {{element.name}}
-        </a> 
-      </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="key">
-      <th mat-header-cell *matHeaderCellDef> Key </th>
-      <td mat-cell *matCellDef="let element">  Sample Key  </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let element"> Sample Type </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="lead">
-      <th mat-header-cell *matHeaderCellDef> Lead </th>
-      <td mat-cell *matCellDef="let element"> Lead 1 </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <div class="project">
+      <div class="row bg-white has-shadow">
+        <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
+          <div class="project-title d-flex align-items-center">
+            <div class="widget-49-title-wrapper">
+              <div class="widget-49-date-primary">
+                <span class="widget-49-date-day">0{{project.id}}</span>
+              </div>
+              <div class="text">
+                <h3 class="h4" (click)="getProjectSettings(project)">{{project.name}}</h3><small>Sample project
+                  description</small>
+              </div>
+            </div>
+            <!-- <div class="image has-shadow"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..." class="img-fluid"></div> -->
+
+          </div>
+          <div class="project-date"><span class="hidden-sm-down">Today at 4:24 AM</span></div>
+        </div>
+        <div class="right-col col-lg-6 d-flex align-items-center">
+          <div class="time"><i class="fa fa-clock-o"></i> {{project.id}}</div>
+          <div class="comments"><i class="fa fa-comment-o"></i>20</div>
+          <div class="project-progress">
+            <div class="progress">
+              <div role="progressbar" style="width: 45%; height: 6px;" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100" class="progress-bar bg-red"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

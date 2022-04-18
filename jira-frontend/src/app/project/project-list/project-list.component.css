@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap");
+html, body, form, table, button, div, h2 {
+  font-family: 'Cabin';
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-size: 1.2em;
+}
+/*# sourceMappingURL=project-list.component.css.map */
