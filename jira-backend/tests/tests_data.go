@@ -343,6 +343,30 @@ var apiTestData = []testBody{
 		`{"message":"","resp":{"issue_id":[0-9]+,"title":"issue title 1","type":[0-9]+,"sprint_id":[0-9]+,"sprint_name":"Sprint Name Changed","project_id":[0-9]+,"description":"sample issue description","assignee_id":[0-9]+,"assignee_name":"pypalkar23","creator_id":[0-9]+,"creator_name":"pypalkar23","created_at":"[TZ0-9:\-\.]+","project_name":"Project 1","issue_status":[0-9]+},"status":true}`,
 		func() bool { return true },
 	},
+	/*****Issues Test Cases End*****/
+	/*****User Profile test cases start ****/
+	/*View user profile without appropriate token*/
+	{func(req *http.Request) {
+	},
+		"/api/user/info",
+		"GET",
+		``,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*View user profile with appropriate token*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"GET",
+		``,
+		http.StatusOK,
+		`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+	
 }
 
 var loginTestData = []testBody{
