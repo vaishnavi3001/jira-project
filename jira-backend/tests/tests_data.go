@@ -402,6 +402,29 @@ var apiTestData = []testBody{
 		func() bool { return true },
 	},
 
+	// /*Set email to a email that already exists in db*/
+	// {func(req *http.Request) {
+	// },
+	// 	"/api/issue/create",
+	// 	"POST",
+	// 	`{"issue_title":"issue title 1","issue_description": "sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
+	// 	http.StatusUnauthorized,
+	// 	`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+	// 	func() bool { return true },
+	// },
+
+	/*Set email to an email that does not exist in db*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar13@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar13@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+
 	
 
 }
