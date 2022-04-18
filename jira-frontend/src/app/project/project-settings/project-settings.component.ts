@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectSettings, project_data } from '../project-list/project-list.component';
 
 @Component({
@@ -11,32 +11,74 @@ import { ProjectSettings, project_data } from '../project-list/project-list.comp
 })
 export class ProjectSettingsComponent implements OnInit {
   
-  project_settings: ProjectSettings | undefined;
-  projectDetailsForm!: FormGroup;
+  // project_settings: ProjectSettings | undefined;
+  // projectDetailsForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute) { }
+  project_name = ""
+  project_id = ""
+  created_at = ""
+  owner_username = ""
+
+
+
+  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.get_project_data();
+    // set the form values
+    // this.setFormValues();
+  }
+
+  // setFormValues(): void{
+  //   this.projectDetailsForm = this.fb.group({
+  //     id:this.project_settings?.id,
+  //     name:this.project_settings?.name,
+  //     key:this.project_settings?.key,
+  //     lead:this.project_settings?.lead,
+  //     type:this.project_settings?.type
+  //   });
+  // }
+
+
+
+  // onSubmit(): void{
+  //   console.log(this.projectDetailsForm);
+  // }
+
+  go_to_sprints(): void{
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
-    this.project_settings = project_data.find((project:any) => project.id === projectIdFromRoute)
+    this.router.navigateByUrl('home/project/'+projectIdFromRoute+'/sprints')
 
-    // set the form values
-    this.setFormValues();
   }
 
-  setFormValues(): void{
-    this.projectDetailsForm = this.fb.group({
-      id:this.project_settings?.id,
-      name:this.project_settings?.name,
-      key:this.project_settings?.key,
-      lead:this.project_settings?.lead,
-      type:this.project_settings?.type
-    });
+  get_project_data():void{
+    const routeParams = this.route.snapshot.paramMap;
+    const projectIdFromRoute = Number(routeParams.get('projectId'))
+    this.apiService.getProjectDetails({'project_id':projectIdFromRoute})
+    .subscribe((resp:any) => {
+      console.log(resp['resp']);
+      this.project_name = resp['resp']['project_name'];
+      this.project_id = resp['resp']['project_id'];
+      this.created_at = resp['resp']['created_at'];
+      this.owner_username = resp['resp']['owner_uname'];
+    })
   }
 
-  onSubmit(): void{
-    console.log(this.projectDetailsForm);
+  delete_project():void{
+    const routeParams = this.route.snapshot.paramMap;
+    const projectIdFromRoute = Number(routeParams.get('projectId'));
+
+    let body = {
+      "project_id": projectIdFromRoute,
+      "user_id": 1
+    }
+    console.log(projectIdFromRoute)
+
+    this.apiService.deleteProject(body)
+    .subscribe((resp:any) =>{
+      console.log(resp['response'])
+    })
   }
 
 }
