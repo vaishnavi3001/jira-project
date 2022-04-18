@@ -29,7 +29,6 @@ export class ProjectListComponent implements OnInit {
       .subscribe((resp: any) => {
         this.dataSource = resp["resp"]['projects']
         project_data = this.dataSource
-        console.log(this.dataSource)
       })
 
   }

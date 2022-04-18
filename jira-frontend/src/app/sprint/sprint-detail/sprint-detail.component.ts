@@ -40,7 +40,6 @@ export class SprintDetailComponent implements OnInit {
   }
 
   goToIssueDetails(issueId: number): void{
-    console.log(issueId)
     this.router.navigate(['home/issue/'+issueId+'/details']);
   }
 
