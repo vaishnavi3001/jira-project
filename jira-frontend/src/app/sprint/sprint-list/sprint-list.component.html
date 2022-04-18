@@ -3,18 +3,19 @@
 
 <div class="container">
   <div class="row">
-    <div><span class="float-end"><a class="btn btn-primary btn-block" id="create_sprint"
+    <div><span><a class="btn btn-primary" id="create_sprint"
           (click)="openCreateSprint()">Create Sprint</a></span></div>
   </div>
 </div>
 
 
 <div class="container">
+  
   <div class="row">
     <div class="col-lg-4"  *ngFor="let sprint of sprintlist">
       <div class="card card-margin">
         <div class="card-header no-border">
-          <h5 class="card-title">Issue</h5>
+          <h5 class="card-title">Project {{sprint.project_id}}</h5>
         </div>
         <div class="card-body pt-0">
           <div class="widget-49">
@@ -33,7 +34,7 @@
               <li class="widget-49-meeting-item"><span>Project id: {{sprint.project_id}}</span></li>
             </ol>
             <div class="widget-49-meeting-action">
-              <a (click)="gotoSprint()" class="btn btn-sm btn-flash-border-primary">Go to sprint</a>
+              <a (click)="gotoSprint(sprint.id)" class="btn btn-sm btn-flash-border-primary">Go to sprint</a>
             </div>
           </div>
         </div>

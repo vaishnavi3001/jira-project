@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,OAAO,CAAC,8EAAI;AAEZ,AAAA,IAAI,EAAE,IAAI,EAAE,IAAI,EAAE,KAAK,EAAE,MAAM,EAAE,GAAG,EAAE,EAAE,CAAA;EACpC,WAAW,EAAE,OAAO;CACvB;;AAED,AAAA,KAAK,CAAC;EACF,KAAK,EAAE,IAAI;CACd;;AAED,AAAA,EAAE,CAAA;EACE,SAAS,EAAE,KAAK;CACnB",
+    "sources": [
+        "project-list.component.scss"
+    ],
+    "names": [],
+    "file": "project-list.component.css"
+}
