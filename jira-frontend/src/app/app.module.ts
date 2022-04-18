@@ -40,7 +40,8 @@ import { IssueDetailComponent } from './issue/issue-detail/issue-detail.componen
 import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
-import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
+import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
+import { UserProfileComponent } from './user-profile/user-profile.component'
 
 
 
@@ -70,6 +71,7 @@ import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt'
     IssueDetailComponent,
     LoginComponentComponent,
     RegisterComponent,
+    UserProfileComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
