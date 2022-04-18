@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-issue-create',
@@ -11,9 +12,11 @@ import { ApiInterfaceService } from 'src/app/api-interface.service';
 export class IssueCreateComponent implements OnInit {
 
   issueDetailsForm!: FormGroup;
-  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiInterfaceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiInterfaceService,
+    private _snackBar: MatSnackBar) {
 
   }
+
 
   ngOnInit(): void {
     this.issueDetailsForm = new FormGroup({
@@ -50,10 +53,19 @@ export class IssueCreateComponent implements OnInit {
 
     this.apiService.createIssue(body)
       .subscribe(res => {
-        console.log(body)
-        console.log(res);
+        
+        if (res['status'] == true){
+          this.createAlert("Issue created successfully!")
+        }
+        else {
+          this.createAlert("Something went wrong.")
+        }
       })
 
+  }
+
+  createAlert(message:string): void{
+    this._snackBar.open(message, "Done");
   }
 
 }

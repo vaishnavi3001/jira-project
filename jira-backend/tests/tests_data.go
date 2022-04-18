@@ -343,90 +343,145 @@ var apiTestData = []testBody{
 		`{"message":"","resp":{"issue_id":[0-9]+,"title":"issue title 1","type":[0-9]+,"sprint_id":[0-9]+,"sprint_name":"Sprint Name Changed","project_id":[0-9]+,"description":"sample issue description","assignee_id":[0-9]+,"assignee_name":"pypalkar23","creator_id":[0-9]+,"creator_name":"pypalkar23","created_at":"[TZ0-9:\-\.]+","project_name":"Project 1","issue_status":[0-9]+},"status":true}`,
 		func() bool { return true },
 	},
-	/*****Issues Test Cases End*****/
-	/*****User Profile test cases start ****/
-	/*View user profile without appropriate token*/
+	/*issue update request correct*/
 	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
 	},
-		"/api/user/info",
-		"GET",
-		``,
+		"/api/issue/update",
+		"POST",
+		`{"issue_id": 1,"issue_title": "Sample Issue Edited","issue_description": "Sample Text Edited","issue_type": 1,"creator": 1,"assignee": 2,"sprint_id": 1,"project_id": 1
+		}`,
+		http.StatusOK,
+		`{"message":"ISSUE_UPDATE_SUCCESS","resp":{},"status":true}`,
+		func() bool { return true },
+	},
+	/*issue delete request correct*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
+		http.StatusOK,
+		`{"message":"ISSUE_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*repeating issue delete request for same id as previous*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*issue delete unauthenticated request*/
+	{func(req *http.Request) {
+
+	},
+		"/api/issue/delete",
+		"POST",
+		`{"issue_id": 1}`,
 		http.StatusUnauthorized,
 		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
 		func() bool { return true },
 	},
-	/*View user profile with appropriate token*/
+	/*sprint delete request*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
 	},
-		"/api/user/info",
-		"GET",
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusOK,
+		`{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*sprint delete request for same id as previous*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*unauthenticated sprint delete request*/
+	{func(req *http.Request) {
+	},
+		"/api/sprint/delete",
+		"POST",
+		`{"sprint_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*correct project delete request*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusOK,
+		`{"message":"PROJECT_DELETE_SUCCESS","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	/*unauthenticated project delete request*/
+	{func(req *http.Request) {
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*correct project delete request repeated for the same id*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
+		`{"project_id": 1}`,
+		http.StatusOK,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/project/delete",
+		"POST",
 		``,
-		http.StatusOK,
-		`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		http.StatusBadRequest,
+		badRequestString,
 		func() bool { return true },
 	},
-	// /*Set username to a username that already exists*/
-	// {func(req *http.Request) {
-	// 	setTokenRequestInCookie(req)
-	// },
-	// 	"/api/user/info",
-	// 	"PATCH",
-	// 	`{"username":"amhaske32","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-	// 	http.StatusOK,
-	// 	`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
-	// 	func() bool { return true },
-	// },
-
-	/*Set username to a username that does not exist*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
 	},
-		"/api/user/info",
-		"PATCH",
-		`{"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-		http.StatusOK,
-		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		"/api/issue/delete",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
 		func() bool { return true },
 	},
-
-	/*Set username to a username that does not exist*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
 	},
-		"/api/user/info",
-		"PATCH",
-		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-		http.StatusOK,
-		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		"/api/sprint/delete",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
 		func() bool { return true },
 	},
-
-	// /*Set email to a email that already exists in db*/
-	// {func(req *http.Request) {
-	// },
-	// 	"/api/issue/create",
-	// 	"POST",
-	// 	`{"issue_title":"issue title 1","issue_description": "sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
-	// 	http.StatusUnauthorized,
-	// 	`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
-	// 	func() bool { return true },
-	// },
-
-	/*Set email to an email that does not exist in db*/
-	{func(req *http.Request) {
-		setTokenRequestInCookie(req)
-	},
-		"/api/user/info",
-		"PATCH",
-		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar13@gmail.com"}`,
-		http.StatusOK,
-		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar13@gmail.com"},"status":true}`,
-		func() bool { return true },
-	},
-
-	
-
 }
 
 var loginTestData = []testBody{
@@ -470,6 +525,60 @@ var loginTestData = []testBody{
 		``,
 		http.StatusUnauthorized,
 		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/api/issue/create",
+		"POST",
+		`{"issue_title":"issue title 1","issue_description": "sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/register",
+		"POST",
+		``,
+		http.StatusBadRequest,
+		badRequestString,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/register",
+		"POST",
+		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","Palkar": "Bhutani","email_id":"mandypalkar@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"REGISTERATION_SUCCESSFUL","resp":"","status":true}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/register",
+		"POST",
+		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","Palkar": "Bhutani","email_id":"mandypalkar@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_ALREADY_EXISTS","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/login",
+		"POST",
+		`{"username":"divya","password":"divya"}`,
+		http.StatusOK,
+		`{"message":"INVALID_CREDENTIALS","status":false}`,
+		func() bool { return true },
+	},
+	{func(req *http.Request) {
+	},
+		"/login",
+		"POST",
+		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd"}`,
+		http.StatusOK,
+		`{"message":"LOGIN_SUCCESSFUL","resp":{"access_token":"[A-Za-z0-9\._\-]+"},"status":true}`,
 		func() bool { return true },
 	},
 }

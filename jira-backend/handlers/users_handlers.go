@@ -74,6 +74,17 @@ func UpdateUserProfile(c *gin.Context) {
 		return
 	}
 	user_id := ut.GetUserIdFromContext(c)
-	
+
 	c.JSON(http.StatusOK, dt.UpdateProfileUser(user_id, req))
+}
+
+func ChangePassword(c *gin.Context) {
+	var req sk.ChangePasswordReq
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+	user_id := ut.GetUserIdFromContext(c)
+
+	c.JSON(http.StatusOK, dt.ChangePassword(user_id, req))
 }

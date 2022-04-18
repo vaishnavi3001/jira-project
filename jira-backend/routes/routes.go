@@ -57,6 +57,6 @@ func SetupRouter(useAuth bool) *gin.Engine {
 	user := api.Group("user")
 	user.GET("/info", hd.GetUserProfile)
 	user.PATCH("/info", hd.UpdateUserProfile)
-
+	user.PUT("/change-password", hd.ChangePassword)
 	return r
 }

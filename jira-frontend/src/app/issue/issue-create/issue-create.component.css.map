@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAA;EACH,WAAW,EAAE,OAAO;EACpB,UAAU,EAAE,GAAG;EACf,aAAa,EAAE,GAAG;CACrB;;AAED,AAAA,EAAE,CAAC;EACC,WAAW,EAAE,OAAO;CACvB;;AAED,AAAA,CAAC,CAAA;EACG,YAAY,EAAE,KAClB;CAAC;;AAED,AAAA,aAAa,CAAA;EACT,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "issue-create.component.scss"
+    ],
+    "names": [],
+    "file": "issue-create.component.css"
+}
