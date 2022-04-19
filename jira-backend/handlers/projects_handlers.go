@@ -61,7 +61,7 @@ func ListMembers(c *gin.Context) {
 	c.JSON(http.StatusOK, dt.ListMembers(req, user_id))
 }
 
-func MemberCount(c *gin.Context) {
+func ShowStats(c *gin.Context) {
 	user_id := ut.GetUserIdFromContext(c)
 	var req sk.BaseProjectIdReq
 
@@ -70,5 +70,5 @@ func MemberCount(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dt.MemberCount(req, user_id))
+	c.JSON(http.StatusOK, dt.ShowStats(req, user_id))
 }
