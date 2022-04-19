@@ -36,6 +36,13 @@ const (
 	Rejected    = 5
 )
 
+//issue priority
+const (
+	High     = 1
+	Medium = 2
+	Low      = 3
+)
+
 //
 const (
 	NOT_PART_OF_THE_PROJECT     = "NOT_PART_OF_THE_PROJECT"

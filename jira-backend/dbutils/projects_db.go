@@ -96,3 +96,29 @@ func ListMembers(data sk.BaseProjectIdReq, userId uint) gin.H {
 
 	return ut.GetSuccessResponse("", sk.ProjectMembersListResp{Members: list})
 }
+
+func ShowStats(data sk.BaseProjectIdReq, userId uint) gin.H {
+	var count int64
+	var memCount int64
+	var commentCount int64
+	var issueCount int64
+	var userRoles []md.UserRole
+	var issue []md.Issue
+
+	DB.Where("user_id = ? AND project_id = ?", userId, data.ProjectId).Find(&md.UserRole{}).Count(&count)
+
+	if count == 0 {
+		return ut.GetErrorResponse(ct.ACTION_NOT_AUTHORIZED)
+	}
+
+	DB.Preload("User").Where("project_id = ?", data.ProjectId).Find(&userRoles).Count(&memCount)
+	DB.Where("project_ref = ?", data.ProjectId).Find(&issue).Count(&issueCount)
+	var cCnt int64
+	for  _, x := range issue {
+		cCnt = 0
+		DB.Where("issue_id = ?", x.IssueId).Find(&md.Comment{}).Count(&cCnt)
+		commentCount  =  commentCount + cCnt
+	}
+	
+	return ut.GetSuccessResponse("", sk.Stats{ MemberCount: memCount, IssueCount: issueCount, CommentCount: commentCount})
+}

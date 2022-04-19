@@ -22,6 +22,7 @@ type User struct {
 type Project struct {
 	ProjectId   uint `gorm:"primaryKey;auto_increment;not_null"`
 	ProjectName string
+	Description string
 	IsDeleted   bool
 	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`
@@ -44,6 +45,7 @@ type Sprint struct {
 type Issue struct {
 	IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
 	Status      uint `gorm:"default:1"`
+	Priority    uint `gorm:"default:3"` //`high/medium/low/`
 	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
 	Title       string
 	CreatedBy   uint //user ref
