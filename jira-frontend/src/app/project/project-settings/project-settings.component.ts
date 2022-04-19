@@ -12,6 +12,8 @@ import { ProjectSettings, project_data } from '../project-list/project-list.comp
 export class ProjectSettingsComponent implements OnInit {
   
   project_name = ""
+  project_desc = ""
+  project_key = ""
   project_id = ""
   created_at = ""
   owner_username = ""
@@ -19,7 +21,10 @@ export class ProjectSettingsComponent implements OnInit {
   constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.get_project_data();
+    this.get_project_data();    
+    // set the form values
+    // this.setFormValues();
+
   }
 
   go_to_sprints(): void{
@@ -36,6 +41,8 @@ export class ProjectSettingsComponent implements OnInit {
     .subscribe((resp:any) => {
       console.log(resp['resp']);
       this.project_name = resp['resp']['project_name'];
+      this.project_desc = resp['resp']['project_desc'];
+      this.project_key = resp['resp']['project_key'];
       this.project_id = resp['resp']['project_id'];
       this.created_at = resp['resp']['created_at'];
       this.owner_username = resp['resp']['owner_uname'];

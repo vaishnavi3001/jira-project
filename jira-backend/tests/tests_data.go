@@ -35,9 +35,9 @@ var apiTestData = []testBody{
 	},
 		"/api/project/create",
 		"POST",
-		`{"name":"Project 1"}`,
+		`{"name":"Project 1","description":"This is description for Project 1","key":"p1"}`,
 		http.StatusOK,
-		`{"message":"","resp":{"project_name":"Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
+		`{"message":"","resp":{"project_name":"Project 1","project_key":"p1","project_desc":"This is description for Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
 		func() bool {
 			var count int64
 			dbutils.DB.Where("role_id = 1 AND user_id = 1 AND project_id = 1").Find(&models.UserRole{}).Count(&count)
@@ -63,7 +63,7 @@ var apiTestData = []testBody{
 		"POST",
 		``,
 		http.StatusOK,
-		`{"message":"","resp":{"projects":[{"name":"Project 1","id":[0-9]+,"created_at":"([TZ0-9:\-\.]+)","user_role":[0-9]+}]},"status":true}`,
+		`{"message":"","resp":{"projects":[{"name":"Project 1","description":"","key":"","id":[0-9]+,"created_at":"([TZ0-9:\-\.]+)","user_role":[0-9]+}]},"status":true}`,
 		func() bool { return true },
 	},
 	//Project List API Bad Request
@@ -85,7 +85,7 @@ var apiTestData = []testBody{
 		"POST",
 		`{"project_id": 1}`,
 		http.StatusOK,
-		`{"message":"","resp":{"project_id":([0-9]+),"project_name":"Project 1","owner_uname":"pypalkar23","owner_id":([0-9]+),"owner_fname":"Mandar","owner_lname":"Palkar","created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
+		`{"message":"","resp":{"project_id":([0-9]+),"project_name":"Project 1","project_desc":"This is description for Project 1","project_key":"p1","owner_uname":"pypalkar23","owner_id":([0-9]+),"owner_fname":"Mandar","owner_lname":"Palkar","created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
 		func() bool { return true },
 	},
 	//List Project Members - Correct Request Response

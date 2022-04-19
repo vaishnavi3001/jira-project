@@ -31,7 +31,10 @@
           <form>
             <div class="form-group" [formGroup]="newProjectForm" >
               <label for="create-project"></label>
-              <input type="text" placeholder="Project name" class="form-control"  formControlName="projectName" required>
+              <input type="text" placeholder="Name" class="form-control"  formControlName="projectName" required>
+
+              <label for="projectDesc"></label>
+              <input type="textarea" placeholder="Description" class="form-control"  formControlName="projectDesc" required>
             
               <label for="project-key"></label>
               <input type="text" placeholder="Project key" class="form-control"  formControlName="projectKey" required>
