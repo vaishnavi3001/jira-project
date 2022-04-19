@@ -9,8 +9,12 @@ import { ApiInterfaceService } from 'src/app/api-interface.service';
   styleUrls: ['./sprint-detail.component.scss']
 })
 export class SprintDetailComponent implements OnInit {
-  issue_list :any[] = []
-  move_here :any[] = []
+
+  Upcoming :any[] = [];
+  InProgress :any[] = [];
+  Review :any[] = [];
+  Done :any[] = [];
+
   constructor(private route: ActivatedRoute, private apiService:ApiInterfaceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -18,17 +22,12 @@ export class SprintDetailComponent implements OnInit {
     const sprintIdFromRoute = Number(routeParams.get('sprintId'));
        this.apiService.getIssueList({'user_id':1, 'sprint_id': sprintIdFromRoute})
        .subscribe((resp:any) =>{
-       this.issue_list = (resp['resp']['issues'])
+       this.Upcoming = (resp['resp']['issues'])
       })
        
   }
 
-  Upcoming = [];
-  InProgress = [];
-  Review = [];
-  Done = [];
-
-  onDrop(event: CdkDragDrop<string[]>) {
+  onDrop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
