@@ -15,6 +15,8 @@ export class ProjectSettingsComponent implements OnInit {
   // projectDetailsForm!: FormGroup;
 
   project_name = ""
+  project_desc = ""
+  project_key = ""
   project_id = ""
   created_at = ""
   owner_username = ""
@@ -25,6 +27,7 @@ export class ProjectSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.get_project_data();
+    
     // set the form values
     // this.setFormValues();
   }
@@ -59,6 +62,8 @@ export class ProjectSettingsComponent implements OnInit {
     .subscribe((resp:any) => {
       console.log(resp['resp']);
       this.project_name = resp['resp']['project_name'];
+      this.project_desc = resp['resp']['project_desc'];
+      this.project_key = resp['resp']['project_key'];
       this.project_id = resp['resp']['project_id'];
       this.created_at = resp['resp']['created_at'];
       this.owner_username = resp['resp']['owner_uname'];
