@@ -60,3 +60,15 @@ func ListMembers(c *gin.Context) {
 
 	c.JSON(http.StatusOK, dt.ListMembers(req, user_id))
 }
+
+func ShowStats(c *gin.Context) {
+	user_id := ut.GetUserIdFromContext(c)
+	var req sk.BaseProjectIdReq
+
+	if err := c.BindJSON(&req); err != nil {
+		ut.ThrowBadRequest(c)
+		return
+	}
+
+	c.JSON(http.StatusOK, dt.ShowStats(req, user_id))
+}

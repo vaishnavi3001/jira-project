@@ -7,13 +7,17 @@ type BaseProjectIdReq struct {
 }
 type CreateProjectReq struct {
 	Name string `json:"name"`
+	Description string `json:"description"`
+	Key string `json:"key"`
 }
 
 type ProjectEntry struct {
-	Name      string    `json:"name"`
-	Id        uint      `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	UserRole  uint      `json:"user_role"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Key 		string    `json:"key"`
+	Id          uint      `json:"id"`
+	CreatedAt   time.Time `json:"created_at"`
+	UserRole    uint      `json:"user_role"`
 }
 
 type ProjectListResp struct {
@@ -21,9 +25,11 @@ type ProjectListResp struct {
 }
 
 type CreateProjectResp struct {
-	ProjectName string    `json:"project_name"`
-	ProjectId   uint      `json:"project_id"`
-	CreatedAt   time.Time `json:"created_at"`
+	ProjectName			string    	`json:"project_name"`
+	ProjectKey			string	  	`json:"project_key"`
+	ProjectDescription  string	  	`json:"project_desc"`
+	ProjectId   		uint      	`json:"project_id"`
+	CreatedAt   		time.Time 	`json:"created_at"`
 }
 
 type ProjectInfoReq struct {
@@ -31,13 +37,15 @@ type ProjectInfoReq struct {
 }
 
 type ProjectInfoResp struct {
-	ProjectId  uint      `json:"project_id"`
-	Name       string    `json:"project_name"`
-	OwnerUName string    `json:"owner_uname"`
-	OwnerId    uint      `json:"owner_id"`
-	OwnerFName string    `json:"owner_fname"`
-	OwnerLName string    `json:"owner_lname"`
-	CreatedAt  time.Time `json:"created_at"`
+	ProjectId   uint      `json:"project_id"`
+	Name        string    `json:"project_name"`
+	Description string    `json:"project_desc"`
+	Key         string    `json:"project_key"`
+	OwnerUName  string    `json:"owner_uname"` 
+	OwnerId     uint      `json:"owner_id"`
+	OwnerFName  string    `json:"owner_fname"`
+	OwnerLName  string    `json:"owner_lname"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type ProjectUsers struct {
@@ -53,4 +61,10 @@ type ProjectMembersResp struct {
 
 type ProjectMembersListResp struct {
 	Members []ProjectMembersResp `json:"members"`
+}
+
+type Stats struct{
+	MemberCount int64 `json:"member_count"`
+	IssueCount int64 `json:"issue_count"`
+	CommentCount int64 `json:"comment_count"`
 }
