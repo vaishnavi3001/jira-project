@@ -54,3 +54,7 @@ type ProjectMembersResp struct {
 type ProjectMembersListResp struct {
 	Members []ProjectMembersResp `json:"members"`
 }
+
+type Count struct{
+	Count int64 `json:"count"`
+}
