@@ -23,6 +23,7 @@ type Project struct {
 	ProjectId   uint `gorm:"primaryKey;auto_increment;not_null"`
 	ProjectName string
 	Description string
+	ProjectKey string
 	IsDeleted   bool
 	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`

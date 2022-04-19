@@ -13,7 +13,10 @@ import (
 
 func CreateProject(data sk.CreateProjectReq, userId uint) gin.H {
 	project_name := strings.TrimSpace(data.Name)
-	project := md.Project{ProjectName: project_name}
+	project_desc := strings.TrimSpace(data.Description)
+	project_key := strings.TrimSpace(data.Key)
+
+	project := md.Project{ProjectName: project_name, ProjectKey: project_key, Description: project_desc}
 	var count int64
 	DB.Where("project_name = ?", project_name).Find(&md.Project{}).Count(&count)
 	fmt.Println(count)
@@ -26,7 +29,7 @@ func CreateProject(data sk.CreateProjectReq, userId uint) gin.H {
 	user_role := md.UserRole{UserId: userId, RoleId: ct.Owner, ProjectId: project.ProjectId}
 	DB.Create(&user_role)
 
-	res := sk.CreateProjectResp{ProjectName: project.ProjectName, ProjectId: project.ProjectId, CreatedAt: project.CreatedAt}
+	res := sk.CreateProjectResp{ProjectName: project.ProjectName, ProjectDescription: project.Description, ProjectKey: project.ProjectKey, ProjectId: project.ProjectId, CreatedAt: project.CreatedAt}
 	return ut.GetSuccessResponse("", res)
 }
 
@@ -41,7 +44,7 @@ func GetProjectInfo(data sk.ProjectInfoReq, userId uint) gin.H {
 		DB.Preload("User").Where("role_id=1 AND project_id=?", data.ProjectId).Find(&userRole)
 		var project md.Project
 		DB.Where("project_id", data.ProjectId).Find(&project)
-		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, CreatedAt: project.CreatedAt, OwnerUName: userRole.User.Username, OwnerFName: userRole.User.Firstname, OwnerLName: userRole.User.Lastname, OwnerId: userRole.User.UserId}
+		res = sk.ProjectInfoResp{ProjectId: project.ProjectId, Name: project.ProjectName, Description: project.Description, Key: project.ProjectKey, CreatedAt: project.CreatedAt, OwnerUName: userRole.User.Username, OwnerFName: userRole.User.Firstname, OwnerLName: userRole.User.Lastname, OwnerId: userRole.User.UserId}
 		return ut.GetSuccessResponse("", res)
 	}
 }
