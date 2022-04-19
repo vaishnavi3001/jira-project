@@ -24,15 +24,15 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(){
-    let tempPassword = this.registerForm.get('password')?.value,
-    md5 = new Md5()
-    let hashedPassword = md5.appendStr(tempPassword).end()
+    let password =  this.registerForm.get('password')?.value
+    const md5 = new Md5()
+    let hashedPassword = md5.appendStr(password).end()
     let body = {
       username: this.registerForm.get('username')?.value,
       firstname:this.registerForm.get('firstname')?.value,
       lastname: this.registerForm.get('lastname')?.value,
       password: hashedPassword,
-      email: this.registerForm.get('email')?.value
+      email_id: this.registerForm.get('email')?.value
     } 
 
     this.apiService.register(body)

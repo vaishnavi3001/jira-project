@@ -11,6 +11,7 @@ export class NewprojectComponent implements OnInit {
   newProjectForm = new FormGroup({
     projectName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     projectKey: new FormControl('', [Validators.required]),
+    projectDesc: new FormControl(''),
   });
 
   constructor(private apiService: ApiInterfaceService) { }
@@ -21,6 +22,8 @@ export class NewprojectComponent implements OnInit {
   submit(){
     let body = {
       name:this.newProjectForm.get('projectName')?.value,
+      description: this.newProjectForm.get('projectDesc')?.value,
+      key: this.newProjectForm.get('projectKey')?.value,
       user_id: 1,
     } 
 

@@ -76,3 +76,8 @@ type UserProfile struct {
 	LastName  string `json:"lastname"`
 	Email     string `json:"email_id"`
 }
+
+type ChangePasswordReq struct {
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}

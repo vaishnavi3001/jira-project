@@ -1,7 +1,14 @@
 # Jira-Clone
 Software Project Management Tool plays a pivotal role in the lifecycle and success of any Software Project. This project by us strives to address that issue. This project aims to provide a clean UI with minimalistic but most important features of a project management tool.  
   
+## The project is accessible at -
+- **Frontend** - https://app.se-gators.co.in
+- **Backend** - https://api.se-gators.co.in
 
+
+
+## Member List -
+  
 |Project Group Members|Github User Name|Developer Type
 -|-|-
 Ashish Sanjay Mhaske| amhaske | Frontend
@@ -46,6 +53,8 @@ This feature will help authenticate the user.
 - run `go build jira-build`
 - run `go run jira-build` or `./jira-build`
 - Server will run on `0.0.0.0:8080`
+
+
 
 
 

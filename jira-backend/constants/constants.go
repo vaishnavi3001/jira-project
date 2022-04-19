@@ -36,6 +36,13 @@ const (
 	Rejected    = 5
 )
 
+//issue priority
+const (
+	High     = 1
+	Medium = 2
+	Low      = 3
+)
+
 //
 const (
 	NOT_PART_OF_THE_PROJECT     = "NOT_PART_OF_THE_PROJECT"
@@ -67,6 +74,7 @@ const (
 	INVITATION_SENT             = "INVITATION_SENT"
 	USER_FOUND                  = "USER_FOUND"
 	USER_PROFILE_UPDATE_SUCCESS = "USER_PROFILE_UPDATE_SUCCESS"
+	PASSWORD_CHANGE_SUCCESSFUL  = "PASSWORD_CHANGE_SUCCESSFUL"
 )
 
 const (

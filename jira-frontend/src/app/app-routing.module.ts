@@ -15,6 +15,8 @@ import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.comp
 import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthguardService } from './guards/authguard.service';
+import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -30,7 +32,7 @@ const routes: Routes = [
         path: 'project/newproject', component: NewprojectComponent
       },
       {
-       path:':projectId/settings', component: ProjectSettingsComponent
+       path:'project/:projectId/settings', component: ProjectSettingsComponent
       },
       {
         path:':projectId/issues/create', component: IssueCreateComponent
@@ -55,6 +57,9 @@ const routes: Routes = [
       },
       {
         path:'sprint/:sprintId/details', component: SprintDetailComponent
+      },
+      {
+        path:'sampleprofile', component: UserProfileComponent
       }
     ]},
 

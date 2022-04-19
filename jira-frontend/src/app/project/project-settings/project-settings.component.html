@@ -1,35 +1,5 @@
-<body>
+<!-- <body>
   <div class= "wrapper">
-
-    <nav id="sidebar">
-      <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Details</a>
-            </li>
-            <li>
-                <a href="#">Board</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-            </li>
-            <li>
-                <a href="#">Access</a>
-            </li>
-            <li>
-                <a href="#">Issue types</a>
-            </li>
-        </ul>
-    </nav>
-    </nav>
-   
-
-
-
     
       <div id="content" class="d-flex">  
         
@@ -62,4 +32,74 @@
       
     
   </div>
-</body>
+</body> -->
+<div class="container">
+  <div class="row">
+    <div>
+      <span><a class="btn btn-primary" id="go_to_sprint" (click)="go_to_sprints()">Go To Sprints</a></span>
+      <span><a class="btn btn-danger" id = "delete_project" (click)="delete_project()">Delete Project</a></span>
+      </div>
+  </div>
+</div>
+<div class="content" id="main-box">
+
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="card-box project-box">
+        <div class="dropdown float-right">
+          <!-- <a href="#" class="dropdown-toggle card-drop arrow-none"
+            data-toggle="dropdown" aria-expanded="false"> 
+            <h3 class="m-0 text-muted"><i class="mdi mdi-dots-horizontal"></i></h3>
+          </a>-->
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1"><a class="dropdown-item"
+              href="#">Edit</a> <a class="dropdown-item" href="#">Delete</a> <a class="dropdown-item" href="#">Add
+              Members</a> <a class="dropdown-item" href="#">Add Due Date</a></div>
+        </div>
+        <p class="text-muted text-uppercase mb-0 font-13">Project Id : {{project_id}}</p>
+        <h4 class="mt-0 mb-3 text-dark">{{project_name}}</h4>
+        <p class="text-muted font-13">{{project_desc}}</p>
+        <p class="text-muted font-13">Created at : {{created_at}}</p>
+        <p class="text-muted font-13">Created by: {{owner_username}}</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <h3 class="mb-0">124</h3>
+            <p class="text-muted">Attachments</p>
+          </li>
+          <li class="list-inline-item">
+            <h3 class="mb-0">452</h3>
+            <p class="text-muted">Comments</p>
+          </li>
+          <li class="list-inline-item">
+            <h3 class="mb-0">85</h3>
+            <p class="text-muted">Tasks</p>
+          </li>
+        </ul>
+        <div class="project-members mb-4">
+          <label class="mr-3">Team :</label>
+          <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mat Helme"><img
+              src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle thumb-sm" alt="friend">
+          </a>
+          <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Michael Zenaty"><img
+              src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle thumb-sm" alt="friend">
+          </a>
+          <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="James Anderson"><img
+              src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle thumb-sm" alt="friend">
+          </a>
+          <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mat Helme"><img
+              src="https://bootdey.com/img/Content/avatar/avatar4.png" class="rounded-circle thumb-sm" alt="friend">
+          </a>
+          <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Username"><img
+              src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle thumb-sm" alt="friend"></a>
+        </div>
+        <label class="">Task completed: <span class="text-custom">55/85</span></label>
+        <div class="progress mb-1" style="height: 7px;">
+          <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+            style="width: 80%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

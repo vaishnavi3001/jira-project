@@ -1,119 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap');;
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-html, body, form, h1, h2, h3, button{
+html, body, form, h1, h2, h3,h4, button, .card-box, .project-box, p{
     font-family: 'Cabin';
 }
 
-.btn{
-    background-color: #3f51b5;
+body{
+    margin-top:20px;
+    background:#DCDCDC;
 }
 
-body {
-    height: 100%;
-    background-color: #ffffff;
-    
-}
 
-.form-group{
- margin-bottom: 0.8em;
-
-}
-
-#form-div{
-    padding: 1em;
-    border: 2px solid #3F51B5;
-    border-radius: 1em;
-}
-
-label{
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 0.1em;
-}
-
-input{
-    border-radius: .2em;
-    border: 1px solid gray;
-}
-
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
-
-#sidebar {
-    margin-right: 1em;
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-    background: #ffffff;
-    color: #fff;
-    transition: all 0.3s;
-}
-
-#sidebar.active {
-    margin-left: -250px;
-}
-
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
-
-#sidebar .sidebar-header {
+.card-box {
+    margin: auto;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, .06), 0 1px 0 0 rgba(0, 0, 0, .02);
     padding: 20px;
-    background: #6d7fcc;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    background-color: #fff;
 }
 
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+.project-box {
+    margin: auto;
+    //border-color: black;
+    position: relative
 }
 
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
+.project-box .badge {
+    position: absolute;
+    right: 20px
 }
 
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
+.project-box h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: block;
-}
-#sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    width: 100%;
+    overflow: hidden
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #6d7fcc;
-    background: #fff;
+.project-box ul li {
+    padding-right: 30px
 }
 
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #6d7fcc;
+.project-box .project-members a {
+    margin: 0 0 10px -12px;
+    display: inline-block;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 24px 0 rgba(0, 0, 0, .06), 0 1px 0 0 rgba(0, 0, 0, .02);
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, .06), 0 1px 0 0 rgba(0, 0, 0, .02)
 }
 
-#content{
-    margin-left: auto;
-    margin-right: auto;
+.project-box .project-members a:first-of-type {
+    margin-left: 0
+}
+
+.thumb-sm {
+    height: 36px;
+    width: 36px;
+}
+
+// .font-13 {
+//     font-size: 13px!important;
+// }
+
+.text-dark {
+    color: #313a46!important;
+}
+#main-box{
+    margin-top: 2em;
+}
+
+#go_to_sprint{
+    background-color: #3f51b5;
+    font-family: 'Cabin';
+    margin-top: 1em;
+  }  
+
+#delete_project{
+    font-family: 'Cabin';
+    margin-top: 1em;   
+    margin-left: 1em;
 }

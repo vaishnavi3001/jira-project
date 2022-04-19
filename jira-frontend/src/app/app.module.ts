@@ -42,15 +42,10 @@ import { LoginComponentComponent } from './login-component/login-component.compo
 import { RegisterComponent } from './register/register.component';
 import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
 import { JoinComponent } from './join/join.component'
-
-
-
-
-//import { NavbarComponent } from './navbar/navbar.component';
-
-
-
-
+import { SprintDetailComponent } from './sprint/sprint-detail/sprint-detail.component';
+import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -72,6 +67,9 @@ import { JoinComponent } from './join/join.component'
     LoginComponentComponent,
     RegisterComponent,
     JoinComponent,
+    TrialDragAndDropComponent,
+    SprintDetailComponent,
+    UserProfileComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
@@ -97,6 +95,7 @@ import { JoinComponent } from './join/join.component'
     MatNativeDateModule,
     NgbModule,
     HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

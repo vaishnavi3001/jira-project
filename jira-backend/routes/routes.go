@@ -33,6 +33,7 @@ func SetupRouter(useAuth bool) *gin.Engine {
 	project.POST("/delete", hd.DeleteProject)
 	project.POST("/create", hd.CreateProject)
 	project.POST("/members", hd.ListMembers)
+	project.POST("/stats", hd.ShowStats)
 
 	sprint := api.Group("sprint")
 	sprint.POST("/list", hd.ListSprints)
@@ -59,6 +60,6 @@ func SetupRouter(useAuth bool) *gin.Engine {
 	user.POST("/verify", hd.ValidateUserInvite)
 	user.GET("/info", hd.GetUserProfile)
 	user.PATCH("/info", hd.UpdateUserProfile)
-
+	user.PUT("/change-password", hd.ChangePassword)
 	return r
 }

@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap");
+html, body, form, table, h1 {
+  font-family: 'Cabin';
+}
+
+h1 {
+  margin: 0;
+}
+
+i {
+  padding-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+th {
+  font-size: 1.2em;
+}
+
+#create_sprint {
+  background-color: #3f51b5;
+  font-family: 'Cabin';
+}
+
+#create_issue {
+  background-color: #3f51b5;
+  font-family: 'Cabin';
+  margin-right: 2em;
+}
+
+#create_row {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  margin-right: 2em;
+}
+
+#delete_project {
+  font-family: 'Cabin';
+}
+/*# sourceMappingURL=issue-list.component.css.map */
