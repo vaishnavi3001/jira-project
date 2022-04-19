@@ -5,6 +5,7 @@ import { ApiInterfaceService } from '../../api-interface.service';
 export interface ProjectSettings {
   id: number,
   name: string;
+  description: string;
   key: number;
   type: number;
   lead: string;

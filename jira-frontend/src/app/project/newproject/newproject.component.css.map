@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,OAAO,CAAC,8EAAI;AAEZ,AAAA,EAAE,EAAE,GAAG,CAAA;EACH,WAAW,EAAE,OAAO;CACvB",
+    "sources": [
+        "newproject.component.scss"
+    ],
+    "names": [],
+    "file": "newproject.component.css"
+}
