@@ -44,6 +44,7 @@ import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
 import { SprintDetailComponent } from './sprint/sprint-detail/sprint-detail.component';
 import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 
@@ -74,6 +75,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RegisterComponent,
     TrialDragAndDropComponent,
     SprintDetailComponent,
+    UserProfileComponent,
     //NavbarComponent,
     //NavbarComponent
   ],

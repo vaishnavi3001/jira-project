@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthguardService } from './guards/authguard.service';
 import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -60,7 +61,7 @@ const routes: Routes = [
         path:'sprint/:sprintId/details', component: SprintDetailComponent
       },
       {
-        path:'sampledrag', component: TrialDragAndDropComponent
+        path:'sampleprofile', component: UserProfileComponent
       }
     ]},
 
