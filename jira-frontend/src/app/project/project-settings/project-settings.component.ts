@@ -11,9 +11,6 @@ import { ProjectSettings, project_data } from '../project-list/project-list.comp
 })
 export class ProjectSettingsComponent implements OnInit {
   
-  // project_settings: ProjectSettings | undefined;
-  // projectDetailsForm!: FormGroup;
-
   project_name = ""
   project_desc = ""
   project_key = ""
@@ -21,32 +18,14 @@ export class ProjectSettingsComponent implements OnInit {
   created_at = ""
   owner_username = ""
 
-
-
   constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.get_project_data();
-    
+    this.get_project_data();    
     // set the form values
     // this.setFormValues();
+
   }
-
-  // setFormValues(): void{
-  //   this.projectDetailsForm = this.fb.group({
-  //     id:this.project_settings?.id,
-  //     name:this.project_settings?.name,
-  //     key:this.project_settings?.key,
-  //     lead:this.project_settings?.lead,
-  //     type:this.project_settings?.type
-  //   });
-  // }
-
-
-
-  // onSubmit(): void{
-  //   console.log(this.projectDetailsForm);
-  // }
 
   go_to_sprints(): void{
     const routeParams = this.route.snapshot.paramMap;
