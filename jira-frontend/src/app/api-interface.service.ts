@@ -97,7 +97,7 @@ export class ApiInterfaceService {
   }
 
   logout(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.auth_url+'/logout', data)
+    return this.apiResponse = this.http.get<any>(this.auth_url+'/logout')
   }
 
   getToken() {
