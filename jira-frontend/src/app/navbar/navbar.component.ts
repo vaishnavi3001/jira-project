@@ -15,11 +15,14 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void{
-    this.apiService.logout({})
-    .subscribe((resp:any) => {
-      console.log(resp)
-      this.router.navigateByUrl('login')
-    })
+    this.apiService.setToken('')
+    this.router.navigateByUrl('login')
+    // this.apiService.logout({})
+    // .subscribe((resp:any) => {
+    //   console.log(resp)
+    //   this.apiService.setToken('')
+    //   this.router.navigateByUrl('login')      
+    // })
     
   }
 

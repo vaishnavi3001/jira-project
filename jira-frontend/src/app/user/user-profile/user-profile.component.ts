@@ -70,7 +70,7 @@ export class UserProfileComponent implements OnInit {
 
     let body = {
       old_password: oldHashedPassword,
-      new_password: this.changePasswordForm.get('newPassword')?.value
+      new_password: newHashedPassword
     } 
 
     this.apiService.changePassword(body)

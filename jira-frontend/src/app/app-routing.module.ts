@@ -61,7 +61,7 @@ const routes: Routes = [
         path:'sprint/:sprintId/details', component: SprintDetailComponent
       },
       {
-        path:'sampleprofile', component: UserProfileComponent
+        path:'userprofile', component: UserProfileComponent
       }
     ]},
 
