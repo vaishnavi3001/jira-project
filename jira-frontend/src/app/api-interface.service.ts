@@ -135,4 +135,7 @@ export class ApiInterfaceService {
     return this.apiResponse = this.http.put<any>(this.post_url+'/user/change-password', data)
   }
 
+  getProjectMemebers(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/project/members', data)
+  }
 }

@@ -10,7 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./issue-create.component.scss']
 })
 export class IssueCreateComponent implements OnInit {
-
+  projects: any[] = [];
+  sprints: any[] = [];
+  members: any[] = [];
   issueDetailsForm!: FormGroup;
   constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiInterfaceService,
     private _snackBar: MatSnackBar) {
@@ -21,7 +23,7 @@ export class IssueCreateComponent implements OnInit {
   ngOnInit(): void {
     this.issueDetailsForm = new FormGroup({
       issue_title: new FormControl(),
-      project_name: new FormControl(),
+      project_id: new FormControl(),
       issue_type: new FormControl(),
       sprint_number: new FormControl(),
       upload_attachments: new FormControl(),
@@ -29,6 +31,42 @@ export class IssueCreateComponent implements OnInit {
       issue_assignee: new FormControl(),
       issue_reporter: new FormControl(),
     })
+
+    this.getProjects()
+   
+    
+  }
+
+  getProjects(){
+    this.apiService.getProjectList({})
+    .subscribe((result: any) => {
+      this.projects = result['resp']['projects']
+    })
+
+
+  }
+
+  getDetails(){
+    this.getProjectSprints()
+    this.getProjectMemebers()
+  }
+
+  getProjectSprints(){
+    var body = {"project_id":Number(this.issueDetailsForm.get('project_id')?.value) }
+    this.apiService.getSprintList(body)
+    .subscribe((result:any) => {
+      this.sprints = result['resp']['sprints']
+    })
+    console.log( Number(this.issueDetailsForm.get('project_id')?.value))
+  }
+
+  getProjectMemebers(){
+    var body = {"project_id":Number(this.issueDetailsForm.get('project_id')?.value) }
+    this.apiService.getProjectMemebers(body)
+    .subscribe((result:any) => {
+      this.members = result['resp']['members']
+    })
+  
   }
 
   onSubmit(): void {
@@ -36,19 +74,19 @@ export class IssueCreateComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const projectIdFromRoute = Number(routeParams.get('projectId'));
 
-    let issueTypeMap = new Map<string, number>([["Task", 1], ["Sub Task", 2], ["Bug", 3]]);
+    let issueTypeMap = new Map<string, number>([["Epic", 1],["Task", 1], ["Sub Task", 2], ["Bug", 3]]);
 
     let _issue_type: string = this.issueDetailsForm.get('issue_type')?.value
 
     let body = {
-      "user_id": 1,
+      "user_id":1,
       "issue_title": this.issueDetailsForm.get('issue_title')?.value,
       "issue_description": this.issueDetailsForm.get('issue_description')?.value,
       "issue_type": issueTypeMap.get(_issue_type),
-      "creator": 1,
-      "assignee": 1,
-      "sprint_id": 1,
-      "project_id": projectIdFromRoute
+      "creator": Number(this.issueDetailsForm.get('issue_reporter')?.value),
+      "assignee": Number(this.issueDetailsForm.get('issue_assignee')?.value),
+      "sprint_id": Number(this.issueDetailsForm.get('sprint_number')?.value),
+      "project_id": Number(this.issueDetailsForm.get('project_id')?.value)
     }
 
     this.apiService.createIssue(body)
