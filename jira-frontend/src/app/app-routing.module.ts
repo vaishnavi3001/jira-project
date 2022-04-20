@@ -69,9 +69,11 @@ const routes: Routes = [
       {
         path: 'join-project', component: JoinComponent
       },
+      {
+        path:'userprofile', component: UserProfileComponent
+      }
     ]
   },
-
   { path: '**', pathMatch: 'full', redirectTo: 'home/projects' },
 ];
 

@@ -13,6 +13,7 @@ export class IssueDetailComponent implements OnInit {
   issue_creator = ""
   assignee_name = ""
   description = ""
+  issue_created_at = ""
 
   constructor(private route: ActivatedRoute, private apiService:ApiInterfaceService) { }
 
@@ -41,6 +42,7 @@ export class IssueDetailComponent implements OnInit {
       this.issue_creator = resp['resp']['creator_name']
       this.assignee_name = resp['resp']['assignee_name']
       this.description = resp['resp']['description']
+      this.issue_created_at = resp['resp']['created_at']
 
     })
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angu
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectSettings, project_data } from '../project-list/project-list.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-project-settings,',
@@ -17,11 +18,15 @@ export class ProjectSettingsComponent implements OnInit {
   project_id = ""
   created_at = ""
   owner_username = ""
+  memberCnt = ""
+  issueCnt = ""
+  commentCnt = ""
 
-  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.get_project_data();    
+    this.get_project_data();  
+     
     // set the form values
     // this.setFormValues();
 
@@ -46,7 +51,22 @@ export class ProjectSettingsComponent implements OnInit {
       this.project_id = resp['resp']['project_id'];
       this.created_at = resp['resp']['created_at'];
       this.owner_username = resp['resp']['owner_uname'];
+      this.get_project_stats(); 
     })
+  }
+
+  get_project_stats(){
+    const body = {
+      "project_id": this.project_id
+    }
+    this.apiService.getProjectStats(body)
+    .subscribe((resp:any) => {
+      console.log(resp['resp']);
+      this.memberCnt = resp['resp']['member_count'];
+      this.issueCnt = resp['resp']['issue_count'];
+      this.commentCnt = resp['resp']['comment_count'];
+    })
+
   }
 
   delete_project():void{
@@ -54,15 +74,23 @@ export class ProjectSettingsComponent implements OnInit {
     const projectIdFromRoute = Number(routeParams.get('projectId'));
 
     let body = {
+      "user_id": 1,
       "project_id": projectIdFromRoute,
-      "user_id": 1
     }
     console.log(projectIdFromRoute)
 
     this.apiService.deleteProject(body)
     .subscribe((resp:any) =>{
+      console.log(body)
       console.log(resp['response'])
+      this.createAlert("Issue deleted successfully!")
+      this.router.navigateByUrl('/home/projects');
     })
+  }
+
+
+  createAlert(message:string): void{
+    this._snackBar.open(message, "Done");
   }
 
 }

@@ -16,3 +16,5 @@ jira-backend/*.db
 jira-backend/jira-backend
 jira-frontend/node-server/assets/
 **/node_modules
+**/*.map
+**/*workspace

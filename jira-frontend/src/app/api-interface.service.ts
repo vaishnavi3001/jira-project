@@ -85,13 +85,19 @@ export class ApiInterfaceService {
     return this.apiResponse = this.http.post<any>(this.api_url + '/project/info', data)
   }
 
-  login(data: any): Observable<any> {
-    return this.apiResponse = this.http.post<any>(this.backend_url + '/login', data)
+
+  getProjectStats(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.api_url+'/project/stats', data)
+  }
+
+  login(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.backend_url+'/login', data)
   }
 
   register(data: any): Observable<any> {
     return this.apiResponse = this.http.post<any>(this.backend_url + '/register', data)
   }
+
 
   logout(): Observable<any> {
     return this.apiResponse = this.http.post<any>(this.backend_url + '/logout', {})
@@ -105,6 +111,10 @@ export class ApiInterfaceService {
     localStorage.setItem("access-token", token);
   }
 
+  removeToken(){
+    localStorage.removeItem("access-token")
+  }
+
   isAuthenticated() {
     let currToken = this.getToken() || undefined;
     return !jwtHelper.isTokenExpired(currToken)
@@ -116,6 +126,17 @@ export class ApiInterfaceService {
 
   sendInvite(data:any){
     return this.http.post(this.api_url + '/user/invite',data)
+  }
+  getUserProfile(): Observable<any>{
+    return this.apiResponse = this.http.get<any>(this.api_url+'/user/info')
+  }
+
+  editUserProfile(data: any): Observable<any>{
+    return this.apiResponse = this.http.patch<any>(this.api_url+'/user/info', data)
+  }
+
+  changePassword(data: any): Observable<any>{
+    return this.apiResponse = this.http.put<any>(this.api_url+'/user/change-password', data)
   }
 
 }
