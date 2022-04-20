@@ -1,0 +1,30 @@
+<div class="create-project-modal" id="createModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    Invite a member to this project
+                </h2>
+            </div>
+
+            <div class="modal-body">
+                <p [hidden]="!isSuccess()" class="success-msg">{{respMsg}}</p>
+                <p [hidden]="!isError()" class="error-msg">{{errorMsg}}</p>
+                <form>
+                    <div class="form-group" [formGroup]="inviteForm">
+                        <label for="Invite Member">Email Id</label>
+                        <input type="text" placeholder="email" class="form-control"
+                            formControlName="email" formControlName="email" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="sendInvite()"> Invite </button>
+                <!-- <button class="btn btn-secondary" data-dismiss="create-project-modal"> Logout </button> -->
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -23,10 +23,11 @@ func InitializeEmailSession() error {
 }
 
 func prepareHTML(projectName string, encryptedString string) string {
+	frontendUrl := Vconfig.GetString("frontend-url")
 	htmlBody := "<h3>Join Jira-Clone </h3>" +
 		"You have been invited to project: %s <br/>" +
-		"To join the project click on this: <a href='https://localhost:4200/joinproject?invite=%s'>link</a>"
-	return fmt.Sprintf(htmlBody, projectName, encryptedString)
+		"To join the project click on this: <a href='%s/home/join-project?invite-link=%s'>link</a>"
+	return fmt.Sprintf(htmlBody, projectName, frontendUrl, encryptedString)
 }
 
 func SendEmail(project md.Project, emailId string) (string, error) {

@@ -15,53 +15,62 @@ import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.comp
 import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthguardService } from './guards/authguard.service';
-import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { JoinComponent } from './join/join.component';
+import { InviteComponent } from './invite/invite.component';
 
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponentComponent },
-  { path: 'home', component: ProjectComponent, canActivate: [AuthguardService], 
+  {
+    path: 'home', component: ProjectComponent, canActivate: [AuthguardService],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
-        path:'projects', component: ProjectListComponent
+        path: 'projects', component: ProjectListComponent
       },
       {
         path: 'project/newproject', component: NewprojectComponent
       },
       {
-       path:'project/:projectId/settings', component: ProjectSettingsComponent
+        path: 'project/:projectId/settings', component: ProjectSettingsComponent
       },
       {
-        path:':projectId/issues/create', component: IssueCreateComponent
+        path: 'project/:projectId/invite', component: InviteComponent
       },
       {
-        path:'project/:projectId/issues', component: IssueListComponent
+        path: ':projectId/issues/create', component: IssueCreateComponent
       },
       {
-        path:'issue/:issueId/edit', component: IssueModifyComponent
+        path: 'project/:projectId/issues', component: IssueListComponent
       },
       {
-        path:'issue/:issueId/details', component: IssueDetailComponent
-      },  
-      {
-        path:':projectId/sprint/create', component: NewsprintComponent
-      },  
-      {
-        path:'sprint/:sprintId/edit', component: SprintModifyComponent
-      },    
-      {
-        path:'project/:projectId/sprints', component: SprintListComponent
+        path: 'issue/:issueId/edit', component: IssueModifyComponent
       },
       {
-        path:'sprint/:sprintId/details', component: SprintDetailComponent
+        path: 'issue/:issueId/details', component: IssueDetailComponent
       },
       {
-        path:'sampleprofile', component: UserProfileComponent
-      }
-    ]},
+        path: ':projectId/sprint/create', component: NewsprintComponent
+      },
+      {
+        path: 'sprint/:sprintId/edit', component: SprintModifyComponent
+      },
+      {
+        path: 'project/:projectId/sprints', component: SprintListComponent
+      },
+      {
+        path: 'sprint/:sprintId/details', component: SprintDetailComponent
+      },
+      {
+        path: 'sampleprofile', component: UserProfileComponent
+      },
+      {
+        path: 'join-project', component: JoinComponent
+      },
+    ]
+  },
 
   { path: '**', pathMatch: 'full', redirectTo: 'home/projects' },
 ];

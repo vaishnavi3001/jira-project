@@ -1,1 +1,8 @@
-<p>join works!</p>
+<div id="join-msg-wrapper">
+    <p [hidden]="!isSuccess" id="invite-check-msg">
+        You have succesfully joined the project. Redirecting you to your projects page...
+    </p>
+    <p [hidden]="!isError" id="invite-check-err">
+        The link is either expired/invalid or broken. Contact the project owner to resend the link. Redirecting you to your projects page...
+    </p>    
+</div>

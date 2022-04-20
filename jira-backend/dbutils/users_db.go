@@ -92,7 +92,7 @@ func ValidateInvite(encryptedLink string, userId uint) gin.H {
 	}
 	fmt.Println(user)
 	DB.Create(&md.UserRole{UserId: userId, ProjectId: decryptedDetails.ProjectId, RoleId: ct.Developer})
-	DB.Where("Where invite_link = ?", encryptedLink).Delete(&md.Invite{})
+	DB.Where("invite_link = ?", encryptedLink).Delete(&md.Invite{})
 
 	return ut.GetSuccessResponse(ct.INVITTATION_ACCEPTED, gin.H{})
 }
@@ -107,7 +107,7 @@ func GetProfileUser(user_id uint) gin.H {
 	if count == 0 {
 		return ut.GetErrorResponse(ct.USER_DOESNT_EXIST)
 	}
-	
+
 	resp := sk.UserProfile{Username: user.Username, Email: user.EmailId, FirstName: user.Firstname, LastName: user.Lastname}
 	return ut.GetSuccessResponse(ct.USER_FOUND, resp)
 }
@@ -117,10 +117,10 @@ func UpdateProfileUser(user_id uint, data sk.UserProfile) gin.H {
 	email := data.Email
 	var count int64
 	var user md.User
-	
+
 	DB.Where("username = ? OR email_id = ?", username, email).Find(&user).Count(&count)
-	
-	if count != 0  && user.UserId != user_id{
+
+	if count != 0 && user.UserId != user_id {
 		return ut.GetErrorResponse(ct.USER_ALREADY_EXISTS)
 	}
 
@@ -131,18 +131,13 @@ func UpdateProfileUser(user_id uint, data sk.UserProfile) gin.H {
 
 func ChangePassword(user_id uint, data sk.ChangePasswordReq) gin.H {
 	oldPassword := data.OldPassword
-	
 	newPassword := data.NewPassword
-	fmt.Println(oldPassword)
-	fmt.Println("###")
-	fmt.Println(newPassword)
-	fmt.Println("@@@")
 	var count int64
 	var user md.User
-	
+
 	DB.Where("user_id = ? AND password = ?", user_id, oldPassword).Find(&user).Count(&count)
-	
-	if count == 0{
+
+	if count == 0 {
 		return ut.GetErrorResponse(ct.INVALID_CREDENTIALS)
 	}
 
