@@ -610,3 +610,59 @@ Authorization: Bearer ********.
     }
 ```
 <br/>
+
+
+- **Send User Invite**  
+    *Request Format* -
+```
+    POST /api/user/invite
+    {
+        "email_id":"mandypalkar@gmail.com",
+        "project_id": 1
+    }
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "",
+        "resp": {
+            "comments": [
+                {
+                    "comment_id": 1,
+                    "comment": "This is a comment for issue_id: 3"
+                }
+            ]
+        },
+        "status": true
+    }
+```
+<br/>
+
+- **Accept User Invite**  
+    *Request Format* -
+```
+    POST /api/user/verify
+    {
+        "invite_link":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbElkIjoibWFuZHlwYWxrYXJAZ21haWwuY29tIiwiUHJvamVjdElkIjoxLCJleHAiOjE2NDk2NTgxNTgsImlhdCI6MTY0OTY1ODE1OH0.v1Dx1E9DB5IqfaiiGlS7vzgKpfN1Pk1fzx6V4-KZbl4"
+    }
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "",
+        "resp": {
+            "comments": [
+                {
+                    "comment_id": 1,
+                    "comment": "This is a comment for issue_id: 3"
+                }
+            ]
+        },
+        "status": true
+    }
+```
+<br/>
+
+
