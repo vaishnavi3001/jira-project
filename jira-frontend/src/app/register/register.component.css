@@ -2,4 +2,11 @@
 h2, div {
   font-family: 'Cabin';
 }
-/*# sourceMappingURL=register.component.css.map */
+
+p .success-msg{
+  color: #00950f!important;
+}
+
+p .error-msg{
+  color: #952500!important;
+}

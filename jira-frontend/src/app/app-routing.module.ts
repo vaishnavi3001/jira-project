@@ -5,7 +5,7 @@ import { NewprojectComponent } from './project/newproject/newproject.component';
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
 import { ProjectComponent } from './project/project.component';
-import { IssueListComponent, IssueDetails } from './issue/issue-list/issue-list.component';
+import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueCreateComponent } from './issue/issue-create/issue-create.component';
 import { SprintListComponent } from './sprint/sprint-list/sprint-list.component';
 import { IssueModifyComponent } from './issue/issue-modify/issue-modify.component';
@@ -16,54 +16,64 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthguardService } from './guards/authguard.service';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { JoinComponent } from './join/join.component';
+import { InviteComponent } from './invite/invite.component';
 
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponentComponent },
-
-  { path: 'home', component: ProjectComponent, canActivate: [AuthguardService], 
-
+  {
+    path: 'home', component: ProjectComponent, canActivate: [AuthguardService],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
       {
-        path:'projects', component: ProjectListComponent
+        path: 'projects', component: ProjectListComponent
       },
       {
         path: 'project/newproject', component: NewprojectComponent
       },
       {
-       path:'project/:projectId/settings', component: ProjectSettingsComponent
+        path: 'project/:projectId/settings', component: ProjectSettingsComponent
       },
       {
-        path:':projectId/issues/create', component: IssueCreateComponent
+        path: 'project/:projectId/invite', component: InviteComponent
       },
       {
-        path:'project/:projectId/issues', component: IssueListComponent
+        path: ':projectId/issues/create', component: IssueCreateComponent
       },
       {
-        path:'issue/:issueId/edit', component: IssueModifyComponent
+        path: 'project/:projectId/issues', component: IssueListComponent
       },
       {
-        path:'issue/:issueId/details', component: IssueDetailComponent
-      },  
-      {
-        path:':projectId/sprint/create', component: NewsprintComponent
-      },  
-      {
-        path:'sprint/:sprintId/edit', component: SprintModifyComponent
-      },    
-      {
-        path:'project/:projectId/sprints', component: SprintListComponent
+        path: 'issue/:issueId/edit', component: IssueModifyComponent
       },
       {
-        path:'sprint/:sprintId/details', component: SprintDetailComponent
+        path: 'issue/:issueId/details', component: IssueDetailComponent
+      },
+      {
+        path: ':projectId/sprint/create', component: NewsprintComponent
+      },
+      {
+        path: 'sprint/:sprintId/edit', component: SprintModifyComponent
+      },
+      {
+        path: 'project/:projectId/sprints', component: SprintListComponent
+      },
+      {
+        path: 'sprint/:sprintId/details', component: SprintDetailComponent
+      },
+      {
+        path: 'sampleprofile', component: UserProfileComponent
+      },
+      {
+        path: 'join-project', component: JoinComponent
       },
       {
         path:'userprofile', component: UserProfileComponent
       }
-    ]},
-
+    ]
+  },
   { path: '**', pathMatch: 'full', redirectTo: 'home/projects' },
 ];
 

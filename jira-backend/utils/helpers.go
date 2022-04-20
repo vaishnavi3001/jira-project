@@ -87,3 +87,49 @@ func ParseJwtToken(tokenSt string) (sk.Claims, error) {
 func GetUserIdFromContext(c *gin.Context) uint {
 	return c.GetUint(ct.USER_ID)
 }
+
+func EncryptEmailInvite(emailId string, projectID uint) (string, error) {
+	secretKey := []byte(Vconfig.GetString("mail_config.mail_encryption_key"))
+	expiryDuration := Vconfig.GetInt64("mail_config.duration") * 24
+	currTime := time.Now()
+	claims := sk.InviteClaim{
+		EmailId:   emailId,
+		ProjectId: projectID,
+		StandardClaims: jwt.StandardClaims{
+			IssuedAt:  currTime.Unix(),
+			ExpiresAt: currTime.Add(time.Duration(expiryDuration) * time.Hour).Unix(),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(secretKey)
+
+	return tokenString, err
+}
+
+func ParseEmailInvite(encryptedLink string) (sk.InviteClaim, error) {
+	claims := &sk.InviteClaim{}
+
+	tkn, err := jwt.ParseWithClaims(encryptedLink, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(Vconfig.GetString("mail_config.mail_encryption_key")), nil
+	})
+
+	if err != nil {
+		return *claims, err
+	}
+
+	if !tkn.Valid {
+		err = ct.ErrLinkExpired
+	}
+
+	return *claims, err
+}
+
+func InviteDateToString(timestamp time.Time) string {
+	return timestamp.Format("2006-01-02 15:04:05.000")
+}
+
+func InviteDateStringToDate(dateStr string) (time.Time, error) {
+
+	t, err := time.Parse("2006-01-02 15:04:05.000", dateStr)
+	return t, err
+}

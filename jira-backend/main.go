@@ -39,6 +39,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	mailerr := ut.InitializeEmailSession()
+	if mailerr != nil {
+		fmt.Println("Cannot Connect to the Email Service")
+		os.Exit(1)
+	}
+
 	r := rt.SetupRouter(true)
 	ip_address := fmt.Sprintf("%s:%d", ut.Vconfig.GetString("server.ip_address"), ut.Vconfig.GetInt("server.port"))
 	r.Run(ip_address)

@@ -41,18 +41,13 @@ import { AuthinterceptorService } from './interceptors/authinterceptor.service';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponent } from './register/register.component';
 import {JwtHelperService, JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
+import { JoinComponent } from './join/join.component'
 import { SprintDetailComponent } from './sprint/sprint-detail/sprint-detail.component';
 import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { InviteComponent } from './invite/invite.component';
 import { ViewCommentsComponent } from './comments/view-comments/view-comments.component';
-
-
-
-//import { NavbarComponent } from './navbar/navbar.component';
-
-
-
 
 
 
@@ -74,9 +69,11 @@ import { ViewCommentsComponent } from './comments/view-comments/view-comments.co
     IssueDetailComponent,
     LoginComponentComponent,
     RegisterComponent,
+    JoinComponent,
     TrialDragAndDropComponent,
     SprintDetailComponent,
     UserProfileComponent,
+    InviteComponent,
     ViewCommentsComponent,
     //NavbarComponent,
     //NavbarComponent

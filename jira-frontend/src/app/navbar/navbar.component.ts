@@ -15,7 +15,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void{
-    this.apiService.setToken('')
+    this.apiService.removeToken();
+    this.apiService.logout();
     this.router.navigateByUrl('login')
     // this.apiService.logout({})
     // .subscribe((resp:any) => {

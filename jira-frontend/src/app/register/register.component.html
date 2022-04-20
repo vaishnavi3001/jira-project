@@ -1,40 +1,45 @@
 <div class="create-project-modal" id="createModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-          <h2 class="modal-title">
-        SIGN UP
-          </h2>
-        </div>
-  
-        <div class="modal-body">
-          <form>
-            <div class="form-group" [formGroup]="registerForm">
-                <label for="create-project"></label>
-             Username <input type="text" placeholder="Username" class="form-control"  formControlName="username" required>
-            
-              <label for="create-project"></label>
-             First Name <input type="text" placeholder="First-name" class="form-control"  formControlName="firstname" required>
-            
-              <label for="project-key"></label>
-              Last Name<input type="text" placeholder="Last-name" class="form-control"  formControlName="lastname" required>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          SIGN UP
+        </h2>
+      </div>
 
-              <label for="create-project"></label>
-             Email<input type="email" placeholder="Email" class="form-control"  formControlName="email" required>
-            
-             <label for="create-project"></label>
-             Password <input type="password" placeholder="Password" class="form-control"  formControlName="password" required>
-            
-            </div>
-          </form>
-        </div>
-  
-        <div class="modal-footer">
-          <button class="btn btn-primary" (click)="submit()"> SIGN UP </button>
+      <div class="modal-body">
+        <p [hidden]="!isSuccess()" class="success-msg">{{respMsg}}</p>
+        <p [hidden]="!isError()" class="error-msg">{{errorMsg}}</p>
+        <form>
+          <div class="form-group" [formGroup]="registerForm">
+            <label for="create-project"></label>
+            Username <input type="text" placeholder="Username" class="form-control" formControlName="username" required>
 
-        </div>
-  
-        </div>
-  
+            <label for="create-project"></label>
+            First Name <input type="text" placeholder="First-name" class="form-control" formControlName="firstname"
+              required>
+
+            <label for="project-key"></label>
+            Last Name<input type="text" placeholder="Last-name" class="form-control" formControlName="lastname"
+              required>
+
+            <label for="create-project"></label>
+            Email<input type="email" placeholder="Email" class="form-control" formControlName="email" required>
+
+            <label for="create-project"></label>
+            Password <input type="password" placeholder="Password" class="form-control" formControlName="password"
+              required>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="submit()"> Sign Up </button>
+        <button class="btn btn-primary" (click)="navigateToLogin()"> Login </button>
+      </div>
+
     </div>
+
   </div>
+</div>
