@@ -15,6 +15,13 @@ func InitConfig() {
 		os.Exit(-1)
 	}
 }
+
+func InitializeMailer() {
+	if err := ut.InitializeEmailSession(); err != nil {
+		fmt.Println("Couldn't read mailer.. Exiting Tests")
+		os.Exit(-1)
+	}
+}
 func DBInitForTest() {
 	os.Remove(ut.Vconfig.GetString("db.test_db_name"))
 	dt.GetDBInstance(ct.TEST)

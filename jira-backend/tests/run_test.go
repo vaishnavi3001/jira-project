@@ -17,6 +17,7 @@ func TestMain(m *testing.M) {
 	DBFree()
 	DBInitForTest()
 	DBInsertRows()
+	InitializeMailer()
 	exitval := m.Run()
 	DBFree()
 	os.Exit(exitval)

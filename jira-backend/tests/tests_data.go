@@ -355,6 +355,30 @@ var apiTestData = []testBody{
 		`{"message":"ISSUE_UPDATE_SUCCESS","resp":{},"status":true}`,
 		func() bool { return true },
 	},
+	//User Invite test case Starts here//
+	//Send User Invite
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/invite",
+		"POST",
+		`{"email_id":"mandypalkar23@gmail.com","project_id": 1}`,
+		http.StatusOK,
+		`{"message":"INVITATION_SENT","resp":{},"status":true}"`,
+		func() bool { return true },
+	},
+	//Send Same User Invite Again
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/invite",
+		"POST",
+		`{"email_id":"mandypalkar23@gmail.com","project_id": 1}`,
+		http.StatusOK,
+		`{"message":"USER_ALREADY_INVITED","status":false}`,
+		func() bool { return true },
+	},
+	//Test cases to delete the entries created earlier via api endpoints
 	/*issue delete request correct*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
@@ -482,8 +506,7 @@ var apiTestData = []testBody{
 		badRequestString,
 		func() bool { return true },
 	},
-
-	/*****Issues Test Cases End*****/
+	/*****Deletion Test Cases End*****/
 	/*****User Profile test cases start ****/
 	/*View user profile without appropriate token*/
 	{func(req *http.Request) {
@@ -518,7 +541,6 @@ var apiTestData = []testBody{
 		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
 		func() bool { return true },
 	},
-
 	/*Set username to a username that does not exist*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
