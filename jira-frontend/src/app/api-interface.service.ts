@@ -88,6 +88,9 @@ export class ApiInterfaceService {
     return this.apiResponse = this.http.post<any>(this.post_url+'/project/info', data)
   }
 
+  getProjectStats(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.post_url+'/project/stats', data)
+  }
   login(data:any): Observable<any>{
     return this.apiResponse = this.http.post<any>(this.auth_url+'/login', data)
   }
