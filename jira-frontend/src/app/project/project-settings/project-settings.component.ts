@@ -18,11 +18,15 @@ export class ProjectSettingsComponent implements OnInit {
   project_id = ""
   created_at = ""
   owner_username = ""
+  memberCnt = ""
+  issueCnt = ""
+  commentCnt = ""
 
   constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.get_project_data();    
+    this.get_project_data();  
+     
     // set the form values
     // this.setFormValues();
 
@@ -47,7 +51,22 @@ export class ProjectSettingsComponent implements OnInit {
       this.project_id = resp['resp']['project_id'];
       this.created_at = resp['resp']['created_at'];
       this.owner_username = resp['resp']['owner_uname'];
+      this.get_project_stats(); 
     })
+  }
+
+  get_project_stats(){
+    const body = {
+      "project_id": this.project_id
+    }
+    this.apiService.getProjectStats(body)
+    .subscribe((resp:any) => {
+      console.log(resp['resp']);
+      this.memberCnt = resp['resp']['member_count'];
+      this.issueCnt = resp['resp']['issue_count'];
+      this.commentCnt = resp['resp']['comment_count'];
+    })
+
   }
 
   delete_project():void{

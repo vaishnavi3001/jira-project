@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap');
 
+.jirahome:hover{
+  cursor: pointer;
+
+}
+
 .example-spacer {
     flex: 1 1 auto;
   }
   .mat-toolbar{
     font-family: Cabin;
+    background-color: #e7e5e5;
   }
   .mat-button, .mat-raised-button{
     font-family: Cabin;
