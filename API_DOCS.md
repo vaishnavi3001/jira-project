@@ -309,6 +309,45 @@ Authorization: Bearer ********.
 ``` 
 <br/> 
 
+- **To list issues for sprint**  
+ 	*Request Format* -
+```
+    GET api/issue/list
+    {
+        "sprint_id": 1
+    }
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+    {
+        "message": "",
+        "resp": {
+            "issues": [
+                {
+                    "issue_id": 1,
+                    "title": "issue title",
+                    "status": 1,
+                    "created_at": "2022-03-23T16:39:17.532173-04:00"
+                },
+                {
+                    "issue_id": 4,
+                    "title": "issue title 4",
+                    "status": 1,
+                    "created_at": "2022-03-29T22:53:55.005758-04:00"
+                },
+                {
+                    "issue_id": 5,
+                    "title": "sample issue title",
+                    "status": 1,
+                    "created_at": "2022-04-02T02:01:04.593536-04:00"
+                }
+            ]
+        },
+        "status": true
+    }
+```
+<br/>
+
 -  **To Create an Issue**. 
 	*Request Format* -
 ```
