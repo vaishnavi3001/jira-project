@@ -112,4 +112,16 @@ export class ApiInterfaceService {
     return !jwtHelper.isTokenExpired(currToken)
   }
 
+  getUserProfile(): Observable<any>{
+    return this.apiResponse = this.http.get<any>(this.post_url+'/user/info')
+  }
+
+  editUserProfile(data: any): Observable<any>{
+    return this.apiResponse = this.http.patch<any>(this.post_url+'/user/info', data)
+  }
+
+  changePassword(data: any): Observable<any>{
+    return this.apiResponse = this.http.put<any>(this.post_url+'/user/change-password', data)
+  }
+
 }
