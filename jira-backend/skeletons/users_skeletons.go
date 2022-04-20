@@ -36,11 +36,11 @@ type Claims struct {
 }
 
 type UserRegister struct {
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	FirstName string `json:"firstname"`
-	LastName  string `json:"lastname"`
-	Email     string `json:"email_id"`
+	Username  string `json:"username" binding:"required"`
+	Password  string `json:"password" binding:"required"`
+	FirstName string `json:"firstname" binding:"required"`
+	LastName  string `json:"lastname" binding:"required"`
+	Email     string `json:"email_id" binding:"required"`
 }
 
 type LoginSuccessResp struct {
@@ -61,12 +61,12 @@ type InviteClaim struct {
 }
 
 type InviteUserRequest struct {
-	EmailId   string `json:"email_id"`
-	ProjectId uint   `json:"project_id"`
+	EmailId   string `json:"email_id" binding:"required"`
+	ProjectId uint   `json:"project_id" binding:"required"`
 }
 
 type ValidateUserInviteReq struct {
-	InviteLink string `json:"invite_link"`
+	InviteLink string `json:"invite_link" binding:"required"`
 }
 
 type UserProfile struct {
@@ -78,6 +78,6 @@ type UserProfile struct {
 }
 
 type ChangePasswordReq struct {
-	OldPassword string `json:"old_password"`
-	NewPassword string `json:"new_password"`
+	OldPassword string `json:"old_password" binding:"required"`
+	NewPassword string `json:"new_password" binding:"required"`
 }
