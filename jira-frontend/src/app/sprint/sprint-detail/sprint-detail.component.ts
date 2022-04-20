@@ -23,6 +23,7 @@ export class SprintDetailComponent implements OnInit {
        this.apiService.getIssueList({'user_id':1, 'sprint_id': sprintIdFromRoute})
        .subscribe((resp:any) =>{
        this.Upcoming = (resp['resp']['issues'])
+       console.log(this.Upcoming)
       })
        
   }
