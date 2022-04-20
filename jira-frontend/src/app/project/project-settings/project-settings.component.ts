@@ -58,7 +58,6 @@ export class ProjectSettingsComponent implements OnInit {
       "user_id": 1,
       "project_id": projectIdFromRoute,
     }
-    console.log(projectIdFromRoute)
 
     this.apiService.deleteProject(body)
     .subscribe((resp:any) =>{

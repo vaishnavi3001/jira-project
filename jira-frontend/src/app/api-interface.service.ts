@@ -47,6 +47,10 @@ export class ApiInterfaceService {
     return this.http.post<any>(this.post_url+'/comment/add', data)
   }
 
+  getComments(data:any): Observable<any>{
+    return this.http.post<any>(this.post_url+'/comment/view', data)
+  }
+  
   updateIssue(data:any): Observable<any> {
     return this.http.post<any>(this.post_url+'/issues/update', data)
   }
@@ -56,7 +60,6 @@ export class ApiInterfaceService {
   }
 
   deleteProject(data:any): Observable<any> {
-    console.log(data)
     return this.http.post<any>(this.post_url+'/project/delete', data)
   }
 
