@@ -3,6 +3,7 @@
 - View User Profile
 - Update User Profile
 - User invite
+- Added and updated unit tests for frontend
 - Added more cypress test cases for frontend
 - Added more backend test cases for all APIs
 
