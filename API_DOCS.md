@@ -172,6 +172,28 @@ Authorization: Bearer ********.
     "status": true
 }
 ```  
+- **View Project Stats**	  
+  *Request Format* -
+``` 
+    POST /api/project/stats
+    {
+        "project_id": 1,
+    }
+``` 
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+
+```    
+    {
+        "message": "",
+        "resp": {
+            "member_count": 2,
+            "issue_count": 3,
+            "comment_count": 1
+        },
+        "status": true
+    }
+```  
 
 -  **Create Sprints**  
 	*Request Format* -
@@ -324,7 +346,7 @@ Authorization: Bearer ********.
 - **To get a issue’s info**  
 	*Request Format* -
 ```
-    POST api/issues/info
+    POST api/issue/info
     {
         "issue_id": 3
     }
@@ -354,44 +376,7 @@ Authorization: Bearer ********.
 ```
 <br/>
 
-- **To list issues for sprint**  
- 	*Request Format* -
-```
-    GET api/issue/list
-    {
-        "sprint_id": 1
-    }
-```
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
-```
-    {
-        "message": "",
-        "resp": {
-            "issues": [
-                {
-                    "issue_id": 1,
-                    "title": "issue title",
-                    "status": 1,
-                    "created_at": "2022-03-23T16:39:17.532173-04:00"
-                },
-                {
-                    "issue_id": 4,
-                    "title": "issue title 4",
-                    "status": 1,
-                    "created_at": "2022-03-29T22:53:55.005758-04:00"
-                },
-                {
-                    "issue_id": 5,
-                    "title": "sample issue title",
-                    "status": 1,
-                    "created_at": "2022-04-02T02:01:04.593536-04:00"
-                }
-            ]
-        },
-        "status": true
-    }
-```
-<br/>
+
 
 - **To delete an issue**  	  
  	*Request Format* -
@@ -415,7 +400,7 @@ Authorization: Bearer ********.
 - **To update an issue**  	  
  	*Request Format* -
 ``` 
-    POST /api/issue/delete
+    POST /api/issue/update
     {
         "issue_id": 3,
         "issue_title": "Sample Issue Edited 1",
@@ -547,6 +532,80 @@ Authorization: Bearer ********.
                 }
             ]
         },
+        "status": true
+    }
+```
+<br/>
+
+
+- **View User Profile**  
+    *Request Format* -
+```
+    GET /api/user/info
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "USER_FOUND",
+        "resp": {
+            "user_id": 0,
+            "username": "vaish1",
+            "firstname": "v1",
+            "lastname": "d1",
+            "email_id": "vaish1@mail.com"
+        },
+        "status": true
+    }
+```
+<br/>
+
+- **Update User Profile**  
+    *Request Format* -
+```
+    PATCH /api/user/info
+    {
+        "username": "vaish4.",
+        "firstname": "v4",
+        "lastname": "d4",
+        "email_id": "vaish4@mail.com"
+    }
+    
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "USER_PROFILE_UPDATE_SUCCESS",
+        "resp": {
+            "user_id": 0,
+            "username": "vaish4.",
+            "firstname": "v4",
+            "lastname": "d4",
+            "email_id": "vaish4@mail.com"
+        },
+        "status": true
+    }
+```
+<br/>
+
+
+- **Change Password**  
+    *Request Format* -
+```
+    PUT /api/user/change-password
+    {
+        "old_password": "e807f1fcf82d132f9bb018ca6738a19f",
+        "new_password": "e10adc3949ba59abbe56e057f20f883e"
+    }
+    
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "PASSWORD_CHANGE_SUCCESSFUL",
+        "resp": "",
         "status": true
     }
 ```
