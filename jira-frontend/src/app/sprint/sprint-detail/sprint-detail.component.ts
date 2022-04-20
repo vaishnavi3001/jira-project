@@ -22,8 +22,28 @@ export class SprintDetailComponent implements OnInit {
     const sprintIdFromRoute = Number(routeParams.get('sprintId'));
        this.apiService.getIssueList({'user_id':1, 'sprint_id': sprintIdFromRoute})
        .subscribe((resp:any) =>{
-       this.Upcoming = (resp['resp']['issues'])
-       console.log(this.Upcoming)
+         var issues = resp['resp']['issues']
+        issues.forEach( (issue: any) => {
+          if (issue['status'] == 1)
+          {
+              this.Upcoming.push(issue)
+          } 
+          else if (issue['status'] == 2)
+          {
+              this.InProgress.push(issue)
+          } 
+          else if (issue['status'] == 3)
+          {
+              this.Review.push(issue)
+          } 
+          else if (issue['status'] == 4)
+          {
+            this.Done.push(issue)
+          }
+          
+        }); 
+  
+       
       })
        
   }
