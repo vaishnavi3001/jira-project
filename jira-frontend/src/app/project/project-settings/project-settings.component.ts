@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angu
 import { ApiInterfaceService } from 'src/app/api-interface.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectSettings, project_data } from '../project-list/project-list.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-project-settings,',
@@ -18,7 +19,7 @@ export class ProjectSettingsComponent implements OnInit {
   created_at = ""
   owner_username = ""
 
-  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.get_project_data();    
@@ -54,15 +55,23 @@ export class ProjectSettingsComponent implements OnInit {
     const projectIdFromRoute = Number(routeParams.get('projectId'));
 
     let body = {
+      "user_id": 1,
       "project_id": projectIdFromRoute,
-      "user_id": 1
     }
     console.log(projectIdFromRoute)
 
     this.apiService.deleteProject(body)
     .subscribe((resp:any) =>{
+      console.log(body)
       console.log(resp['response'])
+      this.createAlert("Issue deleted successfully!")
+      this.router.navigateByUrl('/home/projects');
     })
+  }
+
+
+  createAlert(message:string): void{
+    this._snackBar.open(message, "Done");
   }
 
 }

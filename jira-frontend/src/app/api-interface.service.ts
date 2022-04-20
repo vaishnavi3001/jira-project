@@ -56,6 +56,7 @@ export class ApiInterfaceService {
   }
 
   deleteProject(data:any): Observable<any> {
+    console.log(data)
     return this.http.post<any>(this.post_url+'/project/delete', data)
   }
 

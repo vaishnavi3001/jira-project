@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiInterfaceService } from 'src/app/api-interface.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newproject',
@@ -14,7 +16,7 @@ export class NewprojectComponent implements OnInit {
     projectDesc: new FormControl(''),
   });
 
-  constructor(private apiService: ApiInterfaceService) { }
+  constructor(private apiService: ApiInterfaceService, private _snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -30,8 +32,19 @@ export class NewprojectComponent implements OnInit {
     this.apiService.createProject(body)
     .subscribe(res => {
           console.log(res);
+          if (res['status'] == true){
+            this.createAlert("Project created successfully!")
+            this.router.navigateByUrl('/home/projects');
+          }
+          else {
+            this.createAlert("Something went wrong.")
+          }
     })
     
+  }
+
+  createAlert(message:string): void{
+    this._snackBar.open(message, "Done");
   }
 
 }
