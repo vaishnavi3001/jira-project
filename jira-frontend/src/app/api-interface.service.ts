@@ -40,6 +40,9 @@ export class ApiInterfaceService {
   createSprint(data: any): Observable<any> {
     return this.http.post<any>(this.api_url + '/sprint/create', data)
   }
+  updateIssueStatus(data:any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/issue/move', data)
+  }
 
   createComment(data: any): Observable<any> {
     return this.http.post<any>(this.api_url + '/comment/add', data)
@@ -49,9 +52,14 @@ export class ApiInterfaceService {
     return this.http.post<any>(this.api_url + '/issues/update', data)
   }
 
+  getComments(data:any): Observable<any>{
+    return this.http.post<any>(this.api_url+'/comment/view', data)
+  }
+  
   deleteIssue(data: any): Observable<any> {
     return this.http.post<any>(this.api_url + '/issue/delete', data)
   }
+
 
   deleteProject(data: any): Observable<any> {
     return this.http.post<any>(this.api_url + '/project/delete', data)

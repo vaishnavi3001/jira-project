@@ -45,7 +45,7 @@ type Sprint struct {
 }
 type Issue struct {
 	IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
-	Status      uint `gorm:"default:1"`
+	Status      uint `gorm:"default:1"` //`todo/inprogress/review/done`
 	Priority    uint `gorm:"default:3"` //`high/medium/low/`
 	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
 	Title       string

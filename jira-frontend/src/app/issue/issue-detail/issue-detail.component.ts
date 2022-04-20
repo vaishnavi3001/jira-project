@@ -21,17 +21,6 @@ export class IssueDetailComponent implements OnInit {
     this.getIssueDetails();
   }
 
-  sendcomment(comment:string): void {
-    const routeParams = this.route.snapshot.paramMap;
-    const issueIdFromRoute = Number(routeParams.get('issueId'));
-    let body = {"issue_id":issueIdFromRoute,"comment":comment}
-    console.log(body)
-    this.apiService.createComment(body)
-    .subscribe(res => {
-          console.log(res);
-    })
-  }
-
   getIssueDetails(): void{
     const routeParams = this.route.snapshot.paramMap;
     const issueIdFromRoute = Number(routeParams.get('issueId'))

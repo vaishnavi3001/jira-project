@@ -47,6 +47,8 @@ import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { InviteComponent } from './invite/invite.component';
+import { ViewCommentsComponent } from './comments/view-comments/view-comments.component';
+
 
 
 @NgModule({
@@ -72,6 +74,7 @@ import { InviteComponent } from './invite/invite.component';
     SprintDetailComponent,
     UserProfileComponent,
     InviteComponent,
+    ViewCommentsComponent,
     //NavbarComponent,
     //NavbarComponent
   ],
