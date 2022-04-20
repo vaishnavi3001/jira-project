@@ -172,6 +172,28 @@ Authorization: Bearer ********.
     "status": true
 }
 ```  
+- **View Project Stats**	  
+  *Request Format* -
+``` 
+    POST /api/project/stats
+    {
+        "project_id": 1,
+    }
+``` 
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+
+```    
+    {
+        "message": "",
+        "resp": {
+            "member_count": 2,
+            "issue_count": 3,
+            "comment_count": 1
+        },
+        "status": true
+    }
+```  
 
 -  **Create Sprints**  
 	*Request Format* -
@@ -287,73 +309,6 @@ Authorization: Bearer ********.
 ``` 
 <br/> 
 
--  **To Create an Issue**. 
-	*Request Format* -
-```
-    POST /api/issue/create
-   {    
-        "issue_title":"sample issue title",
-        "issue_description": "sample issue description",
-        "issue_type": 1,
-        "creator": 2,
-        "assignee": 1,
-        "sprint_id": 1,
-        "project_id": 1
-    }
-```
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
-```
-    {
-        "message": "",
-        "resp": {
-            "issue_id": 0,
-            "issue_title": "sample issue title",
-            "issue_description": "sample issue description",
-            "issue_type": 1,
-            "creator_name": "amhaske32",
-            "assignee_name": "pypalkar23",
-            "created_at": "2022-04-02T02:01:04.593536-04:00",
-            "issue_status": 1
-        },
-        "status": true
-    }
-
-```
-<br/>
-
-- **To get a issue’s info**  
-	*Request Format* -
-```
-    POST api/issues/info
-    {
-        "issue_id": 3
-    }
-```
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
-```
-    {
-        "message": "",
-        "resp": {
-            "issue_id": 3,
-            "title": "Sample Issue Edited 1",
-            "type": 1,
-            "sprint_id": 3,
-            "sprint_name": "Sprint 1",
-            "project_id": 1,
-            "description": "Sample Text Edited 5",
-            "assignee_id": 1,
-            "assignee_name": "pypalkar23",
-            "creator_id": 2,
-            "creator_name": "amhaske32",
-            "created_at": "2022-03-23T18:05:00.58531-04:00",
-            "project_name": "Project 1",
-            "issue_status": 2
-        },
-        "status": true
-    }
-```
-<br/>
-
 - **To list issues for sprint**  
  	*Request Format* -
 ```
@@ -393,6 +348,75 @@ Authorization: Bearer ********.
 ```
 <br/>
 
+-  **To Create an Issue**. 
+	*Request Format* -
+```
+    POST /api/issue/create
+   {    
+        "issue_title":"sample issue title",
+        "issue_description": "sample issue description",
+        "issue_type": 1,
+        "creator": 2,
+        "assignee": 1,
+        "sprint_id": 1,
+        "project_id": 1
+    }
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+    {
+        "message": "",
+        "resp": {
+            "issue_id": 0,
+            "issue_title": "sample issue title",
+            "issue_description": "sample issue description",
+            "issue_type": 1,
+            "creator_name": "amhaske32",
+            "assignee_name": "pypalkar23",
+            "created_at": "2022-04-02T02:01:04.593536-04:00",
+            "issue_status": 1
+        },
+        "status": true
+    }
+
+```
+<br/>
+
+- **To get a issue’s info**  
+	*Request Format* -
+```
+    POST api/issue/info
+    {
+        "issue_id": 3
+    }
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+    {
+        "message": "",
+        "resp": {
+            "issue_id": 3,
+            "title": "Sample Issue Edited 1",
+            "type": 1,
+            "sprint_id": 3,
+            "sprint_name": "Sprint 1",
+            "project_id": 1,
+            "description": "Sample Text Edited 5",
+            "assignee_id": 1,
+            "assignee_name": "pypalkar23",
+            "creator_id": 2,
+            "creator_name": "amhaske32",
+            "created_at": "2022-03-23T18:05:00.58531-04:00",
+            "project_name": "Project 1",
+            "issue_status": 2
+        },
+        "status": true
+    }
+```
+<br/>
+
+
+
 - **To delete an issue**  	  
  	*Request Format* -
 ``` 
@@ -415,7 +439,7 @@ Authorization: Bearer ********.
 - **To update an issue**  	  
  	*Request Format* -
 ``` 
-    POST /api/issue/delete
+    POST /api/issue/update
     {
         "issue_id": 3,
         "issue_title": "Sample Issue Edited 1",
@@ -551,3 +575,133 @@ Authorization: Bearer ********.
     }
 ```
 <br/>
+
+
+- **View User Profile**  
+    *Request Format* -
+```
+    GET /api/user/info
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "USER_FOUND",
+        "resp": {
+            "user_id": 0,
+            "username": "vaish1",
+            "firstname": "v1",
+            "lastname": "d1",
+            "email_id": "vaish1@mail.com"
+        },
+        "status": true
+    }
+```
+<br/>
+
+- **Update User Profile**  
+    *Request Format* -
+```
+    PATCH /api/user/info
+    {
+        "username": "vaish4.",
+        "firstname": "v4",
+        "lastname": "d4",
+        "email_id": "vaish4@mail.com"
+    }
+    
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "USER_PROFILE_UPDATE_SUCCESS",
+        "resp": {
+            "user_id": 0,
+            "username": "vaish4.",
+            "firstname": "v4",
+            "lastname": "d4",
+            "email_id": "vaish4@mail.com"
+        },
+        "status": true
+    }
+```
+<br/>
+
+
+- **Change Password**  
+    *Request Format* -
+```
+    PUT /api/user/change-password
+    {
+        "old_password": "e807f1fcf82d132f9bb018ca6738a19f",
+        "new_password": "e10adc3949ba59abbe56e057f20f883e"
+    }
+    
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "PASSWORD_CHANGE_SUCCESSFUL",
+        "resp": "",
+        "status": true
+    }
+```
+<br/>
+
+
+- **Send User Invite**  
+    *Request Format* -
+```
+    POST /api/user/invite
+    {
+        "email_id":"mandypalkar@gmail.com",
+        "project_id": 1
+    }
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "",
+        "resp": {
+            "comments": [
+                {
+                    "comment_id": 1,
+                    "comment": "This is a comment for issue_id: 3"
+                }
+            ]
+        },
+        "status": true
+    }
+```
+<br/>
+
+- **Accept User Invite**  
+    *Request Format* -
+```
+    POST /api/user/verify
+    {
+        "invite_link":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbElkIjoibWFuZHlwYWxrYXJAZ21haWwuY29tIiwiUHJvamVjdElkIjoxLCJleHAiOjE2NDk2NTgxNTgsImlhdCI6MTY0OTY1ODE1OH0.v1Dx1E9DB5IqfaiiGlS7vzgKpfN1Pk1fzx6V4-KZbl4"
+    }
+
+```
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
+```
+   {
+        "message": "",
+        "resp": {
+            "comments": [
+                {
+                    "comment_id": 1,
+                    "comment": "This is a comment for issue_id: 3"
+                }
+            ]
+        },
+        "status": true
+    }
+```
+<br/>
+
+
