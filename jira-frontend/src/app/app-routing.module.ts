@@ -15,7 +15,6 @@ import { SprintModifyComponent } from './sprint/sprint-modify/sprint-modify.comp
 import { RegisterComponent } from './register/register.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthguardService } from './guards/authguard.service';
-import { TrialDragAndDropComponent } from './trial-drag-and-drop/trial-drag-and-drop.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
