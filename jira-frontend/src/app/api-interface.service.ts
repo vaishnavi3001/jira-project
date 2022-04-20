@@ -39,6 +39,10 @@ export class ApiInterfaceService {
     return this.http.post<any>(this.post_url+'/issue/create', data)
   }
 
+  updateIssueStatus(data:any): Observable<any> {
+    return this.http.post<any>(this.post_url+'/issue/move', data)
+  }
+
   createSprint(data:any): Observable<any> { 
     return this.http.post<any>(this.post_url+'/sprint/create', data)
   }
