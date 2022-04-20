@@ -1,0 +1,375 @@
+diff --git a/jira-frontend/src/app/app-routing.module.ts b/jira-frontend/src/app/app-routing.module.ts
+index accfbec..50a2453 100644
+--- a/jira-frontend/src/app/app-routing.module.ts
++++ b/jira-frontend/src/app/app-routing.module.ts
+@@ -10,6 +10,9 @@ const routes: Routes = [
+       { path: '', pathMatch: 'full', redirectTo: 'list' },
+       {
+         path:'list', component: ProjectListComponent
++      },
++      {
++        path:'settings/:projectId', component: ProjectSettingsComponent
+       }
+     ]},
+ 
+diff --git a/jira-frontend/src/app/app.module.ts b/jira-frontend/src/app/app.module.ts
+index 534b197..5fdd36a 100644
+--- a/jira-frontend/src/app/app.module.ts
++++ b/jira-frontend/src/app/app.module.ts
+@@ -15,23 +15,22 @@ import { ProjectComponent } from './project/project.component';
+ import {MatTableModule} from '@angular/material/table';
+ import { HttpClientModule } from '@angular/common/http';
+ import { ProjectListComponent } from './project/project-list/project-list.component';
+-import { ProjectSettingsComponent } from './project/project-settings/project-settings.component';
+ // import { FlexLayoutModule } from "@angular/flex-layout";
+ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
++import {MatCardModule} from '@angular/material/card';
++import { MatSelect, MatSelectModule } from '@angular/material/select';
++import {MatSidenavModule} from '@angular/material/sidenav';
++import {Component, ViewChild} from '@angular/core';
++import {MatSidenav} from '@angular/material/sidenav';
+ //import { NavbarComponent } from './navbar/navbar.component';
+ 
+ 
+-
+-
+-
+-
+ @NgModule({
+   declarations: [
+     AppComponent,
+     NavbarComponent,
+     ProjectComponent,
+     ProjectListComponent,
+-    ProjectSettingsComponent,
+     //NavbarComponent,
+     //NavbarComponent
+   ],
+@@ -49,8 +48,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+     ReactiveFormsModule,
+     FormsModule,
+     MatIconModule,
+-    MatInputModule
+-    
++    MatInputModule,
++    MatCardModule,
++    MatSelectModule,
++    MatSidenavModule,
+   ],
+   providers: [],
+   bootstrap: [AppComponent]
+diff --git a/jira-frontend/src/app/project/project-settings/project-settings.component.html b/jira-frontend/src/app/project/project-settings/project-settings.component.html
+index 5a74575..bed2c6d 100644
+--- a/jira-frontend/src/app/project/project-settings/project-settings.component.html
++++ b/jira-frontend/src/app/project/project-settings/project-settings.component.html
+@@ -1,15 +1,77 @@
+-<form [formGroup]="myForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutAlign="center center">
+-
+-    <div class="form-group">
+-        <mat-form-field appearance="outline">
+-            <mat-label>Name</mat-label>
+-            <input matInput formControlName="projectName" id="projectName" type="text" class="form-control">
+-            <!-- <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+-                <div *ngIf="f.name.errors?.required">Name is required.</div>
+-                <div *ngIf="f.name.errors?.minlength">Name should be 3 character.</div>
+-            </div> -->
+-        </mat-form-field>
+-    </div>
+-
+-    <button mat-stroked-button color="accent" class="btn-block" class="btn btn-primary" type="submit">Submit</button>
+-</form>
+\ No newline at end of file
++<!-- CSS CDN -->
++<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
++<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
++
++<!-- JS -->
++<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
++<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
++
++<!-- Font Awesome JS -->
++<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
++<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
++
++<body>
++  <div class= "wrapper">
++
++    <nav id="sidebar">
++      <nav id="sidebar">
++        <div class="sidebar-header">
++            <h3>Bootstrap Sidebar</h3>
++        </div>
++
++        <ul class="list-unstyled components">
++            <li class="active">
++                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Details</a>
++            </li>
++            <li>
++                <a href="#">Board</a>
++            </li>
++            <li>
++                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
++            </li>
++            <li>
++                <a href="#">Access</a>
++            </li>
++            <li>
++                <a href="#">Issue types</a>
++            </li>
++        </ul>
++    </nav>
++    </nav>
++   
++
++
++
++    
++      <div id="content" class="d-flex">  
++        
++          <form [formGroup]="projectDetailsForm">
++      
++          <div class= "d-flex align-self-center row" id = "form-div">
++            
++            <div class="form-group">
++              <label for="name">Name: </label>
++              <input class="form-control" type="text" id = "name" placeholder="Enter name" formControlName="name">
++            </div>
++
++            <div class="form-group">
++              <label for="key">Key: </label>
++              <input class="form-control" type="text" id="key" placeholder="Enter key" formControlName="key"> 
++            </div>
++
++            <div class="form-group">
++              <label for="project-lead">Project Lead: </label>
++              <input class="form-control" type="text" id="project-lead" placeholder="Project lead name" formControlName="lead">
++              <div>
++                <small class="form-text text-muted">Make sure the lead has access to issues in the projects.</small> 
++              </div>
++            </div>
++
++            <button class="btn btn-primary btn-block" type="submit" (click)="onSubmit()">Submit</button>
++          </div>
++        </form>
++        </div>
++      
++    
++  </div>
++</body>
+\ No newline at end of file
+diff --git a/jira-frontend/src/app/project/project-settings/project-settings.component.scss b/jira-frontend/src/app/project/project-settings/project-settings.component.scss
+index e69de29..364da7f 100644
+--- a/jira-frontend/src/app/project/project-settings/project-settings.component.scss
++++ b/jira-frontend/src/app/project/project-settings/project-settings.component.scss
+@@ -0,0 +1,119 @@
++@import url('https://fonts.googleapis.com/css2?family=Acme&family=Cabin&display=swap');;
++@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
++
++html, body, form, h1, h2, h3, button{
++    font-family: 'Cabin';
++}
++
++.btn{
++    background-color: #3f51b5;
++}
++
++body {
++    height: 100%;
++    background-color: #ffffff;
++    
++}
++
++.form-group{
++ margin-bottom: 0.8em;
++
++}
++
++#form-div{
++    padding: 1em;
++    border: 2px solid #3F51B5;
++    border-radius: 1em;
++}
++
++label{
++    display: block;
++    font-size: 1.1em;
++    margin-bottom: 0.1em;
++}
++
++input{
++    border-radius: .2em;
++    border: 1px solid gray;
++}
++
++.wrapper {
++    display: flex;
++    align-items: stretch;
++}
++
++#sidebar {
++    margin-right: 1em;
++    min-width: 250px;
++    max-width: 250px;
++    min-height: 100vh;
++    background: #ffffff;
++    color: #fff;
++    transition: all 0.3s;
++}
++
++#sidebar.active {
++    margin-left: -250px;
++}
++
++a[data-toggle="collapse"] {
++    position: relative;
++}
++
++.dropdown-toggle::after {
++    display: block;
++    position: absolute;
++    top: 50%;
++    right: 20px;
++    transform: translateY(-50%);
++}
++
++@media (max-width: 768px) {
++    #sidebar {
++        margin-left: -250px;
++    }
++    #sidebar.active {
++        margin-left: 0;
++    }
++}
++
++#sidebar .sidebar-header {
++    padding: 20px;
++    background: #6d7fcc;
++}
++
++#sidebar ul.components {
++    padding: 20px 0;
++    border-bottom: 1px solid #47748b;
++}
++
++#sidebar ul p {
++    color: #fff;
++    padding: 10px;
++}
++
++#sidebar ul li a {
++    padding: 10px;
++    font-size: 1.1em;
++    display: block;
++}
++#sidebar ul li a:hover {
++    color: #7386D5;
++    background: #fff;
++}
++
++#sidebar ul li.active > a, a[aria-expanded="true"] {
++    color: #6d7fcc;
++    background: #fff;
++}
++
++ul ul a {
++    font-size: 0.9em !important;
++    padding-left: 30px !important;
++    background: #6d7fcc;
++}
++
++#content{
++    margin-left: auto;
++    margin-right: auto;
++}
+\ No newline at end of file
+diff --git a/jira-frontend/src/app/project/project-settings/project-settings.component.ts b/jira-frontend/src/app/project/project-settings/project-settings.component.ts
+index e01596b..f241912 100644
+--- a/jira-frontend/src/app/project/project-settings/project-settings.component.ts
++++ b/jira-frontend/src/app/project/project-settings/project-settings.component.ts
+@@ -1,6 +1,8 @@
+ import { Component, OnInit } from '@angular/core';
+-import { FormGroup, FormControl, Validators} from '@angular/forms';
++import { FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+ import { ApiInterfaceService } from 'src/app/api-interface.service';
++import { ActivatedRoute } from '@angular/router';
++import { ProjectSettings, project_data } from '../project-list/project-list.component';
+ 
+ @Component({
+   selector: 'app-project-settings',
+@@ -8,31 +10,58 @@ import { ApiInterfaceService } from 'src/app/api-interface.service';
+   styleUrls: ['./project-settings.component.scss']
+ })
+ export class ProjectSettingsComponent implements OnInit {
+-  myForm = new FormGroup({
+-    projectName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+-    projectDescription: new FormControl('', [Validators.required]),
+-  });
++  // myForm = new FormGroup({
++  //   projectName: new FormControl('', [Validators.required, Validators.minLength(3)]),
++  //   projectDescription: new FormControl('', [Validators.required]),
++  // });
+ 
+-  constructor(private apiService:ApiInterfaceService) { }
++  // get f(){
++  //   return this.myForm.controls;
++  // }
++
++  // submit(){
++  //   let body = {
++  //     name:this.myForm.get('projectName')?.value,
++  //     description:this.myForm.get('projectDescription')?.value
++  //   } 
++  //   this.apiService.updateProjectDetails(body)
++  //   .subscribe(res => {
++  //         console.log(res);
++          
++  //   })
++    
++  // }
++
++  project_settings: ProjectSettings | undefined;
++  projectDetailsForm!: FormGroup;
++
++  constructor(private fb: FormBuilder, private apiService:ApiInterfaceService, private route: ActivatedRoute) { }
+ 
+   ngOnInit(): void {
++    
++    // get id from the route
++    const routeParams = this.route.snapshot.paramMap;
++    const projectIdFromRoute = Number(routeParams.get('projectId'));
++    this.project_settings = project_data.find(project => project.id === projectIdFromRoute)
++    console.log(this.project_settings)
++
++    // set the form values
++    this.setFormValues();
++
+   }
+ 
+-  get f(){
+-    return this.myForm.controls;
++  setFormValues(): void{
++    this.projectDetailsForm = this.fb.group({
++      id:this.project_settings?.id,
++      name:this.project_settings?.name,
++      key:this.project_settings?.key,
++      lead:this.project_settings?.lead,
++      type:this.project_settings?.type
++    });
+   }
+ 
+-  submit(){
+-    let body = {
+-      name:this.myForm.get('projectName')?.value,
+-      description:this.myForm.get('projectDescription')?.value
+-    } 
+-    this.apiService.updateProjectDetails(body)
+-    .subscribe(res => {
+-          console.log(res);
+-          
+-    })
+-    
++  onSubmit(): void{
++    console.log(this.projectDetailsForm);
+   }
+ 
+ }
