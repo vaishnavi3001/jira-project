@@ -38,8 +38,9 @@
 - Library used for the same is `github.com/aws/aws-sdk-go`.
 - The corresponding backend code can be found in file `jira-backend/utils/email_utils.go`
 
-- Here is the sample screenshot of mail sent:  
-![Email Invitation](./images/Invitation.png)
+- Here is the sample screenshot of mail sent:</br>    
+<kbd>![Email Invitation](./images/Invitation.png)|</kbd>
+
 
 # Updated Backend APIs Endpoints
 - Any request that goes without token gets 401 status code in reply and response as follows:
