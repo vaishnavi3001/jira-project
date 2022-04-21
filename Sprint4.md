@@ -31,15 +31,15 @@
 11. As a user, I should be able to change status of issue.
 	* In this user story, the user has the ability to change the status of issue which belong to a project the user is part of. 
 
-## Video Demo Link
-https://drive.google.com/drive/folders/1b5kKf9ewZIVxmkyzyQO8p1Qys7SZbx8j?usp=sharing
-
 
 ## User Profile Invitation via Amazon SES:
 - Any new user or registered user can be invited to join the project.
 - It has been done using AmazonSES.
 - Library used for the same is `github.com/aws/aws-sdk-go`.
 - The corresponding backend code can be found in file `jira-backend/utils/email_utils.go`
+
+- Here is the sample screenshot of mail sent:  
+![Email Invitation](./images/Invitation.png)
 
 # Updated Backend APIs Endpoints
 - Any request that goes without token gets 401 status code in reply and response as follows:
@@ -373,3 +373,4 @@ Test cases were added for the following
 - User Profile 
 - Password Updation
 - Email User Invite
+
