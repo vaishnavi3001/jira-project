@@ -368,7 +368,7 @@ https://drive.google.com/drive/folders/1b5kKf9ewZIVxmkyzyQO8p1Qys7SZbx8j?usp=sha
 
 
 ## Test Cases:  
-- Test Cases Were Added For Following 
+Test cases were added for the following 
 - Issue related scenarios, 
 - User Profile 
 - Password Updation
