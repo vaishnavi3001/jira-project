@@ -364,7 +364,7 @@ var apiTestData = []testBody{
 		"POST",
 		`{"email_id":"mandypalkar23@gmail.com","project_id": 1}`,
 		http.StatusOK,
-		`{"message":"INVITATION_SENT","resp":{},"status":true}"`,
+		`{"message":"INVITATION_SENT","resp":{},"status":true}`,
 		func() bool { return true },
 	},
 	//Send Same User Invite Again

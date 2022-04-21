@@ -34,17 +34,13 @@
 ## Video Demo Link
 https://drive.google.com/drive/folders/1b5kKf9ewZIVxmkyzyQO8p1Qys7SZbx8j?usp=sharing
 
-**Note**: All the APIs refactored as a result of JWT authentication that was implemented in the project. As a result user-id is not explicitly passed through the request body but is encrypted in the token which is then decrypted to retrieve the user-id of the user who made the request.
 
-The token can be passed in the cookie
-```
-access_token=********; Path=/; Domain=jira-clone.com; HttpOnly; Expires=Mon, 04 Apr 2022 15:55:06 GMT;
-```
+## User Profile Invitation via Amazon SES:
+- Any new user or registered user can be invited to join the project.
+- It has been done using AmazonSES.
+- Library used for the same is `github.com/aws/aws-sdk-go`.
+- The corresponding backend code can be found in file `jira-backend/utils/email_utils.go`
 
-OR as a **Authentication Header**
-```
-Authorization: Bearer ********.
-```
 # Updated Backend APIs Endpoints
 - Any request that goes without token gets 401 status code in reply and response as follows:
     ```
@@ -322,15 +318,8 @@ Authorization: Bearer ********.
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 ```
    {
-        "message": "",
-        "resp": {
-            "comments": [
-                {
-                    "comment_id": 1,
-                    "comment": "This is a comment for issue_id: 3"
-                }
-            ]
-        },
+        "message": "INVITATION_SENT",
+        "resp": {},
         "status": true
     }
 ```
@@ -341,22 +330,15 @@ Authorization: Bearer ********.
 ```
     POST /api/user/verify
     {
-        "invite_link":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbElkIjoibWFuZHlwYWxrYXJAZ21haWwuY29tIiwiUHJvamVjdElkIjoxLCJleHAiOjE2NDk2NTgxNTgsImlhdCI6MTY0OTY1ODE1OH0.v1Dx1E9DB5IqfaiiGlS7vzgKpfN1Pk1fzx6V4-KZbl4"
+        "invite_link":"jwt_encrypted_token"
     }
 
 ```
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 ```
    {
-        "message": "",
-        "resp": {
-            "comments": [
-                {
-                    "comment_id": 1,
-                    "comment": "This is a comment for issue_id: 3"
-                }
-            ]
-        },
+        "message": "INVITATION_ACCEPTED",
+        "resp": {},
         "status": true
     }
 ```
@@ -368,8 +350,8 @@ Authorization: Bearer ********.
     POST /api/issue/move
     {
         "issue_id":3,
-	    "project_id":1,
-	    "status":2
+	"project_id":1,
+	"status":2
     }
 ``` 
 
@@ -385,46 +367,9 @@ Authorization: Bearer ********.
 
 
 
-## Test Case Setup:  
-<br/>
-The code associated with test cases is in **tests** directory and is divided into three files.  
-
-- **setup_test.go** : Creates a test environment(Mock Database, User Entries, Tokens) prior to running test cases.
-- **tests_data.go** : Contains list of test cases
-- **run_test.go** : Driver code that picks a test case one by one from *tests_data.go* and runs those testcases.
-
-**How to run the test cases**: The test cases can be executed by running the command ```go test -v ./tests```
-
-The testcases are combined into an array of custom designed struct. The structure of a single entry for a test case that tests the API is as follows:
-```
-	{
-	    init function,  
-	    REST method - e.g. GET,POST,PUT etc) 
-	    Actual API handler -e.g. "/api/sprint/delete")
-	    Post Body, - e.g. `{"sprint_id":2}`)
-	    Expected Status Code - e.g. 200,401,400 etc.)
-	    Expected Response - e.g. `{"message":"SPRINT_DELETE_SUCCESS","resp":"","status":true}`)
-	    post function(optional), - function that tests for changes happened in test environment after calling an API
-	}
-
-An example:
-	{
-	    func(req *http.Request) {
-	    	// init function sets cookie into the request
-		setTokenRequestInCookie(req)
-	    },
-	    "/api/project/create",
-	    "POST",
-	    `{"name":"Project 1"}`,
-	    http.StatusOK,
-	    `{"message":"","resp":{"project_name":"Project 1","project_id":([0-9]+),"created_at":"([A-Z0-9:\-\.]+)"},"status":true}`,
-	    func() bool {
-	        //Post function that checks whether the user entry is created or not in the user table.
-		var count int64
-		dbutils.DB.Where("role_id = 1 AND user_id = 1 AND project_id = 1").Find(&models.UserRole{}).Count(&count)
-		return count == 1
-	      },
-	 },
-```
-
- 
+## Test Cases:  
+Test cases were added for the following 
+- Issue related scenarios, 
+- User Profile 
+- Password Updation
+- Email User Invite
