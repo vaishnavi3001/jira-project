@@ -15,23 +15,24 @@
                 </div>
                 <div class="form-group">
                   <label for="title">Project</label>
-                  <input type="text" class="form-control" formControlName="project_name">
+                  <select class="form-control"  id="project_id" formControlName="project_id" (change)="getDetails()">
+                    <option *ngFor="let project of projects" [value]="project.id" > {{project.name}} </option>
+                  </select>
+                 
                 </div>
                 <div class="form-group">
                   <label for="title">Issue Type</label>
                   <select class="form-control" id="issue_type" formControlName="issue_type">
+                    <option> Epic </option>
                     <option> Task </option>
-                    <option> Bug </option>
                     <option> Sub Task </option>
+                    <option> Bug </option>
                   </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="sprints.length > 0">
                   <label for="category">Sprint</label>
                   <select class="form-control" formControlName="sprint_number">
-                    <option value="" selected> Sprint 1 </option>
-                    <option value=""> Sprint 2 </option>
-                    <option value=""> Sprint 3 </option>
-                    <option value=""> Sprint 4 </option>
+                    <option *ngFor="let sprint of sprints" [value]="sprint.id"> {{sprint.name}} </option>
                   </select>
                 </div>
                 <!-- <div class="form-group">
@@ -50,16 +51,14 @@
                 <div class="form-group">
                   <label for="title">Assignee</label>
                   <select class="form-control" id="assignee_id" formControlName="issue_assignee">
-                    <option> Assignee 1 </option>
-                    <option> Assignee 2 </option>
+                    <option *ngFor="let member of members" [value]="member.user_id"> {{member.first_name}} {{member.last_name}} </option>
                   </select>
                 </div>
 
                 <div class="form-group">
                   <label for="title">Reporter</label>
                   <select class="form-control" id="reporter_id" formControlName="issue_reporter">
-                    <option> Assignee 1 </option>
-                    <option> Assignee 2 </option>
+                    <option *ngFor="let member of members" [value]="member.user_id"> {{member.first_name}} {{member.last_name}}  </option>
                   </select>
                 </div>
                 
