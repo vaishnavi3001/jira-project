@@ -61,20 +61,20 @@
         <p class="text-muted text-uppercase mb-0 font-13">Project Id : {{project_id}}</p>
         <h4 class="mt-0 mb-3 text-dark">{{project_name}}</h4>
         <p class="text-muted font-13">{{project_desc}}</p>
-        <p class="text-muted font-13">Created at : {{created_at}}</p>
+        <p class="text-muted font-13">Created at : {{created_at | date:'fullDate'}}</p>
         <p class="text-muted font-13">Created by: {{owner_username}}</p>
         <ul class="list-inline">
           <li class="list-inline-item">
-            <h3 class="mb-0">124</h3>
-            <p class="text-muted">Attachments</p>
+            <h3 class="mb-0">{{ memberCnt }}</h3>
+            <p class="text-muted">Members</p>
           </li>
           <li class="list-inline-item">
-            <h3 class="mb-0">452</h3>
+            <h3 class="mb-0">{{ commentCnt }}</h3>
             <p class="text-muted">Comments</p>
           </li>
           <li class="list-inline-item">
-            <h3 class="mb-0">85</h3>
-            <p class="text-muted">Tasks</p>
+            <h3 class="mb-0">{{ issueCnt }}</h3>
+            <p class="text-muted">Issues</p>
           </li>
         </ul>
         <div class="project-members mb-4">
@@ -94,9 +94,9 @@
           <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Username"><img
               src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle thumb-sm" alt="friend"></a>
         </div>
-        <label class="">Task completed: <span class="text-custom">55/85</span></label>
+        <label class="">Task completed: <span class="text-custom">0/{{ issueCnt }}</span></label>
         <div class="progress mb-1" style="height: 7px;">
-          <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="issueCnt" [attr.aria-valuemin]="issueCnt" [attr.aria-valuemax]="issueCnt"
             style="width: 80%;"></div>
         </div>
       </div>

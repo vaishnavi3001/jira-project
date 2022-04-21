@@ -355,6 +355,30 @@ var apiTestData = []testBody{
 		`{"message":"ISSUE_UPDATE_SUCCESS","resp":{},"status":true}`,
 		func() bool { return true },
 	},
+	//User Invite test case Starts here//
+	//Send User Invite
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/invite",
+		"POST",
+		`{"email_id":"mandypalkar23@gmail.com","project_id": 1}`,
+		http.StatusOK,
+		`{"message":"INVITATION_SENT","resp":{},"status":true}"`,
+		func() bool { return true },
+	},
+	//Send Same User Invite Again
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/invite",
+		"POST",
+		`{"email_id":"mandypalkar23@gmail.com","project_id": 1}`,
+		http.StatusOK,
+		`{"message":"USER_ALREADY_INVITED","status":false}`,
+		func() bool { return true },
+	},
+	//Test cases to delete the entries created earlier via api endpoints
 	/*issue delete request correct*/
 	{func(req *http.Request) {
 		setTokenRequestInCookie(req)
@@ -482,124 +506,99 @@ var apiTestData = []testBody{
 		badRequestString,
 		func() bool { return true },
 	},
+	/*****Deletion Test Cases End*****/
+	/*****User Profile test cases start ****/
+	/*View user profile without appropriate token*/
+	{func(req *http.Request) {
+	},
+		"/api/user/info",
+		"GET",
+		``,
+		http.StatusUnauthorized,
+		`{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
+		func() bool { return true },
+	},
+	/*View user profile with appropriate token*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"GET",
+		``,
+		http.StatusOK,
+		`{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
 
-	/*****Issues Test Cases End*****/
-    /*****User Profile test cases start ****/
-    /*View user profile without appropriate token*/
-    {func(req *http.Request) {
-    },
-        "/api/user/info",
-        "GET",
-        ``,
-        http.StatusUnauthorized,
-        `{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
-        func() bool { return true },
-    },
-    /*View user profile with appropriate token*/
-    {func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/info",
-        "GET",
-        ``,
-        http.StatusOK,
-        `{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
-        func() bool { return true },
-    },
-    // /*Set username to a username that already exists*/
-    // {func(req *http.Request) {
-    //  setTokenRequestInCookie(req)
-    // },
-    //  "/api/user/info",
-    //  "PATCH",
-    //  `{"username":"amhaske32","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-    //  http.StatusOK,
-    //  `{"message":"USER_FOUND","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
-    //  func() bool { return true },
-    // },
-
-    /*Set username to a username that does not exist*/
-    {func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/info",
-        "PATCH",
-        `{"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-        http.StatusOK,
-        `{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
-        func() bool { return true },
-    },
-
-    /*Set username to a username that does not exist*/
-    {func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/info",
-        "PATCH",
-        `{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
-        http.StatusOK,
-        `{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
-        func() bool { return true },
-    },
-
-    // /*Set email to a email that already exists in db*/
-    // {func(req *http.Request) {
-    // },
-    //  "/api/issue/create",
-    //  "POST",
-    //  `{"issue_title":"issue title 1","issue_description": "sample issue description","issue_type": 1,"creator": 2,"assignee": 1,"sprint_id": 1,"project_id": 1}`,
-    //  http.StatusUnauthorized,
-    //  `{"message":"ACTION_NOT_AUTHORIZED","status":false}`,
-    //  func() bool { return true },
-    // },
-
-    /*Set email to an email that does not exist in db*/
-    {func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/info",
-        "PATCH",
-        `{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar13@gmail.com"}`,
-        http.StatusOK,
-        `{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar13@gmail.com"},"status":true}`,
-        func() bool { return true },
-    },
+	/*Set username to a username that does not exist*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"palkar","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+	/*Set username to a username that does not exist*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar23@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar23@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
+	/*Set email to an email that does not exist in db*/
+	{func(req *http.Request) {
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/info",
+		"PATCH",
+		`{"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id": "mandar.palkar13@gmail.com"}`,
+		http.StatusOK,
+		`{"message":"USER_PROFILE_UPDATE_SUCCESS","resp":{"user_id":0,"username":"pypalkar23","firstname":"Mandar","lastname":"Palkar","email_id":"mandar.palkar13@gmail.com"},"status":true}`,
+		func() bool { return true },
+	},
 
 	/*Change password by providing correct old password*/
 	{func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/change-password",
-        "PUT",
-        `{"old_password":"dd29b8cb089a56606fca480e137c27c4","new_password":"e807f1fcf82d132f9bb018ca6738a19f"}`,
-        http.StatusOK,
-        `{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
-        func() bool { return true },
-    },
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/change-password",
+		"PUT",
+		`{"old_password":"dd29b8cb089a56606fca480e137c27c4","new_password":"e807f1fcf82d132f9bb018ca6738a19f"}`,
+		http.StatusOK,
+		`{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
+		func() bool { return true },
+	},
 
 	/*Change password by providing correct old password*/
 	{func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/change-password",
-        "PUT",
-        `{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
-        http.StatusOK,
-        `{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
-        func() bool { return true },
-    },
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/change-password",
+		"PUT",
+		`{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
+		http.StatusOK,
+		`{"message":"PASSWORD_CHANGE_SUCCESSFUL","resp":"","status":true}`,
+		func() bool { return true },
+	},
 
 	/*Change password by providing incorrect old password*/
 	{func(req *http.Request) {
-        setTokenRequestInCookie(req)
-    },
-        "/api/user/change-password",
-        "PUT",
-        `{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
-        http.StatusOK,
-        `{"message":"INVALID_CREDENTIALS","status":false}`,
-        func() bool { return true },
-    },
+		setTokenRequestInCookie(req)
+	},
+		"/api/user/change-password",
+		"PUT",
+		`{"old_password":"e807f1fcf82d132f9bb018ca6738a19f","new_password":"dd29b8cb089a56606fca480e137c27c4"}`,
+		http.StatusOK,
+		`{"message":"INVALID_CREDENTIALS","status":false}`,
+		func() bool { return true },
+	},
 }
 
 var loginTestData = []testBody{
@@ -667,16 +666,16 @@ var loginTestData = []testBody{
 	},
 		"/register",
 		"POST",
-		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","Palkar": "Bhutani","email_id":"mandypalkar@gmail.com"}`,
+		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","lastname": "Palkar","email_id":"mandypalkar@gmail.com"}`,
 		http.StatusOK,
-		`{"message":"REGISTERATION_SUCCESSFUL","resp":"","status":true}`,
+		`{"message":"REGISTERATION_SUCCESSFUL","resp":{},"status":true}`,
 		func() bool { return true },
 	},
 	{func(req *http.Request) {
 	},
 		"/register",
 		"POST",
-		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","Palkar": "Bhutani","email_id":"mandypalkar@gmail.com"}`,
+		`{"username":"mandar","password":"7b69ad8a8999d4ca7c42b8a729fb0ffd","firstname": "Mandar","lastname": "Palkar","email_id":"mandypalkar@gmail.com"}`,
 		http.StatusOK,
 		`{"message":"USER_ALREADY_EXISTS","status":false}`,
 		func() bool { return true },

@@ -10,7 +10,7 @@
 
   <div class="container" *ngFor="let project of dataSource">
 
-    <div class="project">
+    <div class="project" (click)="getProjectSettings(project)">
       <div class="row bg-white has-shadow">
         <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
           <div class="project-title d-flex align-items-center">
@@ -19,7 +19,7 @@
                 <span class="widget-49-date-day">0{{project.id}}</span>
               </div>
               <div class="text">
-                <h3 class="h4" (click)="getProjectSettings(project)">{{project.name}}</h3><small>{{project.description}}</small>
+                <h3 class="h4" >{{project.name}}</h3><small>{{project.description}}</small>
               </div>
             </div>
             <!-- <div class="image has-shadow"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..." class="img-fluid"></div> -->

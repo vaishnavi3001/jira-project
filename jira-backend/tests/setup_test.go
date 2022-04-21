@@ -15,8 +15,15 @@ func InitConfig() {
 		os.Exit(-1)
 	}
 }
+
+func InitializeMailer() {
+	if err := ut.InitializeEmailSession(); err != nil {
+		fmt.Println("Couldn't read mailer.. Exiting Tests")
+		os.Exit(-1)
+	}
+}
 func DBInitForTest() {
-	os.Remove(ut.Vconfig.GetString("test_db_name"))
+	os.Remove(ut.Vconfig.GetString("db.test_db_name"))
 	dt.GetDBInstance(ct.TEST)
 	if dt.DB == nil {
 		fmt.Println("Couldn't create db.. Exiting Tests")
@@ -31,7 +38,7 @@ func DBFree() {
 			return
 		}
 		sqlDB.Close()
-		os.Remove(ut.Vconfig.GetString("test_db_name"))
+		os.Remove(ut.Vconfig.GetString("db.test_db_name"))
 	}
 }
 
@@ -40,6 +47,6 @@ func DBInsertRows() {
 	dt.DB.Create(user1)
 	user2 := &md.User{Username: "amhaske32", Password: "7b69ad8a8999d4ca7c42b8a729fb0ffd", Firstname: "Ashish", Lastname: "Mhaske", EmailId: "amhaske32@gmail.com"}
 	dt.DB.Create(user2)
-	user_auth1 := &md.UserAuth{UserId: user1.UserId, Token: TokenStr}
+	user_auth1 := &md.UserAuth{UserRef: user1.UserId, Token: TokenStr}
 	dt.DB.Create(&user_auth1)
 }

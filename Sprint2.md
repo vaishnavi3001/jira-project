@@ -378,6 +378,7 @@ https://drive.google.com/drive/folders/18pB8snG21xTkadQ4i2WlHt_MyGADyhIP?usp=sha
 }
 ```
 <br/>
+
 -  **To get a issue’s info**
     *Request Format* -
 ```
@@ -402,6 +403,7 @@ https://drive.google.com/drive/folders/18pB8snG21xTkadQ4i2WlHt_MyGADyhIP?usp=sha
 }
 ```
 <br/>
+
 - **To list issues for sprint**
 *Request Format* -
 ```

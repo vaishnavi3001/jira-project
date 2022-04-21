@@ -3,9 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url:'http://0.0.0.0:6000',
-  post_url:"http://api.jira-clone.com/api",
-  auth_url:"http://api.jira-clone.com",
+  backend_url:'http://api.jira-clone.com',
   production: false
 };
 

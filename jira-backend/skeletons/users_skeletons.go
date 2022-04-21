@@ -36,15 +36,37 @@ type Claims struct {
 }
 
 type UserRegister struct {
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	FirstName string `json:"firstname"`
-	LastName  string `json:"lastname"`
-	Email     string `json:"email_id"`
+	Username  string `json:"username" binding:"required"`
+	Password  string `json:"password" binding:"required"`
+	FirstName string `json:"firstname" binding:"required"`
+	LastName  string `json:"lastname" binding:"required"`
+	Email     string `json:"email_id" binding:"required"`
 }
 
 type LoginSuccessResp struct {
 	Access_token string `json:"access_token"`
+}
+type ProjectJoinReq struct {
+	HashedString string `json:"hashed_string"`
+}
+
+type ProjectJoinResp struct {
+	JoinSuccessful string `json:"join_successful"`
+}
+
+type InviteClaim struct {
+	EmailId   string
+	ProjectId uint
+	jwt.StandardClaims
+}
+
+type InviteUserRequest struct {
+	EmailId   string `json:"email_id" binding:"required"`
+	ProjectId uint   `json:"project_id" binding:"required"`
+}
+
+type ValidateUserInviteReq struct {
+	InviteLink string `json:"invite_link" binding:"required"`
 }
 
 type UserProfile struct {
@@ -56,6 +78,6 @@ type UserProfile struct {
 }
 
 type ChangePasswordReq struct {
-	OldPassword string `json:"old_password"`
-	NewPassword string `json:"new_password"`
+	OldPassword string `json:"old_password" binding:"required"`
+	NewPassword string `json:"new_password" binding:"required"`
 }

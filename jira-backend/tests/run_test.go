@@ -17,14 +17,15 @@ func TestMain(m *testing.M) {
 	DBFree()
 	DBInitForTest()
 	DBInsertRows()
+	InitializeMailer()
 	exitval := m.Run()
 	DBFree()
 	os.Exit(exitval)
 }
 
 func TestApis(t *testing.T) {
-	fmt.Printf("--- Running suite of %d test cases for API testing ---\n", len(apiTestData))
 	r := routes.SetupRouter(true)
+	fmt.Printf("--- Running suite of %d test cases for API testing ---\n", len(apiTestData))
 	for _, testentry := range apiTestData {
 		asserts := assert.New(t)
 		bodyData := testentry.bodyData

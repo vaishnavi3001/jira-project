@@ -1,6 +1,7 @@
 package dbutils
 
 import (
+	"fmt"
 	ct "jira-backend/constants"
 	md "jira-backend/models"
 	ut "jira-backend/utils"
@@ -24,8 +25,8 @@ func InitializeConn(env string) error {
 	if err != nil {
 		return err
 	}
-
-	DB.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{}, &md.Comment{})
+	fmt.Println(db_name)
+	DB.AutoMigrate(&md.User{}, &md.Project{}, &md.Sprint{}, &md.Issue{}, &md.Permission{}, &md.Issue{}, &md.UserRole{}, &md.UserAuth{}, &md.Comment{}, &md.Invite{})
 	return nil
 }
 

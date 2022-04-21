@@ -9,22 +9,22 @@ type BaseSprintReq struct {
 }
 
 type CreateSprintReq struct {
-	SprintName string `json:"sprint_name"`
-	ProjectId  uint   `json:"project_id"`
-	StartDate  string `json:"start_date"`
-	EndDate    string `json:"end_date"`
+	SprintName string `json:"sprint_name" binding:"required"`
+	ProjectId  uint   `json:"project_id" binding:"required"`
+	StartDate  string `json:"start_date" binding:"required"`
+	EndDate    string `json:"end_date" binding:"required"`
 }
 
 type SprintEntry struct {
-	Name      string    `json:"name"`
-	Id        uint      `json:"id"`
-	StartDate time.Time `json:"start_date"`
-	EndDate   time.Time `json:"end_date"`
-	CreatedAt time.Time `json:"created_at"`
-	ProjectId uint      `json:"project_id"`
+	Name      string    `json:"name" binding:"required"`
+	Id        uint      `json:"id" binding:"required"`
+	StartDate time.Time `json:"start_date" binding:"required"`
+	EndDate   time.Time `json:"end_date" binding:"required"`
+	CreatedAt time.Time `json:"created_at" binding:"required"`
+	ProjectId uint      `json:"project_id" binding:"required"`
 }
 type SprintListReq struct {
-	ProjectId uint `json:"project_id"`
+	ProjectId uint `json:"project_id" binding:"required"`
 }
 type SprintListResp struct {
 	Sprints []SprintEntry `json:"sprints"`
@@ -36,7 +36,7 @@ type CreateSprintResp struct {
 }
 
 type SprintInfoReq struct {
-	SprintId uint `json:"sprint_id"`
+	SprintId uint `json:"sprint_id" binding:"required"`
 }
 
 type SprintInfoResp struct {
@@ -65,8 +65,8 @@ type ShortSprintList struct {
 }
 
 type SprintUpdateReq struct {
-	SprintId   uint   `json:"sprint_id"`
-	SprintName string `json:"sprint_name"`
-	StartDate  string `json:"start_date"`
-	EndDate    string `json:"end_date"`
+	SprintId   uint   `json:"sprint_id" binding:"required"`
+	SprintName string `json:"sprint_name" binding:"required"`
+	StartDate  string `json:"start_date" binding:"required"`
+	EndDate    string `json:"end_date" binding:"required"`
 }

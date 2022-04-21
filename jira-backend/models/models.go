@@ -45,7 +45,7 @@ type Sprint struct {
 }
 type Issue struct {
 	IssueId     uint `gorm:"primaryKey;auto_increment;not_null"`
-	Status      uint `gorm:"default:1"`
+	Status      uint `gorm:"default:1"` //`todo/inprogress/review/done`
 	Priority    uint `gorm:"default:3"` //`high/medium/low/`
 	Type        uint `gorm:"default:1"` //`epic/task/subtask/bug/`
 	Title       string
@@ -89,20 +89,28 @@ type Permission struct {
 
 type UserAuth struct {
 	UserAuthId uint `gorm:"primaryKey;auto_increment;"`
-	UserId     uint
+	UserRef    uint
 	Token      string
-	User       User `gorm:"foreignKey:UserId"`
+	User       User `gorm:"foreignKey:UserRef"`
 	DeletedAt  gorm.DeletedAt
 }
 
 type Comment struct {
 	CommentId   uint `gorm:"primaryKey;auto_increment;"`
-	IssueId     uint
 	CommentText string
-	UserId      uint
-	User        User      `gorm:"foreignKey:UserId"`
-	Issue       Issue     `gorm:"foreignKey:IssueId"`
+	UserRef     uint
+	IssueRef    uint
+	User        User      `gorm:"foreignKey:UserRef"`
+	Issue       Issue     `gorm:"foreignKey:IssueRef"`
 	CreatedAt   time.Time `gorm:"autoCreateTime:milli"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime:milli"`
 	DeletedAt   gorm.DeletedAt
+}
+
+type Invite struct {
+	InviteId   uint `gorm:"primaryKey;auto_increment;not_null"`
+	EmailId    string
+	ProjectId  uint
+	InviteLink string
+	CreatedAt  time.Time `gorm:"autoCreateTime:milli"`
 }

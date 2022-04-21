@@ -2,118 +2,149 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+
 
 const jwtHelper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
 export class ApiInterfaceService {
-  url = `${environment.url}`
-  post_url = `${environment.post_url}`
-  auth_url = `${environment.auth_url}`
-  token  = ""
+  backend_url = `${environment.backend_url}`
+  api_url = `${environment.backend_url}/api`
+  token = ""
 
-  
-  apiResponse : any = []
-  constructor(private http: HttpClient) { 
+  apiResponse: any = []
+  constructor(private http: HttpClient) {
 
   }
-  
-  getProjectList(data:any): Observable<any> {
-    this.apiResponse = this.http.post<any>(this.post_url+'/project/list', data)
+
+  getProjectList(data: any): Observable<any> {
+    this.apiResponse = this.http.post<any>(this.api_url + '/project/list', data)
     return this.apiResponse
   }
 
-  updateProjectDetails(data:any): Observable<any> {
-    return this.http.post<any>(this.url+'/update-project', data)
+  updateProjectDetails(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/update-project', data)
   }
 
-  createProject(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/project/create', data)
+  createProject(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/project/create', data)
   }
 
-  createIssue(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/issue/create', data)
+  createIssue(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/issue/create', data)
   }
 
-  createSprint(data:any): Observable<any> { 
-    return this.http.post<any>(this.post_url+'/sprint/create', data)
+  createSprint(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/sprint/create', data)
+  }
+  updateIssueStatus(data:any): Observable<any> {
+    return this.http.post<any>(this.api_url+'/issue/move', data)
   }
 
-  createComment(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/comment/add', data)
+  createComment(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/comment/add', data)
+  }
+
+  updateIssue(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/issues/update', data)
   }
 
   getComments(data:any): Observable<any>{
-    return this.http.post<any>(this.post_url+'/comment/view', data)
+    return this.http.post<any>(this.api_url+'/comment/view', data)
   }
   
-  updateIssue(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/issues/update', data)
+  deleteIssue(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/issue/delete', data)
   }
 
-  deleteIssue(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/issue/delete', data)
+
+  deleteProject(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/project/delete', data)
   }
 
-  deleteProject(data:any): Observable<any> {
-    return this.http.post<any>(this.post_url+'/project/delete', data)
-  }
-
-  onChange($event:any){
-    let filteredData = _.filter(this.apiResponse,(item) => {
+  onChange($event: any) {
+    let filteredData = _.filter(this.apiResponse, (item) => {
       return item.key.LowerCaser() == $event.value.toLowerCase();
     })
     this.apiResponse = filteredData;
     console.log(this.apiResponse)
   }
 
-  getSprintInfo(data:any): Observable<any>{
-    return this.http.post<any>(this.post_url+'/sprint/info', data)
+  getSprintInfo(data: any): Observable<any> {
+    return this.http.post<any>(this.api_url + '/sprint/info', data)
   }
 
-  getIssueList(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.post_url+'/issue/list',data)
+  getIssueList(data: any): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.api_url + '/issue/list', data)
   }
 
-  getSprintList(data:any): Observable<any>{
-     return this.apiResponse = this.http.post<any>(this.post_url+'/sprint/list', data)
+  getSprintList(data: any): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.api_url + '/sprint/list', data)
   }
 
-  getIssueDetails(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.post_url+'/issue/info', data)
+  getIssueDetails(data: any): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.api_url + '/issue/info', data)
   }
 
-  getProjectDetails(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.post_url+'/project/info', data)
+  getProjectDetails(data: any): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.api_url + '/project/info', data)
+  }
+
+
+  getProjectStats(data:any): Observable<any>{
+    return this.apiResponse = this.http.post<any>(this.api_url+'/project/stats', data)
   }
 
   login(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.auth_url+'/login', data)
+    return this.apiResponse = this.http.post<any>(this.backend_url+'/login', data)
   }
 
-  register(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.auth_url+'/register', data)
+  register(data: any): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.backend_url + '/register', data)
   }
 
-  logout(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.auth_url+'/logout', data)
+
+  logout(): Observable<any> {
+    return this.apiResponse = this.http.post<any>(this.backend_url + '/logout', {})
   }
 
   getToken() {
     return localStorage.getItem("access-token");
   }
 
-  setToken(token:string) {
-    localStorage.setItem("access-token",token);
+  setToken(token: string) {
+    localStorage.setItem("access-token", token);
   }
 
-  isAuthenticated(){
-    let currToken = this.getToken()||undefined;
+  removeToken(){
+    localStorage.removeItem("access-token")
+  }
+
+  isAuthenticated() {
+    let currToken = this.getToken() || undefined;
     return !jwtHelper.isTokenExpired(currToken)
+  }
+
+  joinProject(invitelink: string|null) {
+    return this.http.post(this.api_url + '/user/verify', { 'invite_link': invitelink })
+  }
+
+  sendInvite(data:any){
+    return this.http.post(this.api_url + '/user/invite',data)
+  }
+  getUserProfile(): Observable<any>{
+    return this.apiResponse = this.http.get<any>(this.api_url+'/user/info')
+  }
+
+  editUserProfile(data: any): Observable<any>{
+    return this.apiResponse = this.http.patch<any>(this.api_url+'/user/info', data)
+  }
+
+  changePassword(data: any): Observable<any>{
+    return this.apiResponse = this.http.put<any>(this.api_url+'/user/change-password', data)
   }
 
 }

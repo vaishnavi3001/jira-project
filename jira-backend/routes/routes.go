@@ -56,6 +56,8 @@ func SetupRouter(useAuth bool) *gin.Engine {
 	comment.POST("/view", hd.ViewComment)
 
 	user := api.Group("user")
+	user.POST("/invite", hd.InviteUser)
+	user.POST("/verify", hd.ValidateUserInvite)
 	user.GET("/info", hd.GetUserProfile)
 	user.PATCH("/info", hd.UpdateUserProfile)
 	user.PUT("/change-password", hd.ChangePassword)

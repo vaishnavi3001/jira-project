@@ -38,9 +38,9 @@ const (
 
 //issue priority
 const (
-	High     = 1
+	High   = 1
 	Medium = 2
-	Low      = 3
+	Low    = 3
 )
 
 //
@@ -66,6 +66,12 @@ const (
 	EXPIRED_TOKEN               = "EXPIRED_TOKEN"
 	USER_ALREADY_EXISTS         = "USER_ALREADY_EXISTS"
 	REGISTERATION_SUCCESSFUL    = "REGISTERATION_SUCCESSFUL"
+	LINK_EXPIRED_INVALID        = "LINK_EXPIRED_INVALID"
+	INVITTATION_ACCEPTED        = "INVITATION_ACCEPTED"
+	USER_ALREADY_INVITED        = "USER_ALREADY_INVITED"
+	ALREADY_PART_OF_PROJECT     = "ALREADY_PART_OF_PROJECT"
+	UNEXPECTED_ERROR_OCCURED    = "UNEXPECTED_ERROR_OCCURED"
+	INVITATION_SENT             = "INVITATION_SENT"
 	USER_FOUND                  = "USER_FOUND"
 	USER_PROFILE_UPDATE_SUCCESS = "USER_PROFILE_UPDATE_SUCCESS"
 	PASSWORD_CHANGE_SUCCESSFUL  = "PASSWORD_CHANGE_SUCCESSFUL"
@@ -77,4 +83,5 @@ const (
 
 var (
 	ErrTokenInvalid = errors.New("token is invalid")
+	ErrLinkExpired  = errors.New("link is expired")
 )
