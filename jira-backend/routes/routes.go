@@ -2,6 +2,7 @@ package routes
 
 import (
 	hd "jira-backend/handlers"
+	"net/http"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -9,14 +10,16 @@ import (
 
 func SetupRouter(useAuth bool) *gin.Engine {
 	r := gin.Default()
-
+	r.LoadHTMLFiles("index.html")
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	config.AllowCredentials = true
 	config.AllowWildcard = true
 	config.AllowHeaders = []string{"Authorization", "Content-type"}
 	r.Use(cors.New(config))
-
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 	r.POST("/login", hd.Userlogin)
 	r.POST("/register", hd.UserRegister)
 	r.GET("/logout", hd.AuthInterceptor, hd.UserLogout)
