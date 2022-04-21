@@ -11,15 +11,15 @@
 
                 <div class="form-group">
                   <label for="title">Title</label>
-                  <input type="text" class="form-control" formControlName="issue_title" >
+                  <input type="text" class="form-control" formControlName="issue_title" id ="title">
                 </div>
                 <div class="form-group">
                   <label for="title">Project</label>
-                  <input type="text" class="form-control" formControlName="project_name">
+                  <input type="text" class="form-control" formControlName="project_name" id="p_name">
                 </div>
                 <div class="form-group">
                   <label for="title">Issue Type</label>
-                  <select class="form-control" id="issue_type" formControlName="issue_type">
+                  <select class="form-control" id="issue_type" formControlName="issue_type" id="issue_type">
                     <option> Task </option>
                     <option> Bug </option>
                     <option> Sub Task </option>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                   <label for="category">Sprint</label>
-                  <select class="form-control" formControlName="sprint_number">
+                  <select class="form-control" formControlName="sprint_number" id="sprint">
                     <option value="" selected> Sprint 1 </option>
                     <option value=""> Sprint 2 </option>
                     <option value=""> Sprint 3 </option>
@@ -44,12 +44,12 @@
                 </div> -->
                 <div class="form-group">
                   <label for="body">Description</label>
-                  <textarea name="editor1" class="form-control" formControlName="issue_description"></textarea>
+                  <textarea name="editor1" class="form-control" formControlName="issue_description" id="desc"></textarea>
                 </div>
 
                 <div class="form-group">
                   <label for="title">Assignee</label>
-                  <select class="form-control" id="assignee_id" formControlName="issue_assignee">
+                  <select class="form-control" id="assignee_id" formControlName="issue_assignee" id="assignee">
                     <option> Assignee 1 </option>
                     <option> Assignee 2 </option>
                   </select>
@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                   <label for="title">Reporter</label>
-                  <select class="form-control" id="reporter_id" formControlName="issue_reporter">
+                  <select class="form-control" id="reporter_id" formControlName="issue_reporter" id="reporter">
                     <option> Assignee 1 </option>
                     <option> Assignee 2 </option>
                   </select>

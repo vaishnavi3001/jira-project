@@ -82,7 +82,7 @@ export class ProjectSettingsComponent implements OnInit {
     .subscribe((resp:any) =>{
       console.log(body)
       console.log(resp['response'])
-      this.createAlert("Issue deleted successfully!")
+      this.createAlert("Project deleted successfully!")
       this.router.navigateByUrl('/home/projects');
     })
   }
