@@ -11,11 +11,11 @@
         <form>
           <div class="form-group" [formGroup]="newLoginForm">
             <label for="create-project"></label>
-            Username <input type="email" placeholder="Username" class="form-control" formControlName="username"
+            Username <input type="email" placeholder="Username" class="form-control" formControlName="username" id="email"
               required>
 
             <label for="project-key"></label>
-            Password<input type="password" placeholder="Password" class="form-control" formControlName="password"
+            Password<input type="password" placeholder="Password" class="form-control" formControlName="password" id="password"
               required>
           </div>
         </form>
@@ -23,7 +23,7 @@
 
       <div class="modal-footer">
         <button class="btn btn-primary" (click)="navigateToRegister()"> Sign Up </button>
-        <button class="btn btn-primary" (click)="submit()"> Login </button>
+        <button class="btn btn-primary" (click)="submit()" id="login-button"> Login </button>
         <!-- <button class="btn btn-secondary" data-dismiss="create-project-modal"> Logout </button> -->
       </div>
 

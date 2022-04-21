@@ -13,21 +13,21 @@
         <form>
           <div class="form-group" [formGroup]="registerForm">
             <label for="create-project"></label>
-            Username <input type="text" placeholder="Username" class="form-control" formControlName="username" required>
+            Username <input type="text" placeholder="Username" class="form-control" formControlName="username" required id="user_name">
 
             <label for="create-project"></label>
-            First Name <input type="text" placeholder="First-name" class="form-control" formControlName="firstname"
+            First Name <input type="text" placeholder="First-name" class="form-control" formControlName="firstname" id="first_name"
               required>
 
             <label for="project-key"></label>
-            Last Name<input type="text" placeholder="Last-name" class="form-control" formControlName="lastname"
+            Last Name<input type="text" placeholder="Last-name" class="form-control" formControlName="lastname" id="last_name"
               required>
 
             <label for="create-project"></label>
-            Email<input type="email" placeholder="Email" class="form-control" formControlName="email" required>
+            Email<input type="email" placeholder="Email" class="form-control" formControlName="email" required id="email">
 
             <label for="create-project"></label>
-            Password <input type="password" placeholder="Password" class="form-control" formControlName="password"
+            Password <input type="password" placeholder="Password" class="form-control" formControlName="password" id="password"
               required>
 
           </div>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-primary" (click)="submit()"> Sign Up </button>
+        <button class="btn btn-primary" (click)="submit()" id="register-submit"> Sign Up </button>
         <button class="btn btn-primary" (click)="navigateToLogin()"> Login </button>
       </div>
 
