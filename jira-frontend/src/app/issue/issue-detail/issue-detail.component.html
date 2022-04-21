@@ -12,7 +12,7 @@
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>Status:</dt>
-                                    <dd><span class="label label-primary">Active</span></dd>
+                                    <dd><span class="label label-primary">{{status}}</span></dd>
                                 </dl>
                             </div>
                         </div>
@@ -22,19 +22,19 @@
 
                                     <dt>Created by:</dt>
                                     <dd>{{issue_creator}}</dd>
-                                    <dt>Messages:</dt>
-                                    <dd> 162</dd>
+                                    <dt>Comments:</dt>
+                                    <dd> {{comments}}</dd>
                                     <dt>Assigned to:</dt>
                                     <dd><a class="text-navy"> {{assignee_name}}</a> </dd>
-                                    <dt>Version:</dt>
-                                    <dd> v1.4.2 </dd>
+                                    <!-- <dt>Version:</dt>
+                                    <dd> v1.4.2 </dd> -->
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Last Updated:</dt>
-                                    <dd>16.08.2014 12:15:57</dd>
+                                    <!-- <dt>Last Updated:</dt>
+                                    <dd>16.08.2014 12:15:57</dd> -->
                                     <dt>Created:</dt>
                                     <dd> {{issue_created_at | date:'dd/MM/yyy'}}</dd>
                                     <dt>Participants:</dt>
@@ -61,8 +61,8 @@
                                         <div class="progress progress-striped active m-b-sm">
                                             <div style="width: 60%;" class="progress-bar"></div>
                                         </div>
-                                        <small>Project completed in <strong>60%</strong>. Remaining close the project,
-                                            sign a contract and invoice.</small>
+                                        <!-- <small>Project completed in <strong>60%</strong>. Remaining close the project,
+                                            sign a contract and invoice.</small> -->
                                     </dd>
                                 </dl>
                             </div>
@@ -330,16 +330,16 @@
                 <p class="small font-bold">
                     <span><i class="fa fa-circle text-warning"></i> High priority</span>
                 </p>
-                <h5>Project tag</h5>
+                <!-- <h5>Project tag</h5>
                 <ul class="tag-list" style="padding: 0">
                     <li><a href="#"><i class="fa fa-tag"></i> biword</a></li>
                     <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
                     <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
                     <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>
-                </ul>
+                </ul> -->
                 <div>
 
-                    <a href="#" class="btn btn-xs btn-danger" id="close_issue">Close issue</a>
+                    <a href="#" class="btn btn-xs btn-danger" id="close_issue" (click)="deleteIssue()">Delete issue</a>
 
                 </div>
             </div>
