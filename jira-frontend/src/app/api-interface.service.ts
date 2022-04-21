@@ -148,6 +148,6 @@ export class ApiInterfaceService {
   }
 
   getProjectMemebers(data:any): Observable<any>{
-    return this.apiResponse = this.http.post<any>(this.post_url+'/project/members', data)
+    return this.apiResponse = this.http.post<any>(this.api_url+'/project/members', data)
   }
 }
