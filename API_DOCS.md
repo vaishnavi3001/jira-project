@@ -664,15 +664,8 @@ Authorization: Bearer ********.
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 ```
    {
-        "message": "",
-        "resp": {
-            "comments": [
-                {
-                    "comment_id": 1,
-                    "comment": "This is a comment for issue_id: 3"
-                }
-            ]
-        },
+        "message": "INVITATION_SENT",
+        "resp": {},
         "status": true
     }
 ```
@@ -683,22 +676,15 @@ Authorization: Bearer ********.
 ```
     POST /api/user/verify
     {
-        "invite_link":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbElkIjoibWFuZHlwYWxrYXJAZ21haWwuY29tIiwiUHJvamVjdElkIjoxLCJleHAiOjE2NDk2NTgxNTgsImlhdCI6MTY0OTY1ODE1OH0.v1Dx1E9DB5IqfaiiGlS7vzgKpfN1Pk1fzx6V4-KZbl4"
+        "invite_link":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbElkIjoibWFuZHlwYWxrYXJAZ21haWwuY29tIiwiUHJvamVjdElkIjoxLCJleHAiOjE2NDk2NTgxNTgsImlhdCI6MTY0OTY1ODE1OH0.v1Dx1E9DB5IqfaiiGlS7vzgKpfN1Pk1deyzx6V4-KZbl4"
     }
 
 ```
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*Response Format* -
 ```
    {
-        "message": "",
-        "resp": {
-            "comments": [
-                {
-                    "comment_id": 1,
-                    "comment": "This is a comment for issue_id: 3"
-                }
-            ]
-        },
+        "message": "INVITATION_ACCEPTED",
+        "resp": {}
         "status": true
     }
 ```
