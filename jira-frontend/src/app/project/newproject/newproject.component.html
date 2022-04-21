@@ -31,19 +31,19 @@
           <form>
             <div class="form-group" [formGroup]="newProjectForm" >
               <label for="create-project"></label>
-              <input type="text" placeholder="Name" class="form-control"  formControlName="projectName" required>
+              <input type="text" placeholder="Name" class="form-control"  formControlName="projectName" id="proj_name" required>
 
               <label for="projectDesc"></label>
-              <input type="textarea" placeholder="Description" class="form-control"  formControlName="projectDesc" required>
+              <input type="textarea" placeholder="Description" class="form-control"  formControlName="projectDesc" id="proj_desc" required>
             
               <label for="project-key"></label>
-              <input type="text" placeholder="Project key" class="form-control"  formControlName="projectKey" required>
+              <input type="text" placeholder="Project key" class="form-control"  formControlName="projectKey" id="proj_key" required>
             </div>
           </form>
         </div>
   
         <div class="modal-footer">
-          <button class="btn btn-primary" (click)="submit()"> Create </button>
+          <button class="btn btn-primary" (click)="submit()"id="create_proj_btn"> Create </button>
           <button class="btn btn-secondary" data-dismiss="create-project-modal"> Close </button>
         </div>
   
