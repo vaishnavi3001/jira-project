@@ -88,7 +88,7 @@ Vaishnavi Dongre | vaishnavi3001 | Backend
 ## Work Done in Sprint 4 is described here:
  https://github.com/vaishnavi3001/jira-project/blob/main/Sprint4.md
 
-## API Docs Can be found here:
+## Backend API Docs Can be found here:
  https://github.com/vaishnavi3001/jira-project/blob/main/API_DOCS.md
 
 ## Backend Testing Execution:
