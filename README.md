@@ -91,6 +91,8 @@ Vaishnavi Dongre | vaishnavi3001 | Backend
 ## API Docs Can be found here:
  https://github.com/vaishnavi3001/jira-project/blob/main/API_DOCS.md
 
+## Backend Testing Execution:
+https://user-images.githubusercontent.com/89871418/164365728-f13841e7-332a-4d78-bd96-99994af997b8.mp4
 
 
         
