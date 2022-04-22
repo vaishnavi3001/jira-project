@@ -46,8 +46,8 @@ export class RegisterComponent implements OnInit {
         if (res["status"]) {
           this.respMsg = "Registeration Successful"
         }
-        else {
-          this.errorMsg = "Error while registering. Please try again"
+        else if(res["message"] == "USER_ALREADY_EXISTS") {
+          this.errorMsg = "User with this username/password already exists in our system"
         }
       },(err)=>{
         this.errorMsg = "Error while registering. Please try again"

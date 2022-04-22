@@ -6,8 +6,9 @@
           Login
         </h2>
       </div>
-
+      
       <div class="modal-body">
+        <p [hidden]="!isError()" class="error-msg">{{errorMsg}}</p>
         <form>
           <div class="form-group" [formGroup]="newLoginForm">
             <label for="create-project"></label>

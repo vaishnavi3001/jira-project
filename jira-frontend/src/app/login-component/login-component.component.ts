@@ -12,7 +12,8 @@ import { Md5 } from 'ts-md5/dist/md5'
 })
 export class LoginComponentComponent implements OnInit {
   inviteLink: string | null = null
-  isError: boolean = false
+  respMsg: string | null = null
+  errorMsg: string | null = null
   newLoginForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required]),
@@ -33,7 +34,8 @@ export class LoginComponentComponent implements OnInit {
       username: this.newLoginForm.get('username')?.value,
       password: hashedPassword
     }
-
+     
+    this.errorMsg = null;
     this.apiService.login(body)
       .subscribe(res => {
         // console.log(res["resp"]["access_token"])
@@ -45,7 +47,7 @@ export class LoginComponentComponent implements OnInit {
             this.router.navigateByUrl("/home/projects")
           }
         } else {
-          console.log("Invalid Credentials");
+          this.errorMsg = "Invalid Username/Password"
         }
       },(err)=>{
         console.log("error");
@@ -59,5 +61,13 @@ export class LoginComponentComponent implements OnInit {
     else {
       this.router.navigate(["register"])
     }
+  }
+
+  isError(){
+    return this.errorMsg && this.errorMsg.length!=0
+  }
+
+  isSuccess(){
+    return this.respMsg && this.respMsg.length != 0
   }
 }
